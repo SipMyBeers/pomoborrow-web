@@ -299,10 +299,19 @@ section {
 }
 
 .hero-text h1 {
-  font-size: clamp(2rem, 5vw, 3.5rem);
-  font-weight: 700;
-  letter-spacing: -1px;
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  font-weight: 200;
+  letter-spacing: -2px;
   margin-bottom: 12px;
+  font-variant-numeric: tabular-nums;
+}
+
+.hero-text h1 .text-gold {
+  font-weight: 700;
+  font-size: clamp(3rem, 8vw, 6rem);
+  display: block;
+  letter-spacing: -3px;
+  text-shadow: 0 0 60px rgba(212, 168, 67, 0.4);
 }
 
 .hero-text p {
@@ -311,8 +320,36 @@ section {
   line-height: 1.6;
 }
 
+.hero-quote-lead {
+  font-size: clamp(1.1rem, 2.5vw, 1.4rem) !important;
+  color: #999 !important;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+}
+
+.hero-quote-sub {
+  font-size: 1rem !important;
+  color: #555 !important;
+  line-height: 1.7;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+.counter-value {
+  font-size: clamp(3rem, 8vw, 6rem);
+  font-weight: 200;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -2px;
+  display: block;
+}
+
+#text-act2 .counter-value {
+  color: #EF4444;
+  text-shadow: 0 0 60px rgba(239, 68, 68, 0.4);
+}
+
 .text-leak { color: #EF4444; }
-.text-catch { color: #3B82F6; }
+.text-catch { color: #3B82F6; text-shadow: 0 0 40px rgba(59, 130, 246, 0.3); }
 .text-gold { color: #D4A843; }
 .text-red { color: var(--red); }
 .text-blue { color: var(--accent); }

@@ -234,11 +234,7 @@
         if (textAct4) { textAct4.style.opacity = 0; textAct4.style.pointerEvents = 'none'; }
         if (ringDissection) ringDissection.style.opacity = 0;
 
-        // Counter ticks up
-        if (hoursCounter) {
-          var hours = Math.floor((progress / 0.25) * 4231);
-          hoursCounter.textContent = hours.toLocaleString();
-        }
+        // No counter in Act 1 — just the $86,400 quote
       }
       // ---- ACT 2: 0.25 - 0.50 ----
       else if (progress < 0.50) {
@@ -249,8 +245,12 @@
         if (textAct4) { textAct4.style.opacity = 0; textAct4.style.pointerEvents = 'none'; }
         if (ringDissection) ringDissection.style.opacity = 0;
 
-        if (hoursCounter) hoursCounter.textContent = '4,231';
-        if (heroCounter) heroCounter.style.opacity = Math.max(0, 1 - fadeIn2 * 2);
+        // Counter counts DOWN from 86,400 as sand leaks
+        if (hoursCounter) {
+          var subProgress = (progress - 0.25) / 0.25;
+          var remaining = Math.floor(86400 - (subProgress * 86400));
+          hoursCounter.textContent = remaining.toLocaleString();
+        }
       }
       // ---- ACT 3: 0.50 - 0.75 ----
       else if (progress < 0.75) {
