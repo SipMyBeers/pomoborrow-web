@@ -57,24 +57,21 @@ if (!hasWebGL() || !canvas) {
   loader.load('models/hourglass.glb', (gltf) => {
     hourglassModel = gltf.scene;
 
-    // Center and scale
-    const box = new THREE.Box3().setFromObject(hourglassModel);
-    const center = box.getCenter(new THREE.Vector3());
-    const size = box.getSize(new THREE.Vector3());
-    console.log('[PomoBorrow] Model loaded. Center:', center, 'Size:', size);
+    // Model is pre-centered and pre-scaled in Blender to ~3 units
+    // Just position it slightly up so it's centered in viewport
+    hourglassModel.position.set(0, 0, 0);
+    modelBaseY = 0;
 
-    hourglassModel.position.set(-center.x, -center.y, -center.z);
-    modelBaseY = hourglassModel.position.y;
+    console.log('[PomoBorrow] Model loaded successfully');
 
-    const maxDim = Math.max(size.x, size.y, size.z);
-    const scale = 3.5 / maxDim;
-    hourglassModel.scale.setScalar(scale);
-
-    // Make ALL materials visible — force MeshStandardMaterial for consistent rendering
+    // Configure all materials
     hourglassModel.traverse((child) => {
       if (child.isMesh && child.material) {
         child.material.side = THREE.DoubleSide;
         child.material.needsUpdate = true;
+        // Store original opacity for scroll fade
+        child.material._baseOpacity = child.material.opacity !== undefined ? child.material.opacity : 1;
+        child.material._baseTransparent = child.material.transparent;
       }
     });
 
