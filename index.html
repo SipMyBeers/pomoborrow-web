@@ -11,29 +11,28 @@
 </head>
 <body>
 
-<!-- ===== SECTION 1: THE QUESTION ===== -->
-<section id="question" class="full-vh">
-  <div class="line"></div>
-  <div class="line"></div>
-  <div class="line sub"></div>
-  <div class="scroll-arrow" aria-hidden="true">&#8595;</div>
-</section>
+<!-- ===== SECTION 1 + 2: 3D HERO ===== -->
+<section class="hero-3d" id="hero-3d">
+  <canvas id="hero-canvas"></canvas>
 
-<!-- ===== SECTION 2: THE HOURGLASS ===== -->
-<section id="hourglass-section" class="sticky-section">
-  <div class="sticky-content">
-    <div class="hourglass-wrap">
-      <img src="img/hourglass.png" alt="Hourglass — time slipping away" width="500" height="700">
-      <svg class="cracks" viewBox="0 0 500 700" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path class="crack-path" d="M210 330 L195 360 L205 400 L190 440 L200 470" stroke="#ef4444" stroke-width="2" stroke-linecap="round"/>
-        <path class="crack-path" d="M290 320 L305 355 L295 390 L310 430 L300 460" stroke="#ef4444" stroke-width="2" stroke-linecap="round"/>
-        <path class="crack-path" d="M240 340 L235 370 L250 410 L240 445" stroke="#dc2626" stroke-width="1.5" stroke-linecap="round"/>
-      </svg>
-      <canvas id="sand-canvas"></canvas>
-    </div>
-    <div class="hourglass-text" style="bottom:-2.5rem">86,400 seconds. Every day.</div>
-    <div class="hourglass-text" style="bottom:-4.5rem">Your meetings. Your workouts. Your deep work. Your rest.</div>
-    <div class="hourglass-text" style="bottom:-6.5rem">All of it &mdash; leaking through.</div>
+  <!-- Fallback for no WebGL -->
+  <div class="hero-fallback" id="hero-fallback" style="display:none">
+    <img src="img/hourglass.png" alt="Hourglass — time slipping away" width="500" height="700">
+  </div>
+
+  <!-- Text overlays on top of the 3D scene -->
+  <div class="hero-overlay" id="hero-overlay-1">
+    <p class="hero-lead">Imagine someone handed you <strong>$86,400</strong> every morning.</p>
+    <p class="hero-sub">Whatever you didn&rsquo;t use &mdash; gone at midnight.</p>
+  </div>
+
+  <div class="hero-overlay" id="hero-overlay-2" style="opacity:0">
+    <p class="hero-lead">You get <strong class="text-red">86,400 seconds</strong> every day.</p>
+    <p class="hero-sub">And they&rsquo;re leaking through.</p>
+  </div>
+
+  <div class="hero-overlay" id="hero-overlay-3" style="opacity:0">
+    <h2>What if you could <span class="text-blue">catch every one?</span></h2>
   </div>
 </section>
 
@@ -162,6 +161,6 @@
   &copy; 2026 BEERS LABS LLC &middot; <a href="privacy.html">Privacy</a> &middot; <a href="https://discord.gg/pomoborrow" target="_blank" rel="noopener">Discord</a> &middot; <a href="mailto:hello@pomoborrow.com">Contact</a>
 </footer>
 
-<script src="js/main.js"></script>
+<script type="module" src="js/main.js"></script>
 </body>
 </html>

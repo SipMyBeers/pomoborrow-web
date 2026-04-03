@@ -20,22 +20,16 @@ section{position:relative;width:100%}
 .sticky-section{height:200vh;position:relative}
 .sticky-content{position:sticky;top:0;height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden;flex-direction:column;padding:2rem}
 
-/* ===== SECTION 1: THE QUESTION ===== */
-#question{text-align:center}
-#question .line{font-size:clamp(1.5rem,4vw,3rem);font-weight:700;min-height:1.2em;opacity:0;transition:opacity .6s}
-#question .line.visible{opacity:1}
-#question .line.sub{font-size:clamp(1rem,2.5vw,1.5rem);color:var(--fg2);font-weight:400;max-width:640px;margin-top:1.5rem}
-.scroll-arrow{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);animation:pulse-arrow 2s ease infinite;opacity:.4;font-size:1.5rem;color:var(--fg2)}
-@keyframes pulse-arrow{0%,100%{transform:translateX(-50%) translateY(0);opacity:.4}50%{transform:translateX(-50%) translateY(8px);opacity:.8}}
-
-/* ===== SECTION 2: HOURGLASS ===== */
-#hourglass-section .sticky-content{position:relative}
-.hourglass-wrap{position:relative;width:min(500px,80vw);aspect-ratio:auto}
-.hourglass-wrap img{width:100%;height:auto;transition:filter .1s;position:relative;z-index:1}
-.hourglass-wrap canvas{position:absolute;top:0;left:0;width:100%;height:100%;z-index:3;pointer-events:none}
-.hourglass-wrap svg.cracks{position:absolute;top:0;left:0;width:100%;height:100%;z-index:2;pointer-events:none}
-.hourglass-text{position:absolute;bottom:-3rem;left:50%;transform:translateX(-50%);text-align:center;font-size:clamp(1rem,2vw,1.25rem);color:var(--fg2);white-space:nowrap;z-index:4;opacity:0;transition:opacity .4s}
-.hourglass-text.visible{opacity:1}
+/* ===== 3D HERO ===== */
+.hero-3d{position:relative;height:300vh}
+#hero-canvas{position:sticky;top:0;width:100%;height:100vh;z-index:1;display:block}
+.hero-fallback{position:sticky;top:0;width:100%;height:100vh;z-index:1;display:flex;align-items:center;justify-content:center;background:#000}
+.hero-fallback img{max-height:80vh;width:auto}
+.hero-overlay{position:fixed;bottom:15vh;left:50%;transform:translateX(-50%);text-align:center;z-index:10;transition:opacity .6s ease;pointer-events:none;max-width:600px;width:90%}
+.hero-lead{font-size:clamp(1.3rem,3vw,2rem);font-weight:700;margin-bottom:.5rem}
+.hero-sub{font-size:clamp(.95rem,2vw,1.2rem);color:var(--fg2)}
+.text-red{color:#ef4444}
+.text-blue{color:var(--accent)}
 
 /* ===== SECTION 3: CONFRONTATION ===== */
 #confrontation{padding:4rem 2rem}
