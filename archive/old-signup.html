@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sign Up — PomoBorrow</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#09090b;--card:#18181b;--border:#27272a;--text:#fafafa;--muted:#a1a1aa;--primary:#e74c3c;--primary-dim:#c0392b}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;align-items:center;justify-content:center}
+.card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:40px;max-width:400px;width:90%}
+.logo{font-size:1.3rem;font-weight:800;text-align:center;margin-bottom:8px;letter-spacing:-.5px}
+.logo span{color:var(--primary)}
+.sub{text-align:center;font-size:.85rem;color:var(--muted);margin-bottom:28px}
+label{display:block;font-size:.75rem;font-weight:600;color:var(--muted);margin-bottom:6px;text-transform:uppercase;letter-spacing:.5px}
+input{width:100%;padding:12px 14px;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:.9rem;font-family:inherit;outline:none;margin-bottom:16px;transition:border-color .2s}
+input:focus{border-color:var(--primary)}
+button{width:100%;padding:14px;border-radius:8px;border:none;background:var(--primary);color:#fff;font-size:.9rem;font-weight:700;cursor:pointer;font-family:inherit;transition:background .2s;letter-spacing:.3px}
+button:hover{background:var(--primary-dim)}
+.links{text-align:center;margin-top:20px;font-size:.8rem;color:var(--muted)}
+.links a{color:var(--primary);text-decoration:none}
+.links a:hover{text-decoration:underline}
+.error{color:var(--primary);font-size:.8rem;text-align:center;margin-bottom:12px;display:none}
+.features{display:flex;gap:8px;margin-bottom:24px;justify-content:center}
+.feat{font-size:.65rem;color:var(--muted);background:rgba(255,255,255,.04);padding:4px 10px;border-radius:20px;border:1px solid var(--border)}
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="logo">Pomo<span>Borrow</span></div>
+  <div class="sub">Create your account</div>
+  <div class="features">
+    <span class="feat">Free forever</span>
+    <span class="feat">Sync all devices</span>
+    <span class="feat">ACE engine</span>
+  </div>
+  <div class="error" id="error"></div>
+  <form onsubmit="return signup(event)">
+    <label>Name</label>
+    <input type="text" id="name" placeholder="Your name" required>
+    <label>Email</label>
+    <input type="email" id="email" placeholder="you@example.com" required>
+    <label>Password</label>
+    <input type="password" id="password" placeholder="••••••••" minlength="6" required>
+    <button type="submit">Create Account</button>
+  </form>
+  <div class="links">
+    Already have an account? <a href="/login/">Log in</a><br>
+    <a href="/">← Back to home</a>
+  </div>
+</div>
+<script>
+function signup(e){
+  e.preventDefault();
+  const name=document.getElementById('name').value.trim();
+  const email=document.getElementById('email').value.trim();
+  const password=document.getElementById('password').value;
+  if(password.length<6){document.getElementById('error').textContent='Password must be at least 6 characters';document.getElementById('error').style.display='block';return false}
+  // Store user locally (replace with real auth API later)
+  const users=JSON.parse(localStorage.getItem('pb-users')||'{}');
+  if(users[email]){document.getElementById('error').textContent='Account already exists';document.getElementById('error').style.display='block';return false}
+  const now=Date.now();
+  users[email]={name,password,createdAt:now};
+  localStorage.setItem('pb-users',JSON.stringify(users));
+  // Auto-login
+  const deviceId='browser-'+Math.random().toString(36).substring(2,10);
+  localStorage.setItem('pb-session',JSON.stringify({
+    email,name,loggedIn:true,createdAt:now,
+    devices:[{id:deviceId,name:navigator.platform||'Browser',type:'browser',lastSeen:now,os:navigator.userAgent.substring(0,50)}],
+    ace:{level:1,totalSessions:0,focusScore:0,patterns:[],lastTrained:null}
+  }));
+  // Also subscribe to newsletter
+  fetch('/api/subscribe',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email,name,project_slug:'pomoborrow'})}).catch(()=>{});
+  window.location.href='/dashboard/';
+  return false;
+}
+if(localStorage.getItem('pb-session')){
+  try{if(JSON.parse(localStorage.getItem('pb-session')).loggedIn)window.location.href='/dashboard/'}catch(e){}
+}
+</script>
+</body>
+</html>

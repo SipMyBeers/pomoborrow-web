@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Log In — PomoBorrow</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#09090b;--card:#18181b;--border:#27272a;--text:#fafafa;--muted:#a1a1aa;--primary:#e74c3c;--primary-dim:#c0392b}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;align-items:center;justify-content:center}
+.card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:40px;max-width:400px;width:90%}
+.logo{font-size:1.3rem;font-weight:800;text-align:center;margin-bottom:8px;letter-spacing:-.5px}
+.logo span{color:var(--primary)}
+.sub{text-align:center;font-size:.85rem;color:var(--muted);margin-bottom:28px}
+label{display:block;font-size:.75rem;font-weight:600;color:var(--muted);margin-bottom:6px;text-transform:uppercase;letter-spacing:.5px}
+input{width:100%;padding:12px 14px;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:.9rem;font-family:inherit;outline:none;margin-bottom:16px;transition:border-color .2s}
+input:focus{border-color:var(--primary)}
+button{width:100%;padding:14px;border-radius:8px;border:none;background:var(--primary);color:#fff;font-size:.9rem;font-weight:700;cursor:pointer;font-family:inherit;transition:background .2s;letter-spacing:.3px}
+button:hover{background:var(--primary-dim)}
+.links{text-align:center;margin-top:20px;font-size:.8rem;color:var(--muted)}
+.links a{color:var(--primary);text-decoration:none}
+.links a:hover{text-decoration:underline}
+.divider{display:flex;align-items:center;gap:12px;margin:20px 0;color:var(--muted);font-size:.75rem}
+.divider::before,.divider::after{content:'';flex:1;height:1px;background:var(--border)}
+.oauth-btn{width:100%;padding:12px;border-radius:8px;border:1px solid var(--border);background:transparent;color:var(--text);font-size:.85rem;font-weight:600;cursor:pointer;font-family:inherit;margin-bottom:8px;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:8px}
+.oauth-btn:hover{background:rgba(255,255,255,.04);border-color:var(--muted)}
+.error{color:var(--primary);font-size:.8rem;text-align:center;margin-bottom:12px;display:none}
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="logo">Pomo<span>Borrow</span></div>
+  <div class="sub">Welcome back</div>
+  <div class="error" id="error"></div>
+  <form onsubmit="return login(event)">
+    <label>Email</label>
+    <input type="email" id="email" placeholder="you@example.com" required>
+    <label>Password</label>
+    <input type="password" id="password" placeholder="••••••••" required>
+    <button type="submit">Log In</button>
+  </form>
+  <div class="divider">or</div>
+  <button class="oauth-btn" onclick="oauthGoogle()">Continue with Google</button>
+  <div class="links">
+    Don't have an account? <a href="/signup/">Sign up</a><br>
+    <a href="/">← Back to home</a>
+  </div>
+</div>
+<script>
+function login(e){
+  e.preventDefault();
+  const email=document.getElementById('email').value;
+  const password=document.getElementById('password').value;
+  // Store session locally for now (replace with real auth API later)
+  const users=JSON.parse(localStorage.getItem('pb-users')||'{}');
+  if(users[email]&&users[email].password===password){
+    localStorage.setItem('pb-session',JSON.stringify({email,name:users[email].name,loggedIn:true,devices:[],createdAt:users[email].createdAt}));
+    window.location.href='/dashboard/';
+  } else {
+    const err=document.getElementById('error');
+    err.textContent='Invalid email or password';
+    err.style.display='block';
+  }
+  return false;
+}
+function oauthGoogle(){
+  // Placeholder — would integrate with Google OAuth
+  alert('Google OAuth coming soon. Use email/password for now.');
+}
+// If already logged in, redirect
+if(localStorage.getItem('pb-session')){
+  try{if(JSON.parse(localStorage.getItem('pb-session')).loggedIn)window.location.href='/dashboard/'}catch(e){}
+}
+</script>
+</body>
+</html>

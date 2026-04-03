@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PomoBorrow — Borrow Time From Your Future Self</title>
+<meta name="description" content="A 24-hour ring timer for deep work. Track every second of your day.">
+<meta property="og:title" content="PomoBorrow — Borrow Time From Your Future Self">
+<meta property="og:description" content="A 24-hour ring timer for deep work. Track every second of your day.">
+<meta property="og:url" content="https://pomoborrow.com">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#09090b;--card:#18181b;--border:#27272a;--text:#fafafa;--muted:#a1a1aa;--primary:#e74c3c;--primary-dim:#c0392b;--ring-bg:#27272a}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+
+/* Nav */
+nav{border-bottom:1px solid var(--border);padding:16px 24px;display:flex;align-items:center;justify-content:space-between;max-width:900px;margin:0 auto}
+.logo{font-size:1.15rem;font-weight:800;letter-spacing:-.5px}
+.logo span{color:var(--primary)}
+.nav-links{display:flex;gap:8px}
+.nav-btn{font-size:.8rem;padding:8px 16px;border-radius:8px;border:1px solid var(--border);background:transparent;color:var(--muted);cursor:pointer;font-family:inherit;transition:all .2s}
+.nav-btn:hover{color:var(--text);border-color:var(--text)}
+.nav-btn.primary{background:var(--primary);border-color:var(--primary);color:#fff}
+.nav-btn.primary:hover{background:var(--primary-dim)}
+
+/* Hero */
+.hero{max-width:900px;margin:0 auto;padding:80px 24px 60px;text-align:center}
+.badge{display:inline-block;font-size:.7rem;font-weight:600;letter-spacing:.5px;text-transform:uppercase;padding:4px 12px;border-radius:20px;background:rgba(231,76,60,.1);color:var(--primary);border:1px solid rgba(231,76,60,.2);margin-bottom:20px}
+.hero h1{font-size:3.2rem;font-weight:800;line-height:1.1;letter-spacing:-1.5px;margin-bottom:16px}
+@media(max-width:600px){.hero h1{font-size:2.2rem}}
+.hero p{font-size:1.1rem;color:var(--muted);max-width:500px;margin:0 auto 32px;line-height:1.6}
+.hero-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.hero-btns .nav-btn{font-size:.9rem;padding:12px 28px}
+
+/* Timer Card */
+.timer-section{display:flex;justify-content:center;padding:0 24px 80px}
+.timer-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:32px;width:100%;max-width:360px;text-align:center}
+.timer-title{font-size:.9rem;font-weight:600;margin-bottom:4px}
+.timer-sub{font-size:.75rem;color:var(--muted);margin-bottom:24px}
+.ring-wrap{position:relative;width:160px;height:160px;margin:0 auto 24px}
+.ring-wrap svg{width:100%;height:100%;transform:rotate(-90deg)}
+.ring-bg{fill:none;stroke:var(--ring-bg);stroke-width:8}
+.ring-fill{fill:none;stroke:var(--primary);stroke-width:8;stroke-linecap:round;transition:stroke-dashoffset 1s ease}
+.ring-text{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.ring-time{font-size:2rem;font-weight:700;font-variant-numeric:tabular-nums}
+.ring-label{font-size:.65rem;text-transform:uppercase;letter-spacing:2px;color:var(--muted)}
+.mode-tabs{display:flex;gap:4px;background:var(--bg);border-radius:8px;padding:3px;margin-bottom:16px}
+.mode-tab{flex:1;padding:8px;border-radius:6px;font-size:.75rem;font-weight:600;cursor:pointer;border:none;background:transparent;color:var(--muted);font-family:inherit;transition:all .2s}
+.mode-tab.active{background:var(--card);color:var(--text);box-shadow:0 1px 3px rgba(0,0,0,.3)}
+.timer-btns{display:flex;gap:8px}
+.timer-btns button{flex:1;padding:10px;border-radius:8px;font-size:.8rem;font-weight:600;cursor:pointer;font-family:inherit;border:1px solid var(--border);transition:all .2s}
+.btn-start{background:var(--primary);border-color:var(--primary);color:#fff}
+.btn-start:hover{background:var(--primary-dim)}
+.btn-reset{background:transparent;color:var(--muted)}
+.btn-reset:hover{color:var(--text)}
+
+/* Features */
+.features{max-width:900px;margin:0 auto;padding:0 24px 80px}
+.features h2{font-size:1.6rem;font-weight:700;text-align:center;margin-bottom:40px}
+.feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media(max-width:700px){.feat-grid{grid-template-columns:1fr}}
+.feat{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:24px}
+.feat-icon{font-size:1.5rem;margin-bottom:12px}
+.feat h3{font-size:.9rem;font-weight:600;margin-bottom:6px}
+.feat p{font-size:.8rem;color:var(--muted);line-height:1.5}
+
+/* Waitlist */
+.waitlist{max-width:900px;margin:0 auto;padding:0 24px 80px;display:flex;justify-content:center}
+.wl-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:32px;width:100%;max-width:440px;text-align:center}
+.wl-card h2{font-size:1.3rem;font-weight:700;margin-bottom:6px}
+.wl-card p{font-size:.85rem;color:var(--muted);margin-bottom:20px}
+.wl-form{display:flex;gap:8px}
+@media(max-width:500px){.wl-form{flex-direction:column}}
+.wl-input{flex:1;padding:12px 16px;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:.85rem;font-family:inherit;outline:none;transition:border-color .2s}
+.wl-input:focus{border-color:var(--primary)}
+.wl-submit{padding:12px 24px;border-radius:8px;border:none;background:var(--primary);color:#fff;font-size:.85rem;font-weight:600;cursor:pointer;font-family:inherit;transition:background .2s;white-space:nowrap}
+.wl-submit:hover{background:var(--primary-dim)}
+.wl-success{color:var(--primary);font-size:.9rem;font-weight:600;padding:20px 0}
+
+/* Footer */
+footer{border-top:1px solid var(--border);padding:24px;text-align:center;font-size:.75rem;color:var(--muted)}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">Pomo<span>Borrow</span></div>
+  <div class="nav-links">
+    <a href="/login/" class="nav-btn">Log In</a>
+    <a href="/signup/" class="nav-btn primary" style="text-decoration:none;display:inline-flex;align-items:center">Sign Up Free</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="badge">Coming soon — iOS, Android & Web</div>
+  <h1>Borrow time from<br>your future self.</h1>
+  <p>A 24-hour ring timer that helps you visualize and own your entire day. Deep work, breaks, and everything in between.</p>
+  <div class="hero-btns">
+    <button class="nav-btn primary" onclick="document.getElementById('waitlist').scrollIntoView({behavior:'smooth'})">Join the Waitlist</button>
+    <a href="https://github.com/SipMyBeers/pomoborrow" target="_blank" class="nav-btn">View Source</a>
+  </div>
+</section>
+
+<section class="timer-section">
+  <div class="timer-card">
+    <div class="timer-title">Timer</div>
+    <div class="timer-sub">25-minute focus session</div>
+    <div class="ring-wrap">
+      <svg viewBox="0 0 100 100">
+        <circle class="ring-bg" cx="50" cy="50" r="40"/>
+        <circle class="ring-fill" cx="50" cy="50" r="40" id="ring"
+          stroke-dasharray="251.3" stroke-dashoffset="100.5"/>
+      </svg>
+      <div class="ring-text">
+        <div class="ring-time" id="time">25:00</div>
+        <div class="ring-label" id="mode-label">FOCUS</div>
+      </div>
+    </div>
+    <div class="mode-tabs">
+      <button class="mode-tab active" id="tab-focus" onclick="setMode('focus')">Focus</button>
+      <button class="mode-tab" id="tab-break" onclick="setMode('break')">Break</button>
+    </div>
+    <div class="timer-btns">
+      <button class="btn-start" id="start-btn" onclick="toggleTimer()">Start</button>
+      <button class="btn-reset" onclick="resetTimer()">Reset</button>
+    </div>
+  </div>
+</section>
+
+<section class="features">
+  <h2>Built for how you actually work</h2>
+  <div class="feat-grid">
+    <div class="feat">
+      <div class="feat-icon">&#9201;</div>
+      <h3>24-Hour Ring</h3>
+      <p>See your whole day on a single ring. Not just work blocks — sleep, exercise, meals, everything.</p>
+    </div>
+    <div class="feat">
+      <div class="feat-icon">&#127793;</div>
+      <h3>Deep Focus Mode</h3>
+      <p>Pomodoro-style sessions with automatic breaks. Notifications silenced. Just you and the work.</p>
+    </div>
+    <div class="feat">
+      <div class="feat-icon">&#128202;</div>
+      <h3>Time Analytics</h3>
+      <p>Weekly reports showing where your time actually goes. No more wondering where the day went.</p>
+    </div>
+    <div class="feat">
+      <div class="feat-icon">&#128101;</div>
+      <h3>Borrow & Lend</h3>
+      <p>The social twist — borrow focus time from friends or lend your spare minutes to someone who needs them.</p>
+    </div>
+    <div class="feat">
+      <div class="feat-icon">&#127912;</div>
+      <h3>Themes & Sounds</h3>
+      <p>Customize your timer with ambient sounds, color themes, and focus music. Make it yours.</p>
+    </div>
+    <div class="feat">
+      <div class="feat-icon">&#128241;</div>
+      <h3>Everywhere</h3>
+      <p>iOS, Android, Web, and Desktop. Your timer syncs across all devices seamlessly.</p>
+    </div>
+  </div>
+</section>
+
+<section class="waitlist" id="waitlist">
+  <div class="wl-card">
+    <h2 id="wl-title">Join the waitlist</h2>
+    <p id="wl-sub">Get early access when PomoBorrow launches.</p>
+    <div id="wl-form">
+      <div class="wl-form">
+        <input type="email" class="wl-input" id="wl-email" placeholder="you@example.com">
+        <button class="wl-submit" onclick="subscribe()">Notify me</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  &copy; 2026 PomoBorrow &middot; pomoborrow.com
+</footer>
+
+<script>
+/* Timer */
+let running=false,seconds=25*60,mode='focus',interval=null;
+const circ=2*Math.PI*40;
+function setMode(m){
+  mode=m;seconds=m==='focus'?25*60:5*60;running=false;clearInterval(interval);
+  document.getElementById('tab-focus').classList.toggle('active',m==='focus');
+  document.getElementById('tab-break').classList.toggle('active',m==='break');
+  document.getElementById('mode-label').textContent=m.toUpperCase();
+  document.getElementById('start-btn').textContent='Start';
+  updateDisplay();
+}
+function toggleTimer(){
+  if(running){running=false;clearInterval(interval);document.getElementById('start-btn').textContent='Start'}
+  else{running=true;document.getElementById('start-btn').textContent='Pause';interval=setInterval(()=>{if(seconds>0){seconds--;updateDisplay()}else{clearInterval(interval);running=false;document.getElementById('start-btn').textContent='Start'}},1000)}
+}
+function resetTimer(){running=false;clearInterval(interval);seconds=mode==='focus'?25*60:5*60;document.getElementById('start-btn').textContent='Start';updateDisplay()}
+function updateDisplay(){
+  const m=Math.floor(seconds/60),s=seconds%60;
+  document.getElementById('time').textContent=String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
+  const total=mode==='focus'?25*60:5*60;
+  const pct=1-seconds/total;
+  document.getElementById('ring').setAttribute('stroke-dashoffset',String(circ*(1-pct)));
+}
+updateDisplay();
+
+/* Waitlist */
+function subscribe(){
+  const email=document.getElementById('wl-email').value.trim();
+  if(!email)return;
+  fetch('/api/subscribe',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:email,project_slug:'pomoborrow'})}).catch(()=>{});
+  document.getElementById('wl-title').textContent="You're in!";
+  document.getElementById('wl-sub').textContent="We'll email you when PomoBorrow launches.";
+  document.getElementById('wl-form').innerHTML='<div class="wl-success">Check your inbox soon.</div>';
+}
+</script>
+</body>
+</html>
