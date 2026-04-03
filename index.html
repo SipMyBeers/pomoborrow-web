@@ -1,333 +1,462 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <!-- SEO -->
-  <title>PomoBorrow — Your day, tracked automatically</title>
-  <meta name="description" content="A 24-hour timer that learns your routine. Auto-detects your activities from location, motion, and sound. All on-device. No cloud." />
-  <meta name="robots" content="index, follow" />
-  <link rel="canonical" href="https://pomoborrow.com" />
-
-  <!-- Open Graph -->
-  <meta property="og:title" content="PomoBorrow — Your day, tracked automatically" />
-  <meta property="og:description" content="The first productivity tracker that doesn't need your constant input." />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://pomoborrow.com" />
-
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="PomoBorrow — Your day, tracked automatically" />
-  <meta name="twitter:description" content="A 24-hour timer that learns your routine. All on-device. No cloud." />
-
-  <!-- Theme -->
-  <meta name="color-scheme" content="dark" />
-  <meta name="theme-color" content="#000000" />
-
-  <link rel="stylesheet" href="css/style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PomoBorrow — Productivity on Autopilot</title>
+  <meta name="description" content="PomoBorrow runs in the background, learning your day automatically. No timers to start. No categories to pick. Just live.">
+  <meta name="theme-color" content="#000000">
+  <meta property="og:title" content="PomoBorrow — Stop tracking. Start living.">
+  <meta property="og:description" content="A background activity tracker that learns your day automatically. 100% on-device. Zero cloud calls.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://pomoborrow.com">
+  <link rel="canonical" href="https://pomoborrow.com">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='40' fill='none' stroke='%233B82F6' stroke-width='8'/><circle cx='50' cy='50' r='28' fill='none' stroke='%238B5CF6' stroke-width='4' stroke-dasharray='30 20'/></svg>">
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-  <!-- ═══════════════════════════════════════
-       NAV
-  ════════════════════════════════════════ -->
-  <nav aria-label="Main navigation">
-    <div class="nav-inner">
-      <a href="/" class="nav-logo">
-        <svg class="nav-logo-ring" viewBox="0 0 26 26" fill="none" aria-hidden="true">
-          <circle cx="13" cy="13" r="11" stroke="#1e3a5f" stroke-width="3" />
-          <circle cx="13" cy="13" r="11" stroke="#3B82F6" stroke-width="3"
-            stroke-dasharray="21 48" stroke-dashoffset="14"
-            stroke-linecap="round" />
-          <circle cx="13" cy="13" r="11" stroke="#8B5CF6" stroke-width="3"
-            stroke-dasharray="8 61" stroke-dashoffset="-7"
-            stroke-linecap="round" />
-        </svg>
-        PomoBorrow
-      </a>
-      <ul class="nav-links" role="list">
-        <li><a href="#how-it-works">How it works</a></li>
-        <li><a href="#features">Features</a></li>
-        <li><a href="#waitlist">Join waitlist</a></li>
-        <li><a href="privacy.html">Privacy</a></li>
-        <li><a href="#" class="nav-cta">Download</a></li>
-      </ul>
+  <!-- ============ NAVIGATION ============ -->
+  <nav class="nav">
+    <a href="/" class="nav-logo">
+      <span class="logo-ring"></span>
+      PomoBorrow
+    </a>
+    <div class="nav-links">
+      <a href="#demo">Demo</a>
+      <a href="#privacy">Privacy</a>
+      <a href="#how-it-works">How It Works</a>
+      <a href="#waitlist" class="nav-cta">Join Waitlist</a>
     </div>
   </nav>
 
-  <!-- ═══════════════════════════════════════
-       HERO
-  ════════════════════════════════════════ -->
-  <section class="hero">
-    <div class="container">
+  <!-- ============ SECTION 1: HERO ============ -->
+  <section class="hero grid-bg">
+    <div class="hero-canvas-wrap">
+      <canvas id="hero-canvas"></canvas>
+    </div>
 
+    <div class="hero-content">
       <div class="hero-badge">
-        <span class="dot" aria-hidden="true"></span>
-        Now in development
+        <span class="pulse-dot"></span>
+        PRODUCTIVITY ON AUTOPILOT
       </div>
 
-      <h1>Your day,<br><span class="highlight">tracked automatically.</span></h1>
+      <h1>Stop tracking.<br>Start living.</h1>
 
       <p class="hero-sub">
-        PomoBorrow is a 24-hour timer that learns your routine.
-        No tapping. No logging. Just live your life.
+        PomoBorrow runs in the background, learning your day automatically.
+        No timers to start. No categories to pick. Just live &mdash; it handles the rest.
       </p>
 
-      <div class="hero-actions">
-        <a href="#" class="btn-primary">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
-            <path d="M11.182 3.625C10.38 3.625 9.7 4 9.2 4.6L8 6.1 6.8 4.6C6.3 4 5.62 3.625 4.82 3.625 3.25 3.625 2 4.9 2 6.5c0 .8.3 1.56.85 2.13L8 14l5.15-5.37A3.06 3.06 0 0 0 14 6.5c0-1.6-1.25-2.875-2.818-2.875z"/>
-          </svg>
+      <div class="hero-ctas">
+        <a href="#waitlist" class="btn-primary">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 0 1 10 10c0 5.52-4.48 10-10 10S2 17.52 2 12"/><path d="M12 6v6l4 2"/></svg>
           Download for iOS
-          <span class="badge-soon">Coming Soon</span>
         </a>
-        <a href="#" class="btn-secondary">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-            <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/>
-          </svg>
-          Join the community
-        </a>
+        <a href="#demo" class="btn-ghost">Watch Demo &darr;</a>
       </div>
+    </div>
 
-      <!-- Animated Ring -->
-      <div class="hero-visual">
-        <div class="ring-wrapper">
-          <svg id="day-ring" viewBox="0 0 300 300" aria-label="Animated 24-hour day ring" role="img">
-            <!-- populated by ring-animation.js -->
-          </svg>
-          <div class="ring-label" aria-hidden="true">
-            <span class="time-text">Sleep</span>
-            <span class="time-sub">18h left</span>
-          </div>
-        </div>
+    <div class="hero-stats">
+      <div class="hero-stat hero-stat-1">
+        <span class="stat-dot"></span>
+        5 sensor vectors
       </div>
-
+      <div class="hero-stat hero-stat-2">
+        <span class="stat-dot"></span>
+        &lt; 5% battery
+      </div>
+      <div class="hero-stat hero-stat-3">
+        <span class="stat-dot"></span>
+        100% on-device
+      </div>
     </div>
   </section>
 
-  <!-- ═══════════════════════════════════════
-       HOW IT WORKS
-  ════════════════════════════════════════ -->
-  <section class="how-it-works" id="how-it-works">
+  <!-- ============ SECTION 2: THE PROBLEM ============ -->
+  <section class="problem">
     <div class="container">
+      <div class="problem-grid">
+        <div class="problem-text">
+          <p class="eyebrow reveal">THE PROBLEM</p>
+          <h2 class="reveal">Every productivity app needs you to be productive... about being productive.</h2>
+          <p class="body-lg reveal" style="margin-top: 1.5rem;">
+            Start a timer. Pick a category. Remember to stop it. Switch when you change tasks.
+            Review at the end of the day. Repeat forever. It's exhausting &mdash; and it defeats the purpose.
+          </p>
+          <div class="stat-callout reveal">
+            <div class="stat-number">80%</div>
+            <div class="stat-label">of people abandon manual time tracking within 30 days.</div>
+          </div>
+        </div>
 
-      <div class="reveal">
-        <span class="section-label">How it works</span>
-        <h2 class="section-title">Three steps.<br>Zero effort.</h2>
-        <p class="section-sub">
-          ACE — the Autonomous Context Engine — runs silently in the background
-          and figures out the rest.
+        <div class="reveal">
+          <div class="timer-mockup">
+            <div class="mockup-header">
+              <span class="mockup-title">TimerApp Pro</span>
+              <div class="mockup-dots">
+                <span></span><span></span><span></span>
+              </div>
+            </div>
+            <div class="mockup-timer-display">00:42:17</div>
+            <div class="mockup-controls">
+              <span class="mockup-btn">Start</span>
+              <span class="mockup-btn">Pause</span>
+              <span class="mockup-btn">Stop</span>
+              <span class="mockup-btn">Reset</span>
+              <span class="mockup-btn">Switch</span>
+            </div>
+            <div style="margin-top: 1.25rem; display: flex; flex-direction: column; gap: 0.5rem;">
+              <div class="mockup-row">
+                <span class="mockup-btn">Category:</span>
+                <span class="mockup-select">Deep Work &darr;</span>
+              </div>
+              <div class="mockup-row">
+                <span class="mockup-btn">Project:</span>
+                <span class="mockup-select">Select project &darr;</span>
+              </div>
+              <div class="mockup-row">
+                <span class="mockup-btn">Client:</span>
+                <span class="mockup-select">Select client &darr;</span>
+              </div>
+              <div class="mockup-row">
+                <span class="mockup-btn">Tags:</span>
+                <span class="mockup-select">Add tags... &darr;</span>
+              </div>
+              <div class="mockup-row">
+                <span class="mockup-btn">Notes:</span>
+                <span class="mockup-select">Add description...</span>
+              </div>
+              <div class="mockup-row">
+                <span class="mockup-btn">Billable?</span>
+                <span class="mockup-select">Yes / No</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SECTION 3: THE SOLUTION ============ -->
+  <section class="solution" id="how-it-works">
+    <div class="container">
+      <div class="section-header">
+        <p class="eyebrow reveal">THE SOLUTION</p>
+        <h2 class="reveal">What if your phone already knew?</h2>
+      </div>
+
+      <div class="sensor-cards">
+        <div class="sensor-card">
+          <div class="sensor-icon">&#x1F4CD;</div>
+          <div>
+            <h3>It knows where you are</h3>
+            <p>Arrived at the gym? ACE detects the location shift and labels your time as Workout. No check-in required.</p>
+          </div>
+        </div>
+
+        <div class="sensor-card">
+          <div class="sensor-icon">&#x1F3C3;</div>
+          <div>
+            <h3>It knows how you move</h3>
+            <p>Driving to work? Walking to lunch? The motion sensor tracks it without GPS polling. Battery-friendly by design.</p>
+          </div>
+        </div>
+
+        <div class="sensor-card">
+          <div class="sensor-icon">&#x1F4E1;</div>
+          <div>
+            <h3>It knows your devices</h3>
+            <p>Your office has a printer and a Mac. The gym has Bluetooth speakers. ACE fingerprints each space by the devices around you.</p>
+          </div>
+        </div>
+
+        <div class="sensor-card">
+          <div class="sensor-icon">&#x1F3B5;</div>
+          <div>
+            <h3>It knows what you hear</h3>
+            <p>Gym playlist pumping? Keyboard clicking? Ambient sound classification confirms what you're doing without recording anything.</p>
+          </div>
+        </div>
+
+        <div class="sensor-card">
+          <div class="sensor-icon">&#x1F550;</div>
+          <div>
+            <h3>It knows your patterns</h3>
+            <p>Tuesday at 6pm, you're always at the gym. After 2 weeks, ACE predicts before you arrive. It learns you.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SECTION 4: INTERACTIVE DEMO ============ -->
+  <section class="demo" id="demo">
+    <div class="container">
+      <div class="section-header">
+        <p class="eyebrow reveal">INTERACTIVE</p>
+        <h2 class="reveal">Try it. Right here.</h2>
+      </div>
+
+      <div class="demo-wrap">
+        <div class="demo-ring-container" id="demo-ring-container">
+          <div class="demo-tooltip">
+            <div class="tooltip-activity"></div>
+            <div class="tooltip-time"></div>
+            <div class="tooltip-duration"></div>
+          </div>
+        </div>
+
+        <div class="demo-timeline">
+          <div class="timeline-bar"></div>
+          <div class="timeline-labels">
+            <span>12 AM</span>
+            <span>6 AM</span>
+            <span>12 PM</span>
+            <span>6 PM</span>
+            <span>12 AM</span>
+          </div>
+        </div>
+
+        <div class="demo-legend">
+          <div class="legend-item"><span class="legend-dot" style="background: #1E3A5F;"></span> Sleep</div>
+          <div class="legend-item"><span class="legend-dot" style="background: #8B5CF6;"></span> Commute</div>
+          <div class="legend-item"><span class="legend-dot" style="background: #3B82F6;"></span> Work</div>
+          <div class="legend-item"><span class="legend-dot" style="background: #FBBF24;"></span> Lunch</div>
+          <div class="legend-item"><span class="legend-dot" style="background: #F97316;"></span> Gym</div>
+          <div class="legend-item"><span class="legend-dot" style="background: #10B981;"></span> Leisure</div>
+        </div>
+
+        <p class="demo-caption reveal">
+          This is what your day looks like. PomoBorrow builds this automatically.
         </p>
       </div>
-
-      <div class="steps-grid">
-        <div class="step-card reveal reveal-delay-1">
-          <span class="step-number">Step 01</span>
-          <span class="step-icon" aria-hidden="true">⌚</span>
-          <h3>Wear it</h3>
-          <p>
-            Open the app once. Grant location access. Then forget about it.
-            The ring begins tracking your entire day, second by second, from midnight.
-          </p>
-        </div>
-        <div class="step-card reveal reveal-delay-2">
-          <span class="step-number">Step 02</span>
-          <span class="step-icon" aria-hidden="true">🔁</span>
-          <h3>Live your life</h3>
-          <p>
-            ACE silently learns your places, your motion, your patterns. It detects
-            your gym, your office, your commute — without you telling it anything.
-          </p>
-        </div>
-        <div class="step-card reveal reveal-delay-3">
-          <span class="step-number">Step 03</span>
-          <span class="step-icon" aria-hidden="true">🔍</span>
-          <h3>Review and refine</h3>
-          <p>
-            Glance at your day ring each evening. Tap any segment to correct a label.
-            Every correction trains ACE to be more accurate tomorrow.
-          </p>
-        </div>
-      </div>
-
     </div>
   </section>
 
-  <!-- ═══════════════════════════════════════
-       FEATURES
-  ════════════════════════════════════════ -->
-  <section class="features" id="features">
+  <!-- ============ SECTION 5: USE CASES ============ -->
+  <section class="use-cases">
     <div class="container">
-
-      <div class="features-header reveal">
-        <span class="section-label">Features</span>
-        <h2 class="section-title">Everything your day needs.<br>Nothing it doesn't.</h2>
+      <div class="section-header">
+        <p class="eyebrow reveal">WHO IT'S FOR</p>
+        <h2 class="reveal">Your life. Mapped.</h2>
       </div>
 
-      <div class="features-grid">
-
-        <div class="feature-card reveal">
-          <div class="feature-icon blue" aria-hidden="true">○</div>
-          <h3>24-Hour Ring Timer</h3>
-          <p>
-            Your entire day rendered as one beautiful circle. Every hour, every
-            activity, every transition — mapped in color at a glance.
-          </p>
+      <div class="use-case-cards">
+        <div class="use-case-card reveal">
+          <div class="use-case-emoji">&#x1F680;</div>
+          <h3>The Founder</h3>
+          <blockquote>
+            You're building a startup. Your days are chaos &mdash; meetings, deep work, gym, calls, more meetings.
+            PomoBorrow maps it all without you thinking about it. At the end of the week, you see exactly where
+            your time went. Turns out you only got 12 hours of deep work. Time to protect your calendar.
+          </blockquote>
         </div>
 
-        <div class="feature-card reveal reveal-delay-1">
-          <div class="feature-icon purple" aria-hidden="true">◈</div>
-          <h3>Auto-Detection</h3>
-          <p>
-            ACE learns your gym, office, and home automatically. No manual
-            check-ins. No geofences to draw. It figures out your world.
-          </p>
+        <div class="use-case-card reveal">
+          <div class="use-case-emoji">&#x1F393;</div>
+          <h3>The Student</h3>
+          <blockquote>
+            Classes, study sessions, part-time job, gym, social life. You never know where the time goes.
+            PomoBorrow shows you &mdash; and after a week, starts predicting your schedule.
+            "Looks like you're heading to the library." No input needed.
+          </blockquote>
         </div>
 
-        <div class="feature-card reveal reveal-delay-2">
-          <div class="feature-icon green" aria-hidden="true">⌁</div>
-          <h3>Privacy First</h3>
-          <p>
-            All data stays on your device. No cloud. No account. No tracking.
-            No exceptions. If you delete the app, the data is gone forever.
-          </p>
+        <div class="use-case-card reveal">
+          <div class="use-case-emoji">&#x1F3E0;</div>
+          <h3>The Remote Worker</h3>
+          <blockquote>
+            Home office and living room are 10 feet apart. GPS can't tell the difference.
+            But PomoBorrow can &mdash; your work Mac, Bluetooth keyboard, and the sound of Slack notifications mean "Work."
+            Netflix audio and no keyboard mean "Leisure." The invisible boundary, tracked.
+          </blockquote>
         </div>
-
-        <div class="feature-card reveal">
-          <div class="feature-icon blue" aria-hidden="true">⏱</div>
-          <h3>Smart Countdown</h3>
-          <p>
-            Time remaining in your day counts down like a Pomodoro timer — but
-            for your entire life, not just a work session. Stay present.
-          </p>
-        </div>
-
-        <div class="feature-card reveal reveal-delay-1">
-          <div class="feature-icon orange" aria-hidden="true">⬡</div>
-          <h3>Activity Heatmap</h3>
-          <p>
-            See exactly where you spend your time overlaid on a dark-mode map.
-            Rendered locally. Your coordinates never leave your phone.
-          </p>
-        </div>
-
-        <div class="feature-card reveal reveal-delay-2">
-          <div class="feature-icon purple" aria-hidden="true">♪</div>
-          <h3>Music Detection</h3>
-          <p>
-            PomoBorrow knows what you listen to during each activity. Workout
-            playlists, commute podcasts, focus music — all contextual.
-          </p>
-        </div>
-
       </div>
     </div>
   </section>
 
-  <!-- ═══════════════════════════════════════
-       PRIVACY CALLOUT
-  ════════════════════════════════════════ -->
-  <section class="privacy-callout">
+  <!-- ============ SECTION 6: PRIVACY ============ -->
+  <section class="privacy-section" id="privacy">
     <div class="container">
-      <div class="privacy-banner reveal">
-        <div>
-          <div class="privacy-banner-label">Privacy</div>
-          <h2>Zero data leaves<br>your device. Ever.</h2>
-          <p>
-            We built PomoBorrow the way we want our own tools to work. No
-            analytics SDKs. No crash reporters. No backend at all. Your location
-            history, activity patterns, and daily routine are yours — permanently.
-          </p>
+      <div class="section-header">
+        <p class="eyebrow reveal">ARCHITECTURE, NOT POLICY</p>
+        <h2 class="reveal">Your data never leaves your device.</h2>
+      </div>
+
+      <div class="privacy-counters">
+        <div class="counter-card reveal">
+          <div class="counter-number blue" data-target="0">0</div>
+          <div class="counter-label">servers</div>
         </div>
-        <div class="privacy-stats">
-          <div class="privacy-stat">
-            <span class="stat-val">0</span>
-            <span class="stat-lbl">Servers we run</span>
-          </div>
-          <div class="privacy-stat">
-            <span class="stat-val">0</span>
-            <span class="stat-lbl">SDKs tracking you</span>
-          </div>
-          <div class="privacy-stat">
-            <span class="stat-val">100%</span>
-            <span class="stat-lbl">On-device</span>
-          </div>
+        <div class="counter-card reveal">
+          <div class="counter-number blue" data-target="0">0</div>
+          <div class="counter-label">SDKs</div>
         </div>
+        <div class="counter-card reveal">
+          <div class="counter-number blue" data-target="0">0</div>
+          <div class="counter-label">cloud calls</div>
+        </div>
+        <div class="counter-card reveal">
+          <div class="counter-number green" data-target="100" data-suffix="%">0</div>
+          <div class="counter-label">on-device</div>
+        </div>
+      </div>
+
+      <div class="privacy-body reveal">
+        <p>
+          We don't have a server to send your data to. That's not a privacy policy &mdash; that's the architecture.
+          PomoBorrow uses Apple's on-device neural engine, local storage, and zero network calls. Your day is yours.
+        </p>
+        <a href="privacy.html" class="privacy-link">
+          Read our privacy policy &rarr;
+        </a>
       </div>
     </div>
   </section>
 
-  <!-- ═══════════════════════════════════════
-       WAITLIST
-  ════════════════════════════════════════ -->
-  <section class="waitlist" id="waitlist">
+  <!-- ============ SECTION 7: HOW ACE LEARNS ============ -->
+  <section class="ace-learns">
     <div class="container">
-
-      <div class="waitlist-count reveal">
-        <div class="avatars" aria-hidden="true">
-          <span class="av">D</span>
-          <span class="av">M</span>
-          <span class="av">A</span>
-        </div>
-        Early access building
+      <div class="section-header">
+        <p class="eyebrow reveal">ACE ENGINE</p>
+        <h2 class="reveal">Smart in 48 hours.</h2>
       </div>
 
-      <h2 class="reveal">Be first when it launches.</h2>
-      <p class="sub reveal">
-        Drop your email. We'll let you know the moment PomoBorrow
-        hits the App Store — no spam, ever.
-      </p>
+      <div class="ace-timeline">
+        <div class="ace-phase reveal">
+          <div class="phase-dot"></div>
+          <div class="phase-label">Phase 1 &middot; 0-24h</div>
+          <h3>Silent Mapping</h3>
+          <p>ACE watches. It maps your locations, learns your devices, tracks your motion. You don't see a thing.</p>
+        </div>
 
-      <form class="waitlist-form reveal" id="waitlist-form" action="/api/waitlist" method="POST" novalidate>
-        <input
-          type="email"
-          name="email"
-          placeholder="you@example.com"
-          autocomplete="email"
-          required
-          aria-label="Email address for waitlist"
-        />
-        <button type="submit">Notify me</button>
-      </form>
+        <div class="ace-phase reveal">
+          <div class="phase-dot"></div>
+          <div class="phase-label">Phase 2 &middot; 24-48h</div>
+          <h3>Gentle Questions</h3>
+          <p>ACE asks a few questions &mdash; max 5 per day. "Is this your office?" One tap to confirm.</p>
+        </div>
 
-      <p class="waitlist-note reveal">
-        <span class="lock-icon" aria-hidden="true">⌁</span>
-        No account. No spam. Unsubscribe any time.
-      </p>
-
+        <div class="ace-phase reveal">
+          <div class="phase-dot"></div>
+          <div class="phase-label">Phase 3 &middot; 48h+</div>
+          <h3>Full Autopilot</h3>
+          <p>ACE runs your day. Auto-switching activities with 90%+ accuracy. Corrections make it smarter.</p>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- ═══════════════════════════════════════
-       FOOTER
-  ════════════════════════════════════════ -->
-  <footer>
+  <!-- ============ SECTION 8: CROSS-DEVICE ============ -->
+  <section class="cross-device">
+    <div class="container">
+      <div class="section-header">
+        <p class="eyebrow reveal">ECOSYSTEM</p>
+        <h2 class="reveal">Your Mac knows too.</h2>
+      </div>
+
+      <div class="device-mockup-wrap reveal">
+        <div class="device-frame device-phone">
+          <div class="device-label">iPhone</div>
+          <div class="device-ring-placeholder"></div>
+          <div class="device-bars">
+            <div class="device-bar" style="background: #3B82F6; width: 80%;"></div>
+            <div class="device-bar" style="background: #F97316; width: 45%;"></div>
+            <div class="device-bar" style="background: #10B981; width: 60%;"></div>
+          </div>
+        </div>
+
+        <div class="device-frame device-laptop">
+          <div class="device-label">MacBook</div>
+          <div class="device-ring-placeholder"></div>
+          <div class="device-bars">
+            <div class="device-bar" style="background: #3B82F6; width: 85%;"></div>
+            <div class="device-bar" style="background: #8B5CF6; width: 30%;"></div>
+            <div class="device-bar" style="background: #FBBF24; width: 50%;"></div>
+            <div class="device-bar" style="background: #10B981; width: 40%;"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cross-device-text reveal">
+        <p>
+          PomoBorrow for Mac lives in your menu bar. It knows what app you're using, what display is connected,
+          what Bluetooth keyboard is nearby. Pair with your iPhone in 30 seconds &mdash; they share context automatically.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SECTION 9: CTA / WAITLIST ============ -->
+  <section class="cta-section" id="waitlist">
+    <div class="container">
+      <div class="cta-content">
+        <h2 class="reveal">Borrow time from<br>your future self.</h2>
+        <p class="body-lg reveal">Join the waitlist. Be first when PomoBorrow launches on iOS.</p>
+
+        <form id="waitlist-form" class="waitlist-form reveal">
+          <input type="email" class="waitlist-input" placeholder="you@email.com" required>
+          <button type="submit" class="waitlist-submit">Join Waitlist</button>
+        </form>
+
+        <a href="#" class="cta-discord reveal">Join the community on Discord &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SECTION 10: FOOTER ============ -->
+  <footer class="footer">
     <div class="container">
       <div class="footer-inner">
-        <div class="footer-brand">
-          <a href="/" class="footer-logo">
-            <svg width="20" height="20" viewBox="0 0 26 26" fill="none" aria-hidden="true">
-              <circle cx="13" cy="13" r="11" stroke="#1e3a5f" stroke-width="3" />
-              <circle cx="13" cy="13" r="11" stroke="#3B82F6" stroke-width="3"
-                stroke-dasharray="21 48" stroke-dashoffset="14"
-                stroke-linecap="round" />
-            </svg>
-            PomoBorrow
-          </a>
-          <p class="footer-tagline">Built with obsessive privacy in mind.</p>
-          <p class="footer-copy">© 2026 BEERS LABS LLC. All rights reserved.</p>
+        <div class="footer-logo">
+          <span class="logo-ring" style="width:20px;height:20px;border-radius:50%;border:2px solid #3B82F6;display:inline-block;position:relative;"><span style="position:absolute;top:2px;left:2px;right:2px;bottom:2px;border-radius:50%;border:1.5px solid #8B5CF6;border-right-color:transparent;border-bottom-color:transparent;"></span></span>
+          PomoBorrow
         </div>
-        <nav class="footer-links" aria-label="Footer links">
+        <div class="footer-links">
           <a href="privacy.html">Privacy Policy</a>
           <a href="#">Discord</a>
           <a href="#">GitHub</a>
-          <a href="mailto:pomoborrow@gmail.com">Contact</a>
-        </nav>
+          <a href="mailto:hello@pomoborrow.com">Contact</a>
+        </div>
+      </div>
+      <div class="footer-bottom" style="margin-top: 2rem; text-align: center;">
+        <p class="footer-copy">&copy; 2026 BEERS LABS LLC</p>
+        <p class="footer-tagline">Built with obsessive privacy in mind.</p>
       </div>
     </div>
   </footer>
 
-  <script src="js/ring-animation.js"></script>
+  <!-- ============ SCRIPTS ============ -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+
+  <script>
+    // Wait for all deferred scripts to load, then init
+    window.addEventListener('load', function () {
+      // Load hero ring
+      var s1 = document.createElement('script');
+      s1.src = 'js/hero-ring.js';
+      document.body.appendChild(s1);
+
+      // Load demo ring
+      var s2 = document.createElement('script');
+      s2.src = 'js/demo-ring.js';
+      document.body.appendChild(s2);
+
+      // Load scroll engine
+      var s3 = document.createElement('script');
+      s3.src = 'js/scroll-engine.js';
+      document.body.appendChild(s3);
+
+      // Load main
+      var s4 = document.createElement('script');
+      s4.src = 'js/main.js';
+      document.body.appendChild(s4);
+    });
+  </script>
+
 </body>
 </html>
