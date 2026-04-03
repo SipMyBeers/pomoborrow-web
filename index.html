@@ -30,35 +30,67 @@
     </div>
   </nav>
 
-  <!-- ============ SECTION 1: HERO — "In One Ear, Out the Other" ============ -->
+  <!-- ============ SECTION 1: HERO — Cracked Hourglass ============ -->
   <section class="hero" id="hero">
     <div class="hero-canvas" id="hero-canvas"></div>
 
-    <div class="hero-content">
+    <!-- Act 1: The Hourglass -->
+    <div class="hero-text" id="text-act1">
+      <h1>This is your <span class="text-gold">time.</span></h1>
+      <p>And it's leaking.</p>
       <div class="hero-counter">
-        <span class="counter-value" id="lost-counter">0</span>
-        <span class="counter-label">hours lost today</span>
+        <span class="counter-value" id="hours-counter">0</span>
+        <span class="counter-label">hours &mdash; gone this year</span>
       </div>
     </div>
 
-    <!-- Text overlays that appear/change with scroll -->
-    <div class="hero-text hero-text-loss" id="hero-loss">
-      <span class="badge">IN ONE EAR, OUT THE OTHER</span>
-      <h1>Your time is<br><span class="text-red">vanishing.</span></h1>
-      <p>Every moment. Every task. Every transition. Flowing through your day untracked, unremembered, gone.</p>
+    <!-- Act 2: The Realization -->
+    <div class="hero-text" id="text-act2" style="opacity:0">
+      <h1>Every day you don't track is a day you <span class="text-leak">can't remember.</span></h1>
+      <p>Your commutes. Your deep work sessions. Your workouts. All that sand &mdash; flowing through.</p>
     </div>
 
-    <div class="hero-text hero-text-capture" id="hero-capture" style="opacity:0">
-      <span class="badge badge-blue">INTRODUCING POMOBORROW</span>
-      <h1>Now it gets<br><span class="text-blue">captured.</span></h1>
-      <p>PomoBorrow catches what you'd forget. Every activity, automatically detected and logged.</p>
+    <!-- Act 3: The Jar -->
+    <div class="hero-text" id="text-act3" style="opacity:0">
+      <h1>What if you could <span class="text-catch">catch every grain?</span></h1>
     </div>
 
-    <div class="hero-text hero-text-reveal" id="hero-reveal" style="opacity:0; pointer-events:none;">
-      <h1>Stop losing your day.<br><span class="text-gradient">Start owning it.</span></h1>
-      <div class="hero-ctas">
+    <!-- Act 4: The Reveal -->
+    <div class="hero-text" id="text-act4" style="opacity:0; pointer-events:none;">
+      <h1>PomoBorrow.</h1>
+      <p>Your day, captured automatically.</p>
+      <div class="hero-ctas" style="margin-top:24px; pointer-events:all">
         <a href="#waitlist" class="btn-primary btn-glow">Download for iOS</a>
-        <a href="#demo" class="btn-ghost">See it in action &darr;</a>
+        <a href="#demo" class="btn-ghost">See how it works &darr;</a>
+      </div>
+    </div>
+
+    <!-- Ring dissection labels (appear in Act 4) -->
+    <div class="ring-dissection" id="ring-dissection">
+      <div class="dissection-label" style="top:-80px; left:40px">
+        <span class="dot" style="background:#1E293B"></span>
+        <span class="line"></span>
+        <span>Sleep &middot; 7h 23m</span>
+      </div>
+      <div class="dissection-label" style="top:-20px; right:-180px">
+        <span>Deep Work &middot; 4h 12m</span>
+        <span class="line"></span>
+        <span class="dot" style="background:#3B82F6"></span>
+      </div>
+      <div class="dissection-label" style="bottom:-20px; right:-160px">
+        <span>Exercise &middot; 1h 30m</span>
+        <span class="line"></span>
+        <span class="dot" style="background:#F97316"></span>
+      </div>
+      <div class="dissection-label" style="bottom:-80px; left:40px">
+        <span class="dot" style="background:#10B981"></span>
+        <span class="line"></span>
+        <span>Leisure &middot; 3h 45m</span>
+      </div>
+      <div class="dissection-label" style="top:50%; left:-180px">
+        <span class="dot" style="background:#8B5CF6"></span>
+        <span class="line"></span>
+        <span>Commute &middot; 52m</span>
       </div>
     </div>
   </section>

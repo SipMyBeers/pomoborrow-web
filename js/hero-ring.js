@@ -1,6 +1,6 @@
 /* ============================================
-   POMOBORROW — "In One Ear, Out the Other"
-   Three.js 3D Head + Particle Hero Animation
+   POMOBORROW — Cracked Hourglass Hero Animation
+   Three.js: Hourglass → Jar → Ring Timer
    ============================================ */
 
 (function () {
@@ -8,7 +8,6 @@
 
   var container = document.getElementById('hero-canvas');
   if (!container || typeof THREE === 'undefined') {
-    // WebGL not available — show fallback
     if (container) container.classList.add('no-webgl');
     return;
   }
@@ -17,500 +16,667 @@
   try {
     var testCanvas = document.createElement('canvas');
     var gl = testCanvas.getContext('webgl') || testCanvas.getContext('experimental-webgl');
-    if (!gl) {
-      container.classList.add('no-webgl');
-      return;
-    }
-  } catch (e) {
-    container.classList.add('no-webgl');
-    return;
-  }
+    if (!gl) { container.classList.add('no-webgl'); return; }
+  } catch (e) { container.classList.add('no-webgl'); return; }
 
   var width = container.clientWidth;
   var height = container.clientHeight;
 
   // Scene
   var scene = new THREE.Scene();
-
-  // Camera
   var camera = new THREE.PerspectiveCamera(50, width / height, 0.1, 100);
-  camera.position.set(0, 0, 8);
+  camera.position.set(0, 0, 10);
 
-  // Renderer
-  var renderer = new THREE.WebGLRenderer({
-    antialias: true,
-    alpha: true,
-  });
+  var renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
   renderer.setSize(width, height);
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
   renderer.setClearColor(0x000000, 0);
   container.appendChild(renderer.domElement);
 
   // ---- State ----
-  var phase = 'loss'; // 'loss' | 'capture' | 'reveal'
   var scrollProgress = 0;
-  var autoTimer = 0;
-  var autoPhaseTriggered = false;
 
-  // Ear positions (world space)
-  var leftEar = new THREE.Vector3(-1.3, 0.5, 0);
-  var rightEar = new THREE.Vector3(1.3, 0.5, 0);
+  // ---- HOURGLASS GROUP ----
+  var hourglassGroup = new THREE.Group();
+  scene.add(hourglassGroup);
 
-  // ---- Create Head ----
-  var headGroup = new THREE.Group();
-
-  var headMat = new THREE.MeshBasicMaterial({
-    color: 0x444444,
-    wireframe: true,
+  // Glass material — transparent, blue-tinted
+  var glassMat = new THREE.MeshBasicMaterial({
+    color: 0x4488cc,
     transparent: true,
-    opacity: 0.12,
+    opacity: 0.08,
+    wireframe: false,
+    side: THREE.DoubleSide,
   });
 
-  // Main skull
-  var headGeo = new THREE.SphereGeometry(1.5, 20, 14);
-  headGeo.scale(0.85, 1.0, 0.9);
-  var headMesh = new THREE.Mesh(headGeo, headMat);
-  headMesh.position.set(0, 0.3, 0);
-  headGroup.add(headMesh);
+  var glassWireMat = new THREE.MeshBasicMaterial({
+    color: 0x6699cc,
+    transparent: true,
+    opacity: 0.15,
+    wireframe: true,
+  });
 
-  // Jaw
-  var jawGeo = new THREE.SphereGeometry(1.0, 14, 10);
-  jawGeo.scale(0.7, 0.5, 0.75);
-  var jawMat = headMat.clone();
-  var jaw = new THREE.Mesh(jawGeo, jawMat);
-  jaw.position.set(0, -0.7, 0.2);
-  headMesh.add(jaw);
+  // Top chamber — frustum (wide top, narrow bottom)
+  var topGeo = new THREE.CylinderGeometry(1.6, 0.2, 2.8, 24, 1, true);
+  var topChamber = new THREE.Mesh(topGeo, glassMat);
+  var topWire = new THREE.Mesh(topGeo.clone(), glassWireMat);
+  topChamber.position.y = 1.8;
+  topWire.position.y = 1.8;
+  hourglassGroup.add(topChamber);
+  hourglassGroup.add(topWire);
 
-  // Nose
-  var noseGeo = new THREE.ConeGeometry(0.15, 0.6, 4);
-  var noseMat = headMat.clone();
-  var nose = new THREE.Mesh(noseGeo, noseMat);
-  nose.rotation.x = -Math.PI / 2;
-  nose.position.set(0, -0.1, 1.3);
-  headMesh.add(nose);
+  // Bottom chamber — frustum (narrow top, wide bottom)
+  var botGeo = new THREE.CylinderGeometry(0.2, 1.6, 2.8, 24, 1, true);
+  var botChamber = new THREE.Mesh(botGeo, glassMat);
+  var botWire = new THREE.Mesh(botGeo.clone(), glassWireMat);
+  botChamber.position.y = -1.8;
+  botWire.position.y = -1.8;
+  hourglassGroup.add(botChamber);
+  hourglassGroup.add(botWire);
 
-  // Ear indicators (small rings to show entry/exit points)
-  var earGeo = new THREE.TorusGeometry(0.15, 0.02, 8, 16);
-  var earMatL = new THREE.MeshBasicMaterial({ color: 0xEF4444, transparent: true, opacity: 0.3 });
-  var earLeft = new THREE.Mesh(earGeo, earMatL);
-  earLeft.position.copy(leftEar);
-  earLeft.position.y -= 0.1;
-  earLeft.rotation.y = Math.PI / 2;
-  headGroup.add(earLeft);
+  // Neck
+  var neckGeo = new THREE.CylinderGeometry(0.2, 0.2, 0.6, 16, 1, true);
+  var neck = new THREE.Mesh(neckGeo, glassMat);
+  var neckWire = new THREE.Mesh(neckGeo.clone(), glassWireMat);
+  hourglassGroup.add(neck);
+  hourglassGroup.add(neckWire);
 
-  var earMatR = new THREE.MeshBasicMaterial({ color: 0xEF4444, transparent: true, opacity: 0.3 });
-  var earRight = new THREE.Mesh(earGeo.clone(), earMatR);
-  earRight.position.copy(rightEar);
-  earRight.position.y -= 0.1;
-  earRight.rotation.y = Math.PI / 2;
-  headGroup.add(earRight);
+  // Top and bottom caps (rings)
+  var capGeo = new THREE.TorusGeometry(1.6, 0.06, 8, 32);
+  var capMat = new THREE.MeshBasicMaterial({ color: 0x8899aa, transparent: true, opacity: 0.3 });
+  var topCap = new THREE.Mesh(capGeo, capMat);
+  topCap.position.y = 3.2;
+  topCap.rotation.x = Math.PI / 2;
+  hourglassGroup.add(topCap);
+  var botCap = new THREE.Mesh(capGeo.clone(), capMat.clone());
+  botCap.position.y = -3.2;
+  botCap.rotation.x = Math.PI / 2;
+  hourglassGroup.add(botCap);
 
-  scene.add(headGroup);
+  // ---- CRACKS on bottom chamber ----
+  var crackGroup = new THREE.Group();
+  crackGroup.position.y = -1.8;
+  hourglassGroup.add(crackGroup);
 
-  // ---- Create Particle System ----
-  var particleCount = 350;
-  var positions = new Float32Array(particleCount * 3);
-  var colors = new Float32Array(particleCount * 3);
-  var sizes = new Float32Array(particleCount);
+  var crackMat = new THREE.LineBasicMaterial({ color: 0xff3333, transparent: true, opacity: 0.8 });
 
-  for (var i = 0; i < particleCount; i++) {
-    positions[i * 3] = -15; // off-screen
-    positions[i * 3 + 1] = 0;
-    positions[i * 3 + 2] = 0;
-    colors[i * 3] = 0.93;
-    colors[i * 3 + 1] = 0.27;
-    colors[i * 3 + 2] = 0.07;
-    sizes[i] = 3 + Math.random() * 4;
+  function makeCrack(points) {
+    var geo = new THREE.BufferGeometry().setFromPoints(points);
+    var line = new THREE.Line(geo, crackMat.clone());
+    crackGroup.add(line);
+    return line;
   }
 
-  var particleGeo = new THREE.BufferGeometry();
-  particleGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-  particleGeo.setAttribute('color', new THREE.BufferAttribute(colors, 3));
-  particleGeo.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
+  var cracks = [];
+  // Crack 1 — front-left
+  cracks.push(makeCrack([
+    new THREE.Vector3(-0.3, -0.5, 1.1),
+    new THREE.Vector3(-0.5, -0.9, 1.2),
+    new THREE.Vector3(-0.4, -1.2, 1.0),
+  ]));
+  // Crack 2 — front-right
+  cracks.push(makeCrack([
+    new THREE.Vector3(0.5, -0.3, 1.0),
+    new THREE.Vector3(0.7, -0.7, 1.15),
+    new THREE.Vector3(0.6, -1.0, 0.9),
+    new THREE.Vector3(0.8, -1.3, 1.0),
+  ]));
+  // Crack 3 — bottom center
+  cracks.push(makeCrack([
+    new THREE.Vector3(0.0, -1.0, 1.3),
+    new THREE.Vector3(0.15, -1.25, 1.2),
+    new THREE.Vector3(-0.1, -1.4, 1.1),
+  ]));
+  // Crack 4 — side
+  cracks.push(makeCrack([
+    new THREE.Vector3(-0.8, -0.7, 0.7),
+    new THREE.Vector3(-1.0, -1.0, 0.8),
+    new THREE.Vector3(-0.9, -1.3, 0.6),
+  ]));
 
-  var particleMat = new THREE.PointsMaterial({
-    size: 0.06,
+  // ---- SAND PARTICLES ----
+  var SAND_COUNT = 600;
+  var sandPositions = new Float32Array(SAND_COUNT * 3);
+  var sandColors = new Float32Array(SAND_COUNT * 3);
+
+  // Gold/amber sand color
+  var GOLD_R = 0.9, GOLD_G = 0.75, GOLD_B = 0.4;
+
+  for (var i = 0; i < SAND_COUNT; i++) {
+    sandPositions[i * 3] = -50;
+    sandPositions[i * 3 + 1] = -50;
+    sandPositions[i * 3 + 2] = 0;
+    sandColors[i * 3] = GOLD_R;
+    sandColors[i * 3 + 1] = GOLD_G;
+    sandColors[i * 3 + 2] = GOLD_B;
+  }
+
+  var sandGeo = new THREE.BufferGeometry();
+  sandGeo.setAttribute('position', new THREE.BufferAttribute(sandPositions, 3));
+  sandGeo.setAttribute('color', new THREE.BufferAttribute(sandColors, 3));
+
+  var sandMat = new THREE.PointsMaterial({
+    size: 0.045,
     vertexColors: true,
     transparent: true,
-    opacity: 0.85,
+    opacity: 0.9,
     blending: THREE.AdditiveBlending,
     sizeAttenuation: true,
     depthWrite: false,
   });
 
-  var particleSystem = new THREE.Points(particleGeo, particleMat);
-  scene.add(particleSystem);
+  var sandSystem = new THREE.Points(sandGeo, sandMat);
+  scene.add(sandSystem);
 
-  // Particle state tracking
-  var particleStates = [];
-  for (var j = 0; j < particleCount; j++) {
-    particleStates.push({
+  // Sand particle state
+  var sandStates = [];
+  for (var si = 0; si < SAND_COUNT; si++) {
+    sandStates.push({
       active: false,
-      phase: 'waiting', // waiting | entering | inside | exiting | captured | dead
-      velocity: { x: 0, y: 0, z: 0 },
+      phase: 'waiting', // waiting | top | falling | neck | bottom | leaking | caught | jarLayered | dead
+      vx: 0, vy: 0, vz: 0,
       life: 0,
-      maxLife: 120 + Math.random() * 80,
-      capturedColor: null,
-      orbitAngle: Math.random() * Math.PI * 2,
+      settled: false,
+      settleY: 0,
+      layerColor: null,
     });
   }
 
-  var nextSpawnTime = 0;
+  var spawnTimer = 0;
 
-  // Activity colors
-  var activityColors = [
-    [0.23, 0.51, 0.96], // Work blue
-    [0.98, 0.45, 0.09], // Gym orange
-    [0.06, 0.73, 0.51], // Leisure green
-    [0.55, 0.36, 0.96], // Commute purple
-    [0.98, 0.75, 0.14], // Lunch yellow
+  // Activity layer colors [r, g, b]
+  var layerColors = [
+    [0.118, 0.161, 0.373],  // Sleep dark blue
+    [0.231, 0.510, 0.965],  // Work blue
+    [0.976, 0.451, 0.086],  // Gym orange
+    [0.063, 0.725, 0.506],  // Leisure green
+    [0.545, 0.361, 0.965],  // Commute purple
   ];
 
-  function spawnParticle(idx) {
-    var state = particleStates[idx];
-    var pos = particleGeo.attributes.position.array;
-    var col = particleGeo.attributes.color.array;
-
-    pos[idx * 3] = leftEar.x - 3.5 + Math.random() * 0.4;
-    pos[idx * 3 + 1] = leftEar.y + (Math.random() - 0.5) * 0.6;
-    pos[idx * 3 + 2] = (Math.random() - 0.5) * 0.4;
-
-    // Reset to red/orange
-    col[idx * 3] = 0.85 + Math.random() * 0.15;
-    col[idx * 3 + 1] = 0.15 + Math.random() * 0.25;
-    col[idx * 3 + 2] = 0.03 + Math.random() * 0.05;
-
-    state.active = true;
-    state.phase = 'entering';
-    state.life = 0;
-    state.maxLife = 120 + Math.random() * 80;
-    state.capturedColor = null;
-    state.velocity.x = 0.035 + Math.random() * 0.02;
-    state.velocity.y = (Math.random() - 0.5) * 0.008;
-    state.velocity.z = (Math.random() - 0.5) * 0.008;
-    state.orbitAngle = Math.random() * Math.PI * 2;
+  function randomInChamber(yMin, yMax, radiusAtY) {
+    var y = yMin + Math.random() * (yMax - yMin);
+    var r = Math.random() * radiusAtY * 0.8;
+    var angle = Math.random() * Math.PI * 2;
+    return { x: Math.cos(angle) * r, y: y, z: Math.sin(angle) * r };
   }
 
-  function updateParticles() {
-    var pos = particleGeo.attributes.position.array;
-    var col = particleGeo.attributes.color.array;
+  // Radius of hourglass at a given y (local to hourglassGroup)
+  function chamberRadius(y) {
+    if (y > 0.4) {
+      // Top chamber: from y=0.4 (r=0.2) to y=3.2 (r=1.6)
+      var t = (y - 0.4) / 2.8;
+      return 0.2 + t * 1.4;
+    } else if (y < -0.4) {
+      // Bottom chamber: from y=-0.4 (r=0.2) to y=-3.2 (r=1.6)
+      var t2 = (-0.4 - y) / 2.8;
+      return 0.2 + t2 * 1.4;
+    }
+    return 0.2; // neck
+  }
+
+  function spawnSand(idx) {
+    var s = sandStates[idx];
+    var pos = sandGeo.attributes.position.array;
+    var col = sandGeo.attributes.color.array;
+
+    // Spawn at top of upper chamber
+    var r = Math.random() * 1.2;
+    var a = Math.random() * Math.PI * 2;
+    pos[idx * 3] = Math.cos(a) * r;
+    pos[idx * 3 + 1] = 2.5 + Math.random() * 0.5;
+    pos[idx * 3 + 2] = Math.sin(a) * r;
+
+    col[idx * 3] = GOLD_R + (Math.random() - 0.5) * 0.1;
+    col[idx * 3 + 1] = GOLD_G + (Math.random() - 0.5) * 0.1;
+    col[idx * 3 + 2] = GOLD_B + (Math.random() - 0.5) * 0.1;
+
+    s.active = true;
+    s.phase = 'top';
+    s.vx = 0;
+    s.vy = -0.008 - Math.random() * 0.005;
+    s.vz = 0;
+    s.life = 0;
+    s.settled = false;
+    s.layerColor = null;
+  }
+
+  // ---- JAR ----
+  var jarGroup = new THREE.Group();
+  jarGroup.position.set(8, -4.5, 0); // starts off-screen right
+  scene.add(jarGroup);
+
+  var jarGlassMat = new THREE.MeshBasicMaterial({
+    color: 0x4488cc,
+    transparent: true,
+    opacity: 0.07,
+    side: THREE.DoubleSide,
+  });
+  var jarWireMat = new THREE.MeshBasicMaterial({
+    color: 0x6699cc,
+    transparent: true,
+    opacity: 0.12,
+    wireframe: true,
+  });
+
+  // Jar body — cylinder with slightly wider bottom
+  var jarBodyGeo = new THREE.CylinderGeometry(1.0, 1.1, 2.8, 20, 1, true);
+  var jarBody = new THREE.Mesh(jarBodyGeo, jarGlassMat);
+  var jarBodyWire = new THREE.Mesh(jarBodyGeo.clone(), jarWireMat);
+  jarGroup.add(jarBody);
+  jarGroup.add(jarBodyWire);
+
+  // Jar bottom (closed)
+  var jarBotGeo = new THREE.CircleGeometry(1.1, 20);
+  var jarBot = new THREE.Mesh(jarBotGeo, jarGlassMat.clone());
+  jarBot.rotation.x = -Math.PI / 2;
+  jarBot.position.y = -1.4;
+  jarGroup.add(jarBot);
+
+  // Jar rim
+  var jarRimGeo = new THREE.TorusGeometry(1.0, 0.04, 8, 24);
+  var jarRim = new THREE.Mesh(jarRimGeo, new THREE.MeshBasicMaterial({ color: 0x8899aa, transparent: true, opacity: 0.3 }));
+  jarRim.rotation.x = Math.PI / 2;
+  jarRim.position.y = 1.4;
+  jarGroup.add(jarRim);
+
+  // ---- RING (PomoBorrow timer) ----
+  var ringGroup = new THREE.Group();
+  ringGroup.position.set(0, -4.5, 0);
+  ringGroup.scale.set(0.01, 0.01, 0.01);
+  scene.add(ringGroup);
+
+  // Build ring segments
+  var ringSegments = [];
+  var segColors = [0x1E293B, 0x3B82F6, 0xF97316, 0x10B981, 0x8B5CF6, 0xFBBF24];
+  var segAngles = [0.30, 0.18, 0.06, 0.16, 0.04, 0.04]; // proportions (sum ~0.78, rest is gaps)
+  var segStart = -Math.PI / 2; // start at 12 o'clock
+  var totalUsed = 0;
+  for (var rs = 0; rs < segColors.length; rs++) {
+    totalUsed += segAngles[rs];
+  }
+  // Normalize to 2PI with small gaps
+  var gapAngle = 0.03;
+  var totalGaps = segColors.length * gapAngle;
+  var scaleFactor = (Math.PI * 2 - totalGaps) / totalUsed;
+
+  var currentAngle = segStart;
+  for (var rsi = 0; rsi < segColors.length; rsi++) {
+    var arcLen = segAngles[rsi] * scaleFactor;
+    var sGeo = new THREE.TorusGeometry(2.0, 0.15, 12, Math.max(8, Math.floor(arcLen * 20)), arcLen);
+    var sMat = new THREE.MeshBasicMaterial({ color: segColors[rsi], transparent: true, opacity: 0.9 });
+    var sMesh = new THREE.Mesh(sGeo, sMat);
+    sMesh.rotation.z = currentAngle;
+    ringGroup.add(sMesh);
+    ringSegments.push(sMesh);
+    currentAngle += arcLen + gapAngle;
+  }
+
+  // Ring outer glow
+  var ringGlowGeo = new THREE.TorusGeometry(2.0, 0.3, 12, 48);
+  var ringGlowMat = new THREE.MeshBasicMaterial({ color: 0x3B82F6, transparent: true, opacity: 0, blending: THREE.AdditiveBlending });
+  var ringGlowMesh = new THREE.Mesh(ringGlowGeo, ringGlowMat);
+  ringGroup.add(ringGlowMesh);
+
+  // Needle
+  var needleGeo = new THREE.BufferGeometry().setFromPoints([
+    new THREE.Vector3(0, 1.7, 0),
+    new THREE.Vector3(0, 2.3, 0),
+  ]);
+  var needleMat = new THREE.LineBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.9 });
+  var needle = new THREE.Line(needleGeo, needleMat);
+  ringGroup.add(needle);
+
+  // Center dot
+  var centerGeo = new THREE.CircleGeometry(0.08, 16);
+  var centerMat = new THREE.MeshBasicMaterial({ color: 0xffffff });
+  var centerDot = new THREE.Mesh(centerGeo, centerMat);
+  ringGroup.add(centerDot);
+
+  // ---- ANIMATION VARIABLES ----
+  var jarTargetX = 8;
+  var jarSlideProgress = 0;
+  var hourglassOpacity = 1;
+  var hourglassTilt = 0;
+  var additionalCracksShown = 0;
+  var ringRevealProgress = 0;
+
+  // ---- UPDATE SAND ----
+  function updateSand() {
+    var pos = sandGeo.attributes.position.array;
+    var col = sandGeo.attributes.color.array;
     var now = performance.now();
 
-    // Spawn particles
-    if (now > nextSpawnTime) {
+    // Spawn rate depends on scroll phase
+    var spawnRate = 60;
+    if (scrollProgress > 0.25) spawnRate = 30; // faster in act 2
+
+    if (now > spawnTimer) {
       var spawned = 0;
-      for (var i = 0; i < particleCount && spawned < 2; i++) {
-        if (!particleStates[i].active) {
-          spawnParticle(i);
+      var maxSpawn = scrollProgress > 0.25 ? 3 : 2;
+      for (var i = 0; i < SAND_COUNT && spawned < maxSpawn; i++) {
+        if (!sandStates[i].active) {
+          spawnSand(i);
           spawned++;
         }
       }
-      nextSpawnTime = now + 40 + Math.random() * 60;
+      spawnTimer = now + spawnRate + Math.random() * 40;
     }
 
-    for (var p = 0; p < particleCount; p++) {
-      var state = particleStates[p];
-      if (!state.active) continue;
+    // Jar world position
+    var jarWorldY = jarGroup.position.y;
+    var jarWorldX = jarGroup.position.x;
+    var jarCatching = scrollProgress >= 0.50;
 
-      state.life++;
+    // How many sand settled in jar layers
+    var jarFillLevel = 0;
+    for (var jf = 0; jf < SAND_COUNT; jf++) {
+      if (sandStates[jf].phase === 'jarLayered') jarFillLevel++;
+    }
+
+    for (var p = 0; p < SAND_COUNT; p++) {
+      var s = sandStates[p];
+      if (!s.active) continue;
+      s.life++;
+
       var x = pos[p * 3];
       var y = pos[p * 3 + 1];
       var z = pos[p * 3 + 2];
 
-      switch (state.phase) {
-        case 'entering':
-          pos[p * 3] += state.velocity.x;
-          pos[p * 3 + 1] += state.velocity.y + (Math.random() - 0.5) * 0.003;
-          pos[p * 3 + 2] += state.velocity.z + (Math.random() - 0.5) * 0.003;
+      switch (s.phase) {
+        case 'top':
+          // Fall within top chamber
+          s.vy -= 0.0003; // gravity
+          pos[p * 3] += s.vx;
+          pos[p * 3 + 1] += s.vy;
+          pos[p * 3 + 2] += s.vz;
 
-          // Converge toward the left ear
-          var dyL = leftEar.y - y;
-          pos[p * 3 + 1] += dyL * 0.01;
+          // Constrain to chamber walls
+          var dist = Math.sqrt(x * x + z * z);
+          var maxR = chamberRadius(y) * 0.9;
+          if (dist > maxR && maxR > 0) {
+            var scale = maxR / dist;
+            pos[p * 3] *= scale;
+            pos[p * 3 + 2] *= scale;
+          }
 
-          if (x > leftEar.x - 0.3) {
-            state.phase = 'inside';
-            state.velocity.x = 0.012 + Math.random() * 0.015;
-            state.velocity.y = (Math.random() - 0.5) * 0.015;
-            state.velocity.z = (Math.random() - 0.5) * 0.02;
+          // Converge toward neck
+          if (y < 1.5) {
+            pos[p * 3] *= 0.97;
+            pos[p * 3 + 2] *= 0.97;
+          }
+
+          // Enter neck
+          if (y < 0.4) {
+            s.phase = 'neck';
+            s.vx = 0;
+            s.vz = 0;
+            s.vy = -0.015 - Math.random() * 0.005;
           }
           break;
 
-        case 'inside':
-          // Chaotic swirl inside the head
-          pos[p * 3] += state.velocity.x;
-          pos[p * 3 + 1] += state.velocity.y + Math.sin(state.life * 0.08 + p) * 0.004;
-          pos[p * 3 + 2] += state.velocity.z + Math.cos(state.life * 0.08 + p) * 0.004;
+        case 'neck':
+          pos[p * 3 + 1] += s.vy;
+          // Tight stream
+          pos[p * 3] *= 0.9;
+          pos[p * 3 + 2] *= 0.9;
 
-          // Slight turbulence
-          state.velocity.y += (Math.random() - 0.5) * 0.002;
-          state.velocity.z += (Math.random() - 0.5) * 0.002;
-
-          // Dampen z to keep in a disc
-          state.velocity.z *= 0.98;
-
-          // Keep roughly within head bounds
-          if (Math.abs(y - 0.3) > 1.2) {
-            state.velocity.y *= -0.5;
-          }
-          if (Math.abs(z) > 1.0) {
-            state.velocity.z *= -0.5;
-          }
-
-          if (x > rightEar.x - 0.3) {
-            state.phase = 'exiting';
-            state.velocity.x = 0.03 + Math.random() * 0.02;
-          }
-          break;
-
-        case 'exiting':
-          if (phase === 'capture' || phase === 'reveal') {
-            state.phase = 'captured';
-            state.capturedColor = activityColors[Math.floor(Math.random() * activityColors.length)];
-            state.life = 0;
-            state.maxLife = 200 + Math.random() * 150;
-          } else {
-            // Dissolve — the LOSS
-            pos[p * 3] += state.velocity.x;
-            pos[p * 3 + 1] += (Math.random() - 0.5) * 0.015;
-            pos[p * 3 + 2] += (Math.random() - 0.5) * 0.01;
-
-            // Fade color toward dark
-            col[p * 3] *= 0.975;
-            col[p * 3 + 1] *= 0.97;
-            col[p * 3 + 2] *= 0.97;
-
-            if (x > 6 || state.life > state.maxLife) {
-              resetParticle(p);
+          if (y < -0.4) {
+            // Decide: leak or settle
+            var leakChance = 0.35 + scrollProgress * 0.3; // more leaking as we scroll
+            if (Math.random() < leakChance) {
+              s.phase = 'leaking';
+              s.vy = -0.012 - Math.random() * 0.008;
+              s.vx = (Math.random() - 0.5) * 0.01;
+              s.vz = (Math.random() - 0.5) * 0.01;
+            } else {
+              s.phase = 'bottom';
+              s.vy = -0.01;
+              s.vx = (Math.random() - 0.5) * 0.005;
+              s.vz = (Math.random() - 0.5) * 0.005;
             }
           }
           break;
 
-        case 'captured':
-          // Pull toward ring position
-          var ringTarget = ring.position;
-          var dxR = ringTarget.x - x;
-          var dyR = ringTarget.y - y;
-          var dzR = ringTarget.z - z;
-          var dist = Math.sqrt(dxR * dxR + dyR * dyR + dzR * dzR);
+        case 'bottom':
+          // Fall and settle in bottom chamber
+          s.vy -= 0.0002;
+          pos[p * 3] += s.vx;
+          pos[p * 3 + 1] += s.vy;
+          pos[p * 3 + 2] += s.vz;
 
-          if (dist > 0.4) {
-            pos[p * 3] += dxR * 0.06;
-            pos[p * 3 + 1] += dyR * 0.06;
-            pos[p * 3 + 2] += dzR * 0.06;
-          } else {
-            // Orbit the ring
-            state.orbitAngle += 0.02 + Math.random() * 0.01;
-            var orbitR = 1.8 + Math.sin(state.orbitAngle * 3) * 0.2;
-            pos[p * 3] = ringTarget.x + Math.cos(state.orbitAngle) * 0.15;
-            pos[p * 3 + 1] = ringTarget.y + Math.sin(state.orbitAngle) * orbitR * 0.08;
-            pos[p * 3 + 2] = Math.cos(state.orbitAngle) * orbitR;
+          // Constrain to bottom chamber
+          var distB = Math.sqrt(x * x + z * z);
+          var maxRB = chamberRadius(y) * 0.85;
+          if (distB > maxRB && maxRB > 0) {
+            var scaleB = maxRB / distB;
+            pos[p * 3] *= scaleB;
+            pos[p * 3 + 2] *= scaleB;
           }
 
-          // Color transition
-          if (state.capturedColor) {
-            col[p * 3] += (state.capturedColor[0] - col[p * 3]) * 0.06;
-            col[p * 3 + 1] += (state.capturedColor[1] - col[p * 3 + 1]) * 0.06;
-            col[p * 3 + 2] += (state.capturedColor[2] - col[p * 3 + 2]) * 0.06;
+          // Settle at bottom
+          if (y < -2.8 || s.life > 200) {
+            s.settled = true;
+            s.settleY = Math.max(y, -3.0);
+            pos[p * 3 + 1] = s.settleY;
+            s.vx = 0; s.vy = 0; s.vz = 0;
+            // Eventually recycle
+            if (s.life > 400) {
+              resetSand(p);
+            }
+          }
+          break;
+
+        case 'leaking':
+          // Sand falling through cracks
+          s.vy -= 0.0004;
+          pos[p * 3] += s.vx;
+          pos[p * 3 + 1] += s.vy;
+          pos[p * 3 + 2] += s.vz;
+
+          // Below the hourglass
+          if (y < -3.5) {
+            if (jarCatching && Math.abs(x - jarWorldX) < 1.2) {
+              // Caught by jar!
+              s.phase = 'caught';
+              s.vy = -0.005;
+              // Assign a layer color based on fill level
+              var layerIdx = Math.floor((jarFillLevel / 30)) % layerColors.length;
+              s.layerColor = layerColors[layerIdx];
+            } else {
+              // Dissolve into void
+              col[p * 3] *= 0.96;
+              col[p * 3 + 1] *= 0.95;
+              col[p * 3 + 2] *= 0.94;
+
+              if (y < -7 || s.life > 300) {
+                resetSand(p);
+              }
+            }
+          }
+          break;
+
+        case 'caught':
+          // Fall into jar, then settle as layer
+          pos[p * 3 + 1] += s.vy;
+
+          // Pull toward jar center x
+          pos[p * 3] += (jarWorldX - x) * 0.05;
+          pos[p * 3 + 2] *= 0.95;
+
+          // Settle in jar
+          var jarBottomY = jarWorldY - 1.2;
+          if (y < jarBottomY + (jarFillLevel * 0.005)) {
+            s.phase = 'jarLayered';
+            pos[p * 3 + 1] = jarBottomY + Math.random() * Math.min(jarFillLevel * 0.005, 2.4);
+            s.vy = 0;
+
+            // Spread within jar radius
+            var jr = Math.random() * 0.9;
+            var ja = Math.random() * Math.PI * 2;
+            pos[p * 3] = jarWorldX + Math.cos(ja) * jr;
+            pos[p * 3 + 2] = Math.sin(ja) * jr;
           }
 
-          if (state.life > state.maxLife) {
-            resetParticle(p);
+          // Transition color to layer color
+          if (s.layerColor) {
+            col[p * 3] += (s.layerColor[0] - col[p * 3]) * 0.08;
+            col[p * 3 + 1] += (s.layerColor[1] - col[p * 3 + 1]) * 0.08;
+            col[p * 3 + 2] += (s.layerColor[2] - col[p * 3 + 2]) * 0.08;
+          }
+          break;
+
+        case 'jarLayered':
+          // Stay put, but color keeps transitioning
+          if (s.layerColor) {
+            col[p * 3] += (s.layerColor[0] - col[p * 3]) * 0.04;
+            col[p * 3 + 1] += (s.layerColor[1] - col[p * 3 + 1]) * 0.04;
+            col[p * 3 + 2] += (s.layerColor[2] - col[p * 3 + 2]) * 0.04;
+          }
+
+          // In act 4, pull toward ring position
+          if (scrollProgress > 0.78) {
+            var ringX = ringGroup.position.x;
+            var ringY = ringGroup.position.y;
+            var pullStrength = (scrollProgress - 0.78) / 0.22;
+            pullStrength = Math.min(1, pullStrength) * 0.03;
+
+            // Pull toward ring orbit
+            var angle = Math.atan2(y - ringY, x - ringX) + 0.02;
+            var targetR = 2.0 * ringGroup.scale.x;
+            var tgtX = ringX + Math.cos(angle) * targetR;
+            var tgtY = ringY + Math.sin(angle) * targetR;
+
+            pos[p * 3] += (tgtX - x) * pullStrength;
+            pos[p * 3 + 1] += (tgtY - y) * pullStrength;
+            pos[p * 3 + 2] *= (1 - pullStrength);
+          }
+
+          if (s.life > 800) {
+            resetSand(p);
           }
           break;
       }
     }
 
-    particleGeo.attributes.position.needsUpdate = true;
-    particleGeo.attributes.color.needsUpdate = true;
+    sandGeo.attributes.position.needsUpdate = true;
+    sandGeo.attributes.color.needsUpdate = true;
   }
 
-  function resetParticle(idx) {
-    var state = particleStates[idx];
-    var pos = particleGeo.attributes.position.array;
-    var col = particleGeo.attributes.color.array;
-
-    state.active = false;
-    state.phase = 'waiting';
-    pos[idx * 3] = -15;
-    pos[idx * 3 + 1] = 0;
+  function resetSand(idx) {
+    var s = sandStates[idx];
+    var pos = sandGeo.attributes.position.array;
+    var col = sandGeo.attributes.color.array;
+    s.active = false;
+    s.phase = 'waiting';
+    s.life = 0;
+    s.settled = false;
+    pos[idx * 3] = -50;
+    pos[idx * 3 + 1] = -50;
     pos[idx * 3 + 2] = 0;
-    col[idx * 3] = 0.85 + Math.random() * 0.15;
-    col[idx * 3 + 1] = 0.15 + Math.random() * 0.25;
-    col[idx * 3 + 2] = 0.03 + Math.random() * 0.05;
+    col[idx * 3] = GOLD_R;
+    col[idx * 3 + 1] = GOLD_G;
+    col[idx * 3 + 2] = GOLD_B;
   }
 
-  // ---- Create Ring ----
-  var ringGeo = new THREE.TorusGeometry(1.8, 0.1, 16, 64);
-  var ringMat = new THREE.MeshBasicMaterial({
-    color: 0x3B82F6,
-    transparent: true,
-    opacity: 0,
-  });
-  var ring = new THREE.Mesh(ringGeo, ringMat);
-  ring.position.set(rightEar.x + 0.5, rightEar.y, 0);
-  ring.rotation.y = Math.PI / 2;
-  ring.scale.set(0.01, 0.01, 0.01);
-  scene.add(ring);
-
-  // Ring glow
-  var glowGeo = new THREE.TorusGeometry(1.8, 0.25, 16, 64);
-  var glowMat = new THREE.MeshBasicMaterial({
-    color: 0x3B82F6,
-    transparent: true,
-    opacity: 0,
-    blending: THREE.AdditiveBlending,
-  });
-  var ringGlow = new THREE.Mesh(glowGeo, glowMat);
-  ringGlow.position.copy(ring.position);
-  ringGlow.rotation.copy(ring.rotation);
-  ringGlow.scale.set(0.01, 0.01, 0.01);
-  scene.add(ringGlow);
-
-  // Ring colored segments (arcs that fill in during capture)
-  var segmentGroup = new THREE.Group();
-  segmentGroup.position.copy(ring.position);
-  segmentGroup.rotation.copy(ring.rotation);
-  segmentGroup.scale.set(0.01, 0.01, 0.01);
-  scene.add(segmentGroup);
-
-  var segmentColors = [0x3B82F6, 0xF97316, 0x10B981, 0x8B5CF6, 0xFBBF24];
-  var segmentArcs = [];
-  var segmentFillProgress = 0;
-
-  function buildSegmentArcs() {
-    // Remove old
-    while (segmentGroup.children.length > 0) {
-      segmentGroup.remove(segmentGroup.children[0]);
-    }
-    segmentArcs = [];
-
-    var anglePerSeg = (Math.PI * 2) / segmentColors.length;
-    for (var s = 0; s < segmentColors.length; s++) {
-      var arcAngle = anglePerSeg * Math.min(1, segmentFillProgress - s);
-      if (arcAngle <= 0) continue;
-      arcAngle = Math.min(arcAngle, anglePerSeg - 0.02);
-
-      var segGeo = new THREE.TorusGeometry(1.8, 0.13, 12, Math.max(4, Math.floor(arcAngle * 16)), arcAngle);
-      var segMat = new THREE.MeshBasicMaterial({
-        color: segmentColors[s],
-        transparent: true,
-        opacity: 0.9,
-      });
-      var segMesh = new THREE.Mesh(segGeo, segMat);
-      segMesh.rotation.z = s * anglePerSeg;
-      segmentGroup.add(segMesh);
-      segmentArcs.push(segMesh);
-    }
-  }
-
-  // ---- Phase control ----
-  function setPhase(newPhase) {
-    if (newPhase === phase) return;
-    phase = newPhase;
-
-    if (phase === 'capture') {
-      earMatR.color.setHex(0x3B82F6);
-      earMatR.opacity = 0.6;
-    }
-  }
-
-  // ---- Animation loop ----
-  var headBaseOpacity = 0.12;
-  var ringTargetScale = 0;
-  var ringTargetOpacity = 0;
-  var ringTargetX = rightEar.x + 0.5;
-  var ringTargetRotY = Math.PI / 2;
-
+  // ---- ANIMATE ----
   function animate() {
     requestAnimationFrame(animate);
+    var t = performance.now();
 
-    // Auto-phase trigger (if no scrolling happens for 5s)
-    if (!autoPhaseTriggered) {
-      autoTimer += 16.67; // approximate frame time
-      if (autoTimer > 5000) {
-        setPhase('capture');
-      }
-      if (autoTimer > 10000) {
-        setPhase('reveal');
-        autoPhaseTriggered = true;
+    // ---- ACT 1 (0-0.25): Hourglass pouring, sand leaking ----
+    // ---- ACT 2 (0.25-0.50): More cracks, tilt, faster leak ----
+    // ---- ACT 3 (0.50-0.75): Jar slides in, catches sand ----
+    // ---- ACT 4 (0.75-1.00): Jar → ring transformation ----
+
+    // Hourglass gentle sway
+    hourglassGroup.rotation.y = Math.sin(t * 0.0003) * 0.06;
+
+    // Act 2: tilt hourglass slightly
+    var targetTilt = 0;
+    if (scrollProgress > 0.25 && scrollProgress < 0.75) {
+      targetTilt = Math.min((scrollProgress - 0.25) * 0.2, 0.08);
+    }
+    hourglassTilt += (targetTilt - hourglassTilt) * 0.02;
+    hourglassGroup.rotation.z = hourglassTilt;
+
+    // Crack glow pulsation
+    var pulseVal = 0.5 + Math.sin(t * 0.004) * 0.3;
+    for (var ci = 0; ci < cracks.length; ci++) {
+      cracks[ci].material.opacity = pulseVal;
+      // Show more cracks in act 2
+      if (ci < 2) {
+        cracks[ci].visible = true;
+      } else {
+        cracks[ci].visible = scrollProgress > 0.20;
       }
     }
 
-    // Head rotation — gentle sway
-    headGroup.rotation.y = Math.sin(performance.now() * 0.00025) * 0.08;
+    // Hourglass opacity (fade out in act 4)
+    var targetHgOpacity = 1;
+    if (scrollProgress > 0.75) {
+      targetHgOpacity = Math.max(0, 1 - (scrollProgress - 0.75) / 0.15);
+    }
+    hourglassOpacity += (targetHgOpacity - hourglassOpacity) * 0.03;
+    glassMat.opacity = 0.08 * hourglassOpacity;
+    glassWireMat.opacity = 0.15 * hourglassOpacity;
+    capMat.opacity = 0.3 * hourglassOpacity;
+    crackMat.opacity = pulseVal * hourglassOpacity;
+    topCap.material.opacity = 0.3 * hourglassOpacity;
+    botCap.material.opacity = 0.3 * hourglassOpacity;
 
-    // Update phase-based targets
-    if (phase === 'loss') {
-      ringTargetScale = 0.01;
-      ringTargetOpacity = 0;
-      headBaseOpacity = 0.12;
-      ringTargetX = rightEar.x + 0.5;
-      ringTargetRotY = Math.PI / 2;
-    } else if (phase === 'capture') {
-      ringTargetScale = 0.7;
-      ringTargetOpacity = 0.85;
-      headBaseOpacity = 0.1;
-      ringTargetX = rightEar.x + 0.5;
-      ringTargetRotY = Math.PI / 2;
-
-      // Fill segments over time
-      if (segmentFillProgress < segmentColors.length) {
-        segmentFillProgress += 0.008;
-        buildSegmentArcs();
+    // ---- JAR SLIDE ----
+    if (scrollProgress >= 0.45) {
+      var slideT = Math.min(1, (scrollProgress - 0.45) / 0.12);
+      // Ease out with slight bounce
+      var eased = slideT < 1 ? 1 - Math.pow(1 - slideT, 3) : 1;
+      // Bounce
+      if (slideT > 0.85 && slideT < 1) {
+        eased += Math.sin((slideT - 0.85) / 0.15 * Math.PI) * 0.03;
       }
-    } else if (phase === 'reveal') {
-      ringTargetScale = 1.3;
-      ringTargetOpacity = 1;
-      headBaseOpacity = 0;
-      ringTargetX = 0;
-      ringTargetRotY = 0;
+      jarTargetX = 8 - eased * 8; // from 8 to 0
+    } else {
+      jarTargetX = 8;
+    }
+    jarGroup.position.x += (jarTargetX - jarGroup.position.x) * 0.06;
 
-      // Continue filling
-      if (segmentFillProgress < segmentColors.length) {
-        segmentFillProgress += 0.015;
-        buildSegmentArcs();
-      }
+    // Jar opacity
+    var jarOpacity = scrollProgress >= 0.45 ? Math.min(1, (scrollProgress - 0.45) / 0.1) : 0;
+    // Fade jar in act 4
+    if (scrollProgress > 0.80) {
+      jarOpacity *= Math.max(0, 1 - (scrollProgress - 0.80) / 0.12);
+    }
+    jarGlassMat.opacity = 0.07 * jarOpacity;
+    jarWireMat.opacity = 0.12 * jarOpacity;
+    jarRim.material.opacity = 0.3 * jarOpacity;
+    jarBot.material.opacity = 0.07 * jarOpacity;
+
+    // ---- RING REVEAL ----
+    if (scrollProgress > 0.72) {
+      ringRevealProgress = Math.min(1, (scrollProgress - 0.72) / 0.25);
+    } else {
+      ringRevealProgress = 0;
     }
 
-    // Animate ring
-    var lerpSpeed = 0.025;
-    var s = ring.scale.x;
-    var ns = s + (ringTargetScale - s) * lerpSpeed;
-    ring.scale.set(ns, ns, ns);
-    ringGlow.scale.set(ns, ns, ns);
-    segmentGroup.scale.set(ns, ns, ns);
+    var ringScale = ringRevealProgress * 1.2;
+    ringGroup.scale.set(ringScale, ringScale, ringScale);
+    ringGroup.position.y = -4.5 + ringRevealProgress * 4.5; // rise to center
+    ringGroup.rotation.z = (1 - ringRevealProgress) * Math.PI * 0.5; // rotation in
 
-    ring.material.opacity += (ringTargetOpacity - ring.material.opacity) * lerpSpeed;
-    ringGlow.material.opacity += (Math.min(ringTargetOpacity * 0.25, 0.2) - ringGlow.material.opacity) * lerpSpeed;
+    // Ring glow
+    ringGlowMat.opacity = ringRevealProgress * 0.15;
 
-    ring.position.x += (ringTargetX - ring.position.x) * 0.015;
-    ringGlow.position.x = ring.position.x;
-    segmentGroup.position.x = ring.position.x;
+    // Needle rotation
+    needle.rotation.z = t * 0.001;
 
-    ring.rotation.y += (ringTargetRotY - ring.rotation.y) * 0.015;
-    ringGlow.rotation.y = ring.rotation.y;
-    segmentGroup.rotation.y = ring.rotation.y;
-
-    // Animate head opacity
-    headMat.opacity += (headBaseOpacity - headMat.opacity) * 0.02;
-    jawMat.opacity = headMat.opacity;
-    noseMat.opacity = headMat.opacity;
-
-    // Ear glow pulse
-    var pulse = 0.3 + Math.sin(performance.now() * 0.003) * 0.1;
-    earMatL.opacity = pulse;
-    if (phase === 'loss') {
-      earMatR.opacity = pulse;
-    }
-
-    updateParticles();
+    // Update sand particles
+    updateSand();
 
     renderer.render(scene, camera);
   }
 
   animate();
 
-  // ---- Resize ----
+  // ---- RESIZE ----
   function onResize() {
     width = container.clientWidth;
     height = container.clientHeight;
@@ -519,19 +685,12 @@
     camera.updateProjectionMatrix();
     renderer.setSize(width, height);
   }
-
   window.addEventListener('resize', onResize);
 
-  // ---- Expose for scroll engine ----
+  // ---- EXPOSE FOR SCROLL ENGINE ----
   window.heroAnimation = {
-    setPhase: setPhase,
-    scrollProgress: 0,
-    resetAutoTimer: function () {
-      autoPhaseTriggered = true; // Scroll controls phases now
-    },
-    getPhase: function () {
-      return phase;
-    },
+    setProgress: function (p) { scrollProgress = p; },
+    getProgress: function () { return scrollProgress; },
   };
 
 })();

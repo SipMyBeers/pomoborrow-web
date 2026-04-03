@@ -257,10 +257,10 @@ section {
   box-shadow: 0 0 20px var(--accent-glow);
 }
 
-/* ---- SECTION 1: HERO — "In One Ear, Out the Other" ---- */
+/* ---- SECTION 1: HERO — Cracked Hourglass ---- */
 .hero {
   position: relative;
-  height: 300vh; /* Tall for scroll-driven animation */
+  height: 400vh; /* 4 acts of scrolling */
   overflow: visible;
 }
 
@@ -284,26 +284,46 @@ section {
               linear-gradient(180deg, #000 0%, #0a0a0a 100%);
 }
 
-.hero-content {
-  position: relative;
-  z-index: 2;
-  text-align: center;
-  max-width: 800px;
-  pointer-events: none;
-}
-
-.hero-counter {
+/* Hero text overlays */
+.hero-text {
   position: fixed;
-  bottom: 10vh;
+  bottom: 12vh;
   left: 50%;
   transform: translateX(-50%);
-  z-index: 10;
   text-align: center;
+  z-index: 10;
   transition: opacity 0.6s ease;
+  pointer-events: none;
+  width: 90%;
+  max-width: 600px;
+}
+
+.hero-text h1 {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 700;
+  letter-spacing: -1px;
+  margin-bottom: 12px;
+}
+
+.hero-text p {
+  font-size: 1.1rem;
+  color: #888;
+  line-height: 1.6;
+}
+
+.text-leak { color: #EF4444; }
+.text-catch { color: #3B82F6; }
+.text-gold { color: #D4A843; }
+.text-red { color: var(--red); }
+.text-blue { color: var(--accent); }
+
+.hero-counter {
+  margin-top: 1.5rem;
+  text-align: center;
 }
 
 .counter-value {
-  font-size: clamp(3rem, 6vw, 4.5rem);
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
   font-weight: 200;
   color: var(--red);
   font-variant-numeric: tabular-nums;
@@ -319,30 +339,40 @@ section {
   margin-top: 0.5rem;
 }
 
-/* Hero text overlays */
-.hero-text {
+/* Ring dissection labels */
+.ring-dissection {
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  text-align: center;
-  z-index: 10;
   pointer-events: none;
-  transition: opacity 0.6s ease;
-  max-width: 700px;
-  width: 90%;
+  opacity: 0;
+  transition: opacity 0.8s ease;
+  z-index: 10;
 }
 
-.hero-text h1 {
-  margin-bottom: 1.25rem;
+.dissection-label {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  color: #aaa;
+  white-space: nowrap;
 }
 
-.hero-text p {
-  font-size: clamp(1rem, 1.5vw, 1.2rem);
-  line-height: 1.7;
-  color: var(--text-secondary);
-  max-width: 520px;
-  margin: 0 auto;
+.dissection-label .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.dissection-label .line {
+  width: 60px;
+  height: 1px;
+  background: rgba(255,255,255,0.1);
+  flex-shrink: 0;
 }
 
 .badge {
@@ -364,9 +394,6 @@ section {
   border-color: rgba(59, 130, 246, 0.25);
   background: rgba(59, 130, 246, 0.06);
 }
-
-.text-red { color: var(--red); }
-.text-blue { color: var(--accent); }
 
 .btn-glow {
   box-shadow: 0 0 30px var(--accent-glow), 0 0 60px rgba(59, 130, 246, 0.15);
@@ -444,7 +471,7 @@ section {
 }
 
 /* Hero text reveal states */
-.hero-text-reveal .hero-ctas {
+#text-act4 .hero-ctas {
   pointer-events: auto;
 }
 
@@ -1267,16 +1294,17 @@ section {
   }
 
   .hero {
-    height: 250vh; /* Slightly shorter on mobile */
+    height: 350vh; /* Slightly shorter on mobile */
   }
 
   .hero-text {
     width: 92%;
     padding: 0 1rem;
+    bottom: 8vh;
   }
 
-  .hero-counter {
-    bottom: 8vh;
+  .ring-dissection {
+    display: none; /* Too cramped on mobile */
   }
 
   .container, .container-narrow {

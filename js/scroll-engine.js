@@ -6,7 +6,6 @@
   'use strict';
 
   if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
-    // Fallback: use IntersectionObserver for reveals
     initFallbackReveals();
     initHeroScroll();
     return;
@@ -35,14 +34,6 @@
       }
     );
   });
-
-  // ---- Hero entrance (text overlays) ----
-  var heroLoss = document.getElementById('hero-loss');
-  if (heroLoss) {
-    gsap.from('#hero-loss .badge', { opacity: 0, y: 20, duration: 0.6, delay: 0.3, ease: 'power2.out' });
-    gsap.from('#hero-loss h1', { opacity: 0, y: 30, duration: 0.8, delay: 0.5, ease: 'power2.out' });
-    gsap.from('#hero-loss p', { opacity: 0, y: 20, duration: 0.6, delay: 0.7, ease: 'power2.out' });
-  }
 
   // ---- Problem section: timer mockup dissolve ----
   var timerMockup = document.querySelector('.timer-mockup');
@@ -114,6 +105,7 @@
   // ---- Privacy counters animation ----
   gsap.utils.toArray('.counter-number').forEach(function (counter) {
     var target = parseInt(counter.dataset.target, 10);
+    if (isNaN(target)) return;
     var obj = { val: 0 };
 
     gsap.to(obj, {
@@ -194,16 +186,25 @@
     },
   });
 
-  // ---- Hero scroll handler ----
+  // ---- Hero scroll handler (4-act hourglass) ----
   function initHeroScroll() {
     var heroSection = document.getElementById('hero');
     if (!heroSection) return;
 
-    var heroLoss = document.getElementById('hero-loss');
-    var heroCapture = document.getElementById('hero-capture');
-    var heroReveal = document.getElementById('hero-reveal');
-    var lostCounter = document.getElementById('lost-counter');
-    var heroCounter = document.querySelector('.hero-counter');
+    var textAct1 = document.getElementById('text-act1');
+    var textAct2 = document.getElementById('text-act2');
+    var textAct3 = document.getElementById('text-act3');
+    var textAct4 = document.getElementById('text-act4');
+    var hoursCounter = document.getElementById('hours-counter');
+    var heroCounter = textAct1 ? textAct1.querySelector('.hero-counter') : null;
+    var ringDissection = document.getElementById('ring-dissection');
+
+    // Entrance animation for Act 1
+    if (textAct1 && typeof gsap !== 'undefined') {
+      gsap.from('#text-act1 h1', { opacity: 0, y: 30, duration: 0.8, delay: 0.4, ease: 'power2.out' });
+      gsap.from('#text-act1 p', { opacity: 0, y: 20, duration: 0.6, delay: 0.6, ease: 'power2.out' });
+      gsap.from('#text-act1 .hero-counter', { opacity: 0, y: 20, duration: 0.6, delay: 0.8, ease: 'power2.out' });
+    }
 
     window.addEventListener('scroll', function () {
       var rect = heroSection.getBoundingClientRect();
@@ -213,63 +214,68 @@
 
       // Hide all fixed hero elements once past the hero section
       var pastHero = rect.bottom < 0;
-      var allHeroFixed = [heroLoss, heroCapture, heroReveal, heroCounter];
+      var allHeroFixed = [textAct1, textAct2, textAct3, textAct4, ringDissection];
       allHeroFixed.forEach(function (el) {
         if (el) el.style.display = pastHero ? 'none' : '';
       });
 
       if (pastHero) return;
 
+      // Pass progress to Three.js
       if (window.heroAnimation) {
-        window.heroAnimation.scrollProgress = progress;
+        window.heroAnimation.setProgress(progress);
+      }
 
-        // If user is scrolling, take over from auto-timer
-        if (progress > 0.02) {
-          window.heroAnimation.resetAutoTimer();
+      // ---- ACT 1: 0.00 - 0.25 ----
+      if (progress < 0.25) {
+        if (textAct1) textAct1.style.opacity = 1;
+        if (textAct2) textAct2.style.opacity = 0;
+        if (textAct3) textAct3.style.opacity = 0;
+        if (textAct4) { textAct4.style.opacity = 0; textAct4.style.pointerEvents = 'none'; }
+        if (ringDissection) ringDissection.style.opacity = 0;
+
+        // Counter ticks up
+        if (hoursCounter) {
+          var hours = Math.floor((progress / 0.25) * 4231);
+          hoursCounter.textContent = hours.toLocaleString();
+        }
+      }
+      // ---- ACT 2: 0.25 - 0.50 ----
+      else if (progress < 0.50) {
+        var fadeIn2 = Math.min(1, (progress - 0.25) / 0.08);
+        if (textAct1) textAct1.style.opacity = 1 - fadeIn2;
+        if (textAct2) textAct2.style.opacity = fadeIn2;
+        if (textAct3) textAct3.style.opacity = 0;
+        if (textAct4) { textAct4.style.opacity = 0; textAct4.style.pointerEvents = 'none'; }
+        if (ringDissection) ringDissection.style.opacity = 0;
+
+        if (hoursCounter) hoursCounter.textContent = '4,231';
+        if (heroCounter) heroCounter.style.opacity = Math.max(0, 1 - fadeIn2 * 2);
+      }
+      // ---- ACT 3: 0.50 - 0.75 ----
+      else if (progress < 0.75) {
+        var fadeIn3 = Math.min(1, (progress - 0.50) / 0.08);
+        if (textAct1) textAct1.style.opacity = 0;
+        if (textAct2) textAct2.style.opacity = 1 - fadeIn3;
+        if (textAct3) textAct3.style.opacity = fadeIn3;
+        if (textAct4) { textAct4.style.opacity = 0; textAct4.style.pointerEvents = 'none'; }
+        if (ringDissection) ringDissection.style.opacity = 0;
+      }
+      // ---- ACT 4: 0.75 - 1.00 ----
+      else {
+        var fadeIn4 = Math.min(1, (progress - 0.75) / 0.10);
+        if (textAct1) textAct1.style.opacity = 0;
+        if (textAct2) textAct2.style.opacity = 0;
+        if (textAct3) textAct3.style.opacity = 1 - fadeIn4;
+        if (textAct4) {
+          textAct4.style.opacity = fadeIn4;
+          textAct4.style.pointerEvents = fadeIn4 > 0.5 ? 'auto' : 'none';
         }
 
-        if (progress < 0.3) {
-          window.heroAnimation.setPhase('loss');
-
-          if (heroLoss) heroLoss.style.opacity = 1;
-          if (heroCapture) heroCapture.style.opacity = 0;
-          if (heroReveal) heroReveal.style.opacity = 0;
-
-          // Counter ticks up
-          if (lostCounter) {
-            var hours = (progress / 0.3 * 14.2).toFixed(1);
-            lostCounter.textContent = hours;
-          }
-          if (heroCounter) heroCounter.style.opacity = 1;
-
-        } else if (progress < 0.6) {
-          window.heroAnimation.setPhase('capture');
-
-          // Crossfade: loss out, capture in
-          var captureFade = (progress - 0.3) / 0.1; // 0-1 over the transition zone
-          captureFade = Math.max(0, Math.min(1, captureFade));
-
-          if (heroLoss) heroLoss.style.opacity = 1 - captureFade;
-          if (heroCapture) heroCapture.style.opacity = captureFade;
-          if (heroReveal) heroReveal.style.opacity = 0;
-
-          if (lostCounter) lostCounter.textContent = '14.2';
-          if (heroCounter) heroCounter.style.opacity = Math.max(0, 1 - captureFade * 2);
-
-        } else {
-          window.heroAnimation.setPhase('reveal');
-
-          // Crossfade: capture out, reveal in
-          var revealFade = (progress - 0.6) / 0.1;
-          revealFade = Math.max(0, Math.min(1, revealFade));
-
-          if (heroLoss) heroLoss.style.opacity = 0;
-          if (heroCapture) heroCapture.style.opacity = 1 - revealFade;
-          if (heroReveal) {
-            heroReveal.style.opacity = revealFade;
-            heroReveal.style.pointerEvents = revealFade > 0.5 ? 'auto' : 'none';
-          }
-          if (heroCounter) heroCounter.style.opacity = 0;
+        // Dissection labels
+        if (ringDissection) {
+          var dissectionFade = Math.min(1, Math.max(0, (progress - 0.88) / 0.08));
+          ringDissection.style.opacity = dissectionFade;
         }
       }
     });
