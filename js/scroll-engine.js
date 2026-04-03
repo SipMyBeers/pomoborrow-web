@@ -8,10 +8,14 @@
   if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
     // Fallback: use IntersectionObserver for reveals
     initFallbackReveals();
+    initHeroScroll();
     return;
   }
 
   gsap.registerPlugin(ScrollTrigger);
+
+  // ---- Hero scroll-driven phases ----
+  initHeroScroll();
 
   // ---- Global reveal animations ----
   var revealEls = document.querySelectorAll('.reveal');
@@ -32,34 +36,13 @@
     );
   });
 
-  // ---- Hero entrance ----
-  var heroContent = document.querySelector('.hero-content');
-  if (heroContent) {
-    gsap.from('.hero-badge', { opacity: 0, y: 20, duration: 0.6, delay: 0.2, ease: 'power2.out' });
-    gsap.from('.hero h1', { opacity: 0, y: 30, duration: 0.8, delay: 0.4, ease: 'power2.out' });
-    gsap.from('.hero-sub', { opacity: 0, y: 20, duration: 0.6, delay: 0.6, ease: 'power2.out' });
-    gsap.from('.hero-ctas', { opacity: 0, y: 20, duration: 0.6, delay: 0.8, ease: 'power2.out' });
+  // ---- Hero entrance (text overlays) ----
+  var heroLoss = document.getElementById('hero-loss');
+  if (heroLoss) {
+    gsap.from('#hero-loss .badge', { opacity: 0, y: 20, duration: 0.6, delay: 0.3, ease: 'power2.out' });
+    gsap.from('#hero-loss h1', { opacity: 0, y: 30, duration: 0.8, delay: 0.5, ease: 'power2.out' });
+    gsap.from('#hero-loss p', { opacity: 0, y: 20, duration: 0.6, delay: 0.7, ease: 'power2.out' });
   }
-
-  // ---- Floating stats ----
-  gsap.utils.toArray('.hero-stat').forEach(function (stat, i) {
-    gsap.from(stat, {
-      opacity: 0,
-      scale: 0.8,
-      duration: 0.5,
-      delay: 1 + i * 0.2,
-      ease: 'back.out(1.7)',
-    });
-
-    // Floating animation
-    gsap.to(stat, {
-      y: '+=8',
-      duration: 2 + i * 0.5,
-      repeat: -1,
-      yoyo: true,
-      ease: 'sine.inOut',
-    });
-  });
 
   // ---- Problem section: timer mockup dissolve ----
   var timerMockup = document.querySelector('.timer-mockup');
@@ -210,6 +193,87 @@
       }
     },
   });
+
+  // ---- Hero scroll handler ----
+  function initHeroScroll() {
+    var heroSection = document.getElementById('hero');
+    if (!heroSection) return;
+
+    var heroLoss = document.getElementById('hero-loss');
+    var heroCapture = document.getElementById('hero-capture');
+    var heroReveal = document.getElementById('hero-reveal');
+    var lostCounter = document.getElementById('lost-counter');
+    var heroCounter = document.querySelector('.hero-counter');
+
+    window.addEventListener('scroll', function () {
+      var rect = heroSection.getBoundingClientRect();
+      var totalScroll = heroSection.offsetHeight - window.innerHeight;
+      if (totalScroll <= 0) return;
+      var progress = Math.max(0, Math.min(1, -rect.top / totalScroll));
+
+      // Hide all fixed hero elements once past the hero section
+      var pastHero = rect.bottom < 0;
+      var allHeroFixed = [heroLoss, heroCapture, heroReveal, heroCounter];
+      allHeroFixed.forEach(function (el) {
+        if (el) el.style.display = pastHero ? 'none' : '';
+      });
+
+      if (pastHero) return;
+
+      if (window.heroAnimation) {
+        window.heroAnimation.scrollProgress = progress;
+
+        // If user is scrolling, take over from auto-timer
+        if (progress > 0.02) {
+          window.heroAnimation.resetAutoTimer();
+        }
+
+        if (progress < 0.3) {
+          window.heroAnimation.setPhase('loss');
+
+          if (heroLoss) heroLoss.style.opacity = 1;
+          if (heroCapture) heroCapture.style.opacity = 0;
+          if (heroReveal) heroReveal.style.opacity = 0;
+
+          // Counter ticks up
+          if (lostCounter) {
+            var hours = (progress / 0.3 * 14.2).toFixed(1);
+            lostCounter.textContent = hours;
+          }
+          if (heroCounter) heroCounter.style.opacity = 1;
+
+        } else if (progress < 0.6) {
+          window.heroAnimation.setPhase('capture');
+
+          // Crossfade: loss out, capture in
+          var captureFade = (progress - 0.3) / 0.1; // 0-1 over the transition zone
+          captureFade = Math.max(0, Math.min(1, captureFade));
+
+          if (heroLoss) heroLoss.style.opacity = 1 - captureFade;
+          if (heroCapture) heroCapture.style.opacity = captureFade;
+          if (heroReveal) heroReveal.style.opacity = 0;
+
+          if (lostCounter) lostCounter.textContent = '14.2';
+          if (heroCounter) heroCounter.style.opacity = Math.max(0, 1 - captureFade * 2);
+
+        } else {
+          window.heroAnimation.setPhase('reveal');
+
+          // Crossfade: capture out, reveal in
+          var revealFade = (progress - 0.6) / 0.1;
+          revealFade = Math.max(0, Math.min(1, revealFade));
+
+          if (heroLoss) heroLoss.style.opacity = 0;
+          if (heroCapture) heroCapture.style.opacity = 1 - revealFade;
+          if (heroReveal) {
+            heroReveal.style.opacity = revealFade;
+            heroReveal.style.pointerEvents = revealFade > 0.5 ? 'auto' : 'none';
+          }
+          if (heroCounter) heroCounter.style.opacity = 0;
+        }
+      }
+    });
+  }
 
   // ---- Fallback for no GSAP ----
   function initFallbackReveals() {

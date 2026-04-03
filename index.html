@@ -30,46 +30,35 @@
     </div>
   </nav>
 
-  <!-- ============ SECTION 1: HERO ============ -->
-  <section class="hero grid-bg">
-    <div class="hero-canvas-wrap">
-      <canvas id="hero-canvas"></canvas>
-    </div>
+  <!-- ============ SECTION 1: HERO — "In One Ear, Out the Other" ============ -->
+  <section class="hero" id="hero">
+    <div class="hero-canvas" id="hero-canvas"></div>
 
     <div class="hero-content">
-      <div class="hero-badge">
-        <span class="pulse-dot"></span>
-        PRODUCTIVITY ON AUTOPILOT
-      </div>
-
-      <h1>Stop tracking.<br>Start living.</h1>
-
-      <p class="hero-sub">
-        PomoBorrow runs in the background, learning your day automatically.
-        No timers to start. No categories to pick. Just live &mdash; it handles the rest.
-      </p>
-
-      <div class="hero-ctas">
-        <a href="#waitlist" class="btn-primary">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 0 1 10 10c0 5.52-4.48 10-10 10S2 17.52 2 12"/><path d="M12 6v6l4 2"/></svg>
-          Download for iOS
-        </a>
-        <a href="#demo" class="btn-ghost">Watch Demo &darr;</a>
+      <div class="hero-counter">
+        <span class="counter-value" id="lost-counter">0</span>
+        <span class="counter-label">hours lost today</span>
       </div>
     </div>
 
-    <div class="hero-stats">
-      <div class="hero-stat hero-stat-1">
-        <span class="stat-dot"></span>
-        5 sensor vectors
-      </div>
-      <div class="hero-stat hero-stat-2">
-        <span class="stat-dot"></span>
-        &lt; 5% battery
-      </div>
-      <div class="hero-stat hero-stat-3">
-        <span class="stat-dot"></span>
-        100% on-device
+    <!-- Text overlays that appear/change with scroll -->
+    <div class="hero-text hero-text-loss" id="hero-loss">
+      <span class="badge">IN ONE EAR, OUT THE OTHER</span>
+      <h1>Your time is<br><span class="text-red">vanishing.</span></h1>
+      <p>Every moment. Every task. Every transition. Flowing through your day untracked, unremembered, gone.</p>
+    </div>
+
+    <div class="hero-text hero-text-capture" id="hero-capture" style="opacity:0">
+      <span class="badge badge-blue">INTRODUCING POMOBORROW</span>
+      <h1>Now it gets<br><span class="text-blue">captured.</span></h1>
+      <p>PomoBorrow catches what you'd forget. Every activity, automatically detected and logged.</p>
+    </div>
+
+    <div class="hero-text hero-text-reveal" id="hero-reveal" style="opacity:0; pointer-events:none;">
+      <h1>Stop losing your day.<br><span class="text-gradient">Start owning it.</span></h1>
+      <div class="hero-ctas">
+        <a href="#waitlist" class="btn-primary btn-glow">Download for iOS</a>
+        <a href="#demo" class="btn-ghost">See it in action &darr;</a>
       </div>
     </div>
   </section>

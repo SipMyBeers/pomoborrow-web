@@ -257,28 +257,31 @@ section {
   box-shadow: 0 0 20px var(--accent-glow);
 }
 
-/* ---- SECTION 1: HERO ---- */
+/* ---- SECTION 1: HERO — "In One Ear, Out the Other" ---- */
 .hero {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
   position: relative;
-  overflow: hidden;
-  padding: 6rem 2rem 4rem;
+  height: 300vh; /* Tall for scroll-driven animation */
+  overflow: visible;
 }
 
-.hero-canvas-wrap {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
+.hero-canvas {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 1;
 }
 
-#hero-canvas {
+.hero-canvas canvas {
+  display: block;
   width: 100%;
   height: 100%;
-  display: block;
+}
+
+/* WebGL fallback */
+.hero-canvas.no-webgl {
+  background: radial-gradient(ellipse at center, rgba(59, 130, 246, 0.1) 0%, transparent 60%),
+              linear-gradient(180deg, #000 0%, #0a0a0a 100%);
 }
 
 .hero-content {
@@ -286,49 +289,87 @@ section {
   z-index: 2;
   text-align: center;
   max-width: 800px;
+  pointer-events: none;
 }
 
-.hero-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
+.hero-counter {
+  position: fixed;
+  bottom: 10vh;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  text-align: center;
+  transition: opacity 0.6s ease;
+}
+
+.counter-value {
+  font-size: clamp(3rem, 6vw, 4.5rem);
+  font-weight: 200;
+  color: var(--red);
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+.hero .counter-label {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-top: 0.5rem;
+}
+
+/* Hero text overlays */
+.hero-text {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  z-index: 10;
+  pointer-events: none;
+  transition: opacity 0.6s ease;
+  max-width: 700px;
+  width: 90%;
+}
+
+.hero-text h1 {
+  margin-bottom: 1.25rem;
+}
+
+.hero-text p {
+  font-size: clamp(1rem, 1.5vw, 1.2rem);
+  line-height: 1.7;
+  color: var(--text-secondary);
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+.badge {
+  display: inline-block;
   font-size: 0.6875rem;
   font-weight: 600;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--accent);
-  padding: 0.5rem 1rem;
+  color: var(--red);
+  padding: 0.5rem 1.25rem;
   border-radius: 9999px;
-  border: 1px solid rgba(59, 130, 246, 0.2);
-  background: rgba(59, 130, 246, 0.05);
-  margin-bottom: 2rem;
-}
-
-.hero-badge .pulse-dot {
-  width: 6px;
-  height: 6px;
-  background: var(--accent);
-  border-radius: 50%;
-  animation: pulse 2s ease-in-out infinite;
-}
-
-@keyframes pulse {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.5; transform: scale(1.5); }
-}
-
-.hero h1 {
+  border: 1px solid rgba(239, 68, 68, 0.25);
+  background: rgba(239, 68, 68, 0.06);
   margin-bottom: 1.5rem;
 }
 
-.hero h1 br { display: block; }
+.badge-blue {
+  color: var(--accent);
+  border-color: rgba(59, 130, 246, 0.25);
+  background: rgba(59, 130, 246, 0.06);
+}
 
-.hero-sub {
-  font-size: clamp(1rem, 1.5vw, 1.2rem);
-  line-height: 1.7;
-  color: var(--text-secondary);
-  max-width: 580px;
-  margin: 0 auto 2.5rem;
+.text-red { color: var(--red); }
+.text-blue { color: var(--accent); }
+
+.btn-glow {
+  box-shadow: 0 0 30px var(--accent-glow), 0 0 60px rgba(59, 130, 246, 0.15);
 }
 
 .hero-ctas {
@@ -337,6 +378,13 @@ section {
   justify-content: center;
   gap: 1rem;
   flex-wrap: wrap;
+  margin-top: 2rem;
+  pointer-events: auto;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.5); }
 }
 
 .btn-primary {
@@ -395,36 +443,10 @@ section {
   background: rgba(255, 255, 255, 0.03);
 }
 
-/* Floating stats */
-.hero-stats {
-  position: absolute;
-  z-index: 2;
-  pointer-events: none;
+/* Hero text reveal states */
+.hero-text-reveal .hero-ctas {
+  pointer-events: auto;
 }
-
-.hero-stat {
-  position: absolute;
-  font-size: 0.75rem;
-  font-weight: 500;
-  color: var(--muted);
-  white-space: nowrap;
-  opacity: 0.6;
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-}
-
-.hero-stat .stat-dot {
-  width: 4px;
-  height: 4px;
-  border-radius: 50%;
-  background: var(--accent);
-  box-shadow: 0 0 8px var(--accent-glow);
-}
-
-.hero-stat-1 { top: 30%; left: 8%; }
-.hero-stat-2 { top: 55%; right: 8%; }
-.hero-stat-3 { bottom: 25%; left: 12%; }
 
 /* ---- SECTION 2: THE PROBLEM ---- */
 .problem {
@@ -1244,12 +1266,17 @@ section {
     gap: 3rem;
   }
 
-  .hero-stats {
-    display: none;
+  .hero {
+    height: 250vh; /* Slightly shorter on mobile */
   }
 
-  .hero {
-    padding: 5rem 1.5rem 3rem;
+  .hero-text {
+    width: 92%;
+    padding: 0 1rem;
+  }
+
+  .hero-counter {
+    bottom: 8vh;
   }
 
   .container, .container-narrow {
