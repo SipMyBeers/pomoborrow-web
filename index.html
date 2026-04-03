@@ -3,483 +3,274 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PomoBorrow — Productivity on Autopilot</title>
-  <meta name="description" content="PomoBorrow runs in the background, learning your day automatically. No timers to start. No categories to pick. Just live.">
+  <title>PomoBorrow — Know Where Your Time Goes</title>
+  <meta name="description" content="PomoBorrow runs silently in the background. No timers. No buttons. No input. It learns your day automatically.">
   <meta name="theme-color" content="#000000">
-  <meta property="og:title" content="PomoBorrow — Stop tracking. Start living.">
-  <meta property="og:description" content="A background activity tracker that learns your day automatically. 100% on-device. Zero cloud calls.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://pomoborrow.com">
-  <link rel="canonical" href="https://pomoborrow.com">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='40' fill='none' stroke='%233B82F6' stroke-width='8'/><circle cx='50' cy='50' r='28' fill='none' stroke='%238B5CF6' stroke-width='4' stroke-dasharray='30 20'/></svg>">
+  <link rel="icon" href="img/hourglass.png" type="image/png">
   <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* Critical inline CSS for instant first paint */
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{background:#000;color:#fff;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;line-height:1.6;overflow-x:hidden}
+    .opening{height:100vh;display:flex;align-items:center;justify-content:center}
+  </style>
 </head>
 <body>
 
-  <!-- ============ NAVIGATION ============ -->
-  <nav class="nav">
-    <a href="/" class="nav-logo">
-      <span class="logo-ring"></span>
-      PomoBorrow
-    </a>
-    <div class="nav-links">
-      <a href="#demo">Demo</a>
-      <a href="#privacy">Privacy</a>
-      <a href="#how-it-works">How It Works</a>
-      <a href="#waitlist" class="nav-cta">Join Waitlist</a>
+  <!-- ============================================ -->
+  <!-- OPENING: THE QUESTION                        -->
+  <!-- ============================================ -->
+  <section class="opening" id="opening">
+    <div class="opening-content">
+      <h1 class="typewriter" id="typewriter">What were you doing at 2pm last Tuesday?</h1>
+      <p class="opening-follow" id="opening-follow">If you don't know — that's exactly the problem.</p>
+      <div class="scroll-indicator" id="scroll-indicator">
+        <span class="scroll-arrow">&#8595;</span>
+      </div>
     </div>
-  </nav>
+  </section>
 
-  <!-- ============ SECTION 1: HERO — Cracked Hourglass ============ -->
+  <!-- ============================================ -->
+  <!-- HERO: THE HOURGLASS                          -->
+  <!-- ============================================ -->
   <section class="hero" id="hero">
-    <div class="hero-canvas" id="hero-canvas"></div>
-
-    <!-- Act 1: The Quote -->
-    <div class="hero-text" id="text-act1">
-      <p class="hero-quote-lead">Imagine someone gave you</p>
-      <h1><span class="text-gold">$86,400</span></h1>
-      <p class="hero-quote-lead">every single day.</p>
-      <p class="hero-quote-sub">But whatever you didn't spend &mdash; disappeared at midnight.</p>
-      <p class="hero-quote-sub" style="margin-top:8px">Would you use every dollar?</p>
-    </div>
-
-    <!-- Act 2: The Realization -->
-    <div class="hero-text" id="text-act2" style="opacity:0">
-      <p class="hero-quote-lead">You already get</p>
-      <h1><span class="counter-value" id="hours-counter">86,400</span></h1>
-      <p class="hero-quote-lead"><span class="text-leak">seconds.</span> Every day.</p>
-      <p class="hero-quote-sub">Your commutes. Your deep work. Your workouts. Your rest.<br>All of it &mdash; flowing through you, untracked, forgotten.</p>
-    </div>
-
-    <!-- Act 3: The Jar -->
-    <div class="hero-text" id="text-act3" style="opacity:0">
-      <h1>So let's see if you <span class="text-catch">would.</span></h1>
-      <p class="hero-quote-sub">What if every grain of sand was captured, organized, and remembered for you?</p>
-    </div>
-
-    <!-- Act 4: The Reveal -->
-    <div class="hero-text" id="text-act4" style="opacity:0; pointer-events:none;">
-      <h1>PomoBorrow.</h1>
-      <p>86,400 seconds. Every one of them, yours.</p>
-      <div class="hero-ctas" style="margin-top:24px; pointer-events:all">
-        <a href="#waitlist" class="btn-primary btn-glow">Download for iOS</a>
-        <a href="#demo" class="btn-ghost">See how it works &darr;</a>
+    <div class="hero-inner">
+      <div class="hourglass-container">
+        <img src="img/hourglass.png" alt="Hourglass with sand leaking through cracks" class="hourglass-img" id="hourglass-img" loading="eager">
       </div>
-    </div>
-
-    <!-- Ring dissection labels (appear in Act 4) -->
-    <div class="ring-dissection" id="ring-dissection">
-      <div class="dissection-label" style="top:-80px; left:40px">
-        <span class="dot" style="background:#1E293B"></span>
-        <span class="line"></span>
-        <span>Sleep &middot; 7h 23m</span>
-      </div>
-      <div class="dissection-label" style="top:-20px; right:-180px">
-        <span>Deep Work &middot; 4h 12m</span>
-        <span class="line"></span>
-        <span class="dot" style="background:#3B82F6"></span>
-      </div>
-      <div class="dissection-label" style="bottom:-20px; right:-160px">
-        <span>Exercise &middot; 1h 30m</span>
-        <span class="line"></span>
-        <span class="dot" style="background:#F97316"></span>
-      </div>
-      <div class="dissection-label" style="bottom:-80px; left:40px">
-        <span class="dot" style="background:#10B981"></span>
-        <span class="line"></span>
-        <span>Leisure &middot; 3h 45m</span>
-      </div>
-      <div class="dissection-label" style="top:50%; left:-180px">
-        <span class="dot" style="background:#8B5CF6"></span>
-        <span class="line"></span>
-        <span>Commute &middot; 52m</span>
+      <div class="hero-text reveal">
+        <blockquote class="hero-quote">
+          <p>Imagine someone handed you <strong>$86,400</strong> every morning.</p>
+          <p>Whatever you didn't use — <em>gone at midnight.</em></p>
+          <p>You'd spend every cent.</p>
+        </blockquote>
+        <blockquote class="hero-quote hero-quote-second reveal">
+          <p>You get <strong class="gradient-text">86,400 seconds</strong> every day.</p>
+          <p>But you let most of them leak through.</p>
+        </blockquote>
       </div>
     </div>
   </section>
 
-  <!-- ============ SECTION 2: THE PROBLEM ============ -->
-  <section class="problem">
+  <!-- ============================================ -->
+  <!-- THE REALITY                                  -->
+  <!-- ============================================ -->
+  <section class="reality" id="reality">
     <div class="container">
-      <div class="problem-grid">
-        <div class="problem-text">
-          <p class="eyebrow reveal">THE PROBLEM</p>
-          <h2 class="reveal">Every productivity app needs you to be productive... about being productive.</h2>
-          <p class="body-lg reveal" style="margin-top: 1.5rem;">
-            Start a timer. Pick a category. Remember to stop it. Switch when you change tasks.
-            Review at the end of the day. Repeat forever. It's exhausting &mdash; and it defeats the purpose.
-          </p>
-          <div class="stat-callout reveal">
-            <div class="stat-number">80%</div>
-            <div class="stat-label">of people abandon manual time tracking within 30 days.</div>
-          </div>
+      <h2 class="section-title reveal">The Reality</h2>
+      <div class="reality-grid">
+        <div class="reality-col reveal">
+          <h3 class="reality-label reality-label--think">What you think</h3>
+          <ul class="reality-list">
+            <li><span class="reality-quote">"I worked 8 hours"</span></li>
+            <li><span class="reality-quote">"Hit the gym for an hour"</span></li>
+            <li><span class="reality-quote">"Relaxed in the evening"</span></li>
+          </ul>
         </div>
-
-        <div class="reveal">
-          <div class="timer-mockup">
-            <div class="mockup-header">
-              <span class="mockup-title">TimerApp Pro</span>
-              <div class="mockup-dots">
-                <span></span><span></span><span></span>
-              </div>
-            </div>
-            <div class="mockup-timer-display">00:42:17</div>
-            <div class="mockup-controls">
-              <span class="mockup-btn">Start</span>
-              <span class="mockup-btn">Pause</span>
-              <span class="mockup-btn">Stop</span>
-              <span class="mockup-btn">Reset</span>
-              <span class="mockup-btn">Switch</span>
-            </div>
-            <div style="margin-top: 1.25rem; display: flex; flex-direction: column; gap: 0.5rem;">
-              <div class="mockup-row">
-                <span class="mockup-btn">Category:</span>
-                <span class="mockup-select">Deep Work &darr;</span>
-              </div>
-              <div class="mockup-row">
-                <span class="mockup-btn">Project:</span>
-                <span class="mockup-select">Select project &darr;</span>
-              </div>
-              <div class="mockup-row">
-                <span class="mockup-btn">Client:</span>
-                <span class="mockup-select">Select client &darr;</span>
-              </div>
-              <div class="mockup-row">
-                <span class="mockup-btn">Tags:</span>
-                <span class="mockup-select">Add tags... &darr;</span>
-              </div>
-              <div class="mockup-row">
-                <span class="mockup-btn">Notes:</span>
-                <span class="mockup-select">Add description...</span>
-              </div>
-              <div class="mockup-row">
-                <span class="mockup-btn">Billable?</span>
-                <span class="mockup-select">Yes / No</span>
-              </div>
-            </div>
-          </div>
+        <div class="reality-divider reveal"></div>
+        <div class="reality-col reveal">
+          <h3 class="reality-label reality-label--actual">What actually happened</h3>
+          <ul class="reality-list reality-list--actual">
+            <li>
+              <span class="reality-stat">4h 12m</span> deep work,
+              <span class="reality-stat">2h 31m</span> meetings,
+              <span class="reality-stat">1h 17m</span> scrolling
+              <span class="reality-aside">= "8 hours of work"</span>
+            </li>
+            <li>
+              <span class="reality-stat">47 minutes</span> at the gym,
+              <span class="reality-stat">13 minutes</span> on your phone between sets
+            </li>
+            <li>
+              <span class="reality-stat">3h 22m</span> Netflix,
+              <span class="reality-stat">1h 45m</span> doomscrolling,
+              <span class="reality-stat">12 minutes</span> actually relaxing
+            </li>
+          </ul>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ============ SECTION 3: THE SOLUTION ============ -->
-  <section class="solution" id="how-it-works">
+  <!-- ============================================ -->
+  <!-- THE SOLUTION                                 -->
+  <!-- ============================================ -->
+  <section class="solution" id="solution">
     <div class="container">
-      <div class="section-header">
-        <p class="eyebrow reveal">THE SOLUTION</p>
-        <h2 class="reveal">What if your phone already knew?</h2>
+      <h2 class="section-title reveal"><span class="gradient-text">What if your phone already knew?</span></h2>
+
+      <div class="ring-wrapper reveal">
+        <svg class="day-ring" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+          <!-- Background track -->
+          <circle cx="100" cy="100" r="80" fill="none" stroke="#1a1a1a" stroke-width="24"/>
+          <!-- Sleep: 11pm-6:30am = 7.5h = 31.25% -->
+          <circle class="ring-segment" data-category="sleep" cx="100" cy="100" r="80" stroke="#1E293B" stroke-width="24" stroke-dasharray="157.08 345.58" stroke-dashoffset="0" transform="rotate(-90 100 100)"/>
+          <!-- Commute morning: 6:30-7am = 0.5h = 2.08% -->
+          <circle class="ring-segment" data-category="commute" cx="100" cy="100" r="80" stroke="#8B5CF6" stroke-width="24" stroke-dasharray="10.47 492.19" stroke-dashoffset="-157.08" transform="rotate(-90 100 100)"/>
+          <!-- Work block 1: 7am-12pm = 5h = 20.83% -->
+          <circle class="ring-segment" data-category="work" cx="100" cy="100" r="80" stroke="#3B82F6" stroke-width="24" stroke-dasharray="104.72 397.93" stroke-dashoffset="-167.55" transform="rotate(-90 100 100)"/>
+          <!-- Lunch: 12-12:45pm = 0.75h = 3.125% -->
+          <circle class="ring-segment" data-category="eating" cx="100" cy="100" r="80" stroke="#EAB308" stroke-width="24" stroke-dasharray="15.71 486.95" stroke-dashoffset="-272.27" transform="rotate(-90 100 100)"/>
+          <!-- Work block 2: 12:45-5pm = 4.25h = 17.7% -->
+          <circle class="ring-segment" data-category="work2" cx="100" cy="100" r="80" stroke="#3B82F6" stroke-width="24" stroke-dasharray="89.01 413.65" stroke-dashoffset="-287.98" transform="rotate(-90 100 100)"/>
+          <!-- Gym: 5-6pm = 1h = 4.17% -->
+          <circle class="ring-segment" data-category="gym" cx="100" cy="100" r="80" stroke="#F97316" stroke-width="24" stroke-dasharray="20.94 481.71" stroke-dashoffset="-376.99" transform="rotate(-90 100 100)"/>
+          <!-- Leisure: 6-11pm = 5h = 20.83% -->
+          <circle class="ring-segment" data-category="leisure" cx="100" cy="100" r="80" stroke="#10B981" stroke-width="24" stroke-dasharray="104.72 397.93" stroke-dashoffset="-397.93" transform="rotate(-90 100 100)"/>
+        </svg>
+        <div class="ring-legend">
+          <span class="ring-legend-item"><span class="legend-dot" style="background:#3B82F6"></span>Work</span>
+          <span class="ring-legend-item"><span class="legend-dot" style="background:#F97316"></span>Gym</span>
+          <span class="ring-legend-item"><span class="legend-dot" style="background:#10B981"></span>Leisure</span>
+          <span class="ring-legend-item"><span class="legend-dot" style="background:#1E293B;border:1px solid #333"></span>Sleep</span>
+          <span class="ring-legend-item"><span class="legend-dot" style="background:#8B5CF6"></span>Commute</span>
+          <span class="ring-legend-item"><span class="legend-dot" style="background:#EAB308"></span>Eating</span>
+        </div>
       </div>
 
-      <div class="sensor-cards">
-        <div class="sensor-card">
-          <div class="sensor-icon">&#x1F4CD;</div>
-          <div>
-            <h3>It knows where you are</h3>
-            <p>Arrived at the gym? ACE detects the location shift and labels your time as Workout. No check-in required.</p>
-          </div>
-        </div>
+      <p class="solution-desc reveal">PomoBorrow runs silently in the background. No timers. No buttons. No input. It learns where you are, how you move, what you hear — and builds your day automatically.</p>
 
-        <div class="sensor-card">
-          <div class="sensor-icon">&#x1F3C3;</div>
-          <div>
-            <h3>It knows how you move</h3>
-            <p>Driving to work? Walking to lunch? The motion sensor tracks it without GPS polling. Battery-friendly by design.</p>
-          </div>
-        </div>
-
-        <div class="sensor-card">
-          <div class="sensor-icon">&#x1F4E1;</div>
-          <div>
-            <h3>It knows your devices</h3>
-            <p>Your office has a printer and a Mac. The gym has Bluetooth speakers. ACE fingerprints each space by the devices around you.</p>
-          </div>
-        </div>
-
-        <div class="sensor-card">
-          <div class="sensor-icon">&#x1F3B5;</div>
-          <div>
-            <h3>It knows what you hear</h3>
-            <p>Gym playlist pumping? Keyboard clicking? Ambient sound classification confirms what you're doing without recording anything.</p>
-          </div>
-        </div>
-
-        <div class="sensor-card">
-          <div class="sensor-icon">&#x1F550;</div>
-          <div>
-            <h3>It knows your patterns</h3>
-            <p>Tuesday at 6pm, you're always at the gym. After 2 weeks, ACE predicts before you arrive. It learns you.</p>
-          </div>
-        </div>
+      <div class="sensors reveal">
+        <div class="sensor-item"><span class="sensor-icon">&#128205;</span><span class="sensor-label">Location</span></div>
+        <div class="sensor-item"><span class="sensor-icon">&#127939;</span><span class="sensor-label">Motion</span></div>
+        <div class="sensor-item"><span class="sensor-icon">&#128225;</span><span class="sensor-label">Devices</span></div>
+        <div class="sensor-item"><span class="sensor-icon">&#127925;</span><span class="sensor-label">Sound</span></div>
+        <div class="sensor-item"><span class="sensor-icon">&#128336;</span><span class="sensor-label">Patterns</span></div>
       </div>
     </div>
   </section>
 
-  <!-- ============ SECTION 4: INTERACTIVE DEMO ============ -->
+  <!-- ============================================ -->
+  <!-- INTERACTIVE DEMO                             -->
+  <!-- ============================================ -->
   <section class="demo" id="demo">
     <div class="container">
-      <div class="section-header">
-        <p class="eyebrow reveal">INTERACTIVE</p>
-        <h2 class="reveal">Try it. Right here.</h2>
+      <h2 class="section-title reveal">Try it. This is what last Tuesday could have looked like.</h2>
+
+      <div class="timeline reveal" id="timeline">
+        <div class="timeline-block" data-start="12:00 AM" data-end="6:30 AM" data-activity="Sleep" data-detail="Home. 6h 30m. Deep sleep from 1-4am." style="flex:6.5;background:var(--sleep)"></div>
+        <div class="timeline-block" data-start="6:30 AM" data-end="7:00 AM" data-activity="Commute" data-detail="Drive to office. 14.2 miles." style="flex:0.5;background:var(--commute)"></div>
+        <div class="timeline-block" data-start="7:00 AM" data-end="12:00 PM" data-activity="Deep Work" data-detail="Xcode project. 3 uninterrupted blocks." style="flex:5;background:var(--work)"></div>
+        <div class="timeline-block" data-start="12:00 PM" data-end="12:45 PM" data-activity="Lunch" data-detail="Break room. 38 min eating, 7 min phone." style="flex:0.75;background:var(--eating)"></div>
+        <div class="timeline-block" data-start="12:45 PM" data-end="2:00 PM" data-activity="Meetings" data-detail="Conference room B. Sprint planning." style="flex:1.25;background:#6366F1"></div>
+        <div class="timeline-block" data-start="2:00 PM" data-end="4:14 PM" data-activity="Deep Work" data-detail="Xcode project. 2h 14m uninterrupted. Most productive block." style="flex:2.25;background:var(--work)"></div>
+        <div class="timeline-block" data-start="4:14 PM" data-end="5:00 PM" data-activity="Shallow Work" data-detail="Slack, email, code review. Context switching." style="flex:0.75;background:#60A5FA"></div>
+        <div class="timeline-block" data-start="5:00 PM" data-end="5:30 PM" data-activity="Commute" data-detail="Drive home. 14.2 miles." style="flex:0.5;background:var(--commute)"></div>
+        <div class="timeline-block" data-start="5:30 PM" data-end="6:30 PM" data-activity="Gym" data-detail="Iron Paradise. 47 min lifting, 13 min phone." style="flex:1;background:var(--gym)"></div>
+        <div class="timeline-block" data-start="6:30 PM" data-end="7:15 PM" data-activity="Dinner" data-detail="Kitchen. Cooking + eating." style="flex:0.75;background:var(--eating)"></div>
+        <div class="timeline-block" data-start="7:15 PM" data-end="11:00 PM" data-activity="Leisure" data-detail="Living room. Netflix, reading, phone." style="flex:3.75;background:var(--leisure)"></div>
+        <div class="timeline-block" data-start="11:00 PM" data-end="12:00 AM" data-activity="Sleep" data-detail="Falling asleep. Light sleep." style="flex:1;background:var(--sleep)"></div>
       </div>
 
-      <div class="demo-wrap">
-        <div class="demo-ring-container" id="demo-ring-container">
-          <div class="demo-tooltip">
-            <div class="tooltip-activity"></div>
-            <div class="tooltip-time"></div>
-            <div class="tooltip-duration"></div>
-          </div>
-        </div>
-
-        <div class="demo-timeline">
-          <div class="timeline-bar"></div>
-          <div class="timeline-labels">
-            <span>12 AM</span>
-            <span>6 AM</span>
-            <span>12 PM</span>
-            <span>6 PM</span>
-            <span>12 AM</span>
-          </div>
-        </div>
-
-        <div class="demo-legend">
-          <div class="legend-item"><span class="legend-dot" style="background: #1E3A5F;"></span> Sleep</div>
-          <div class="legend-item"><span class="legend-dot" style="background: #8B5CF6;"></span> Commute</div>
-          <div class="legend-item"><span class="legend-dot" style="background: #3B82F6;"></span> Work</div>
-          <div class="legend-item"><span class="legend-dot" style="background: #FBBF24;"></span> Lunch</div>
-          <div class="legend-item"><span class="legend-dot" style="background: #F97316;"></span> Gym</div>
-          <div class="legend-item"><span class="legend-dot" style="background: #10B981;"></span> Leisure</div>
-        </div>
-
-        <p class="demo-caption reveal">
-          This is what your day looks like. PomoBorrow builds this automatically.
-        </p>
+      <div class="timeline-hours reveal">
+        <span>12am</span><span>6am</span><span>12pm</span><span>6pm</span><span>12am</span>
       </div>
+
+      <div class="timeline-tooltip" id="timeline-tooltip"></div>
+
+      <p class="demo-note reveal">Every block was detected automatically. Zero input required.</p>
     </div>
   </section>
 
-  <!-- ============ SECTION 5: USE CASES ============ -->
-  <section class="use-cases">
-    <div class="container">
-      <div class="section-header">
-        <p class="eyebrow reveal">WHO IT'S FOR</p>
-        <h2 class="reveal">Your life. Mapped.</h2>
+  <!-- ============================================ -->
+  <!-- THE ANSWER                                   -->
+  <!-- ============================================ -->
+  <section class="answer-section" id="answer">
+    <div class="answer-content reveal">
+      <p class="answer-question">2pm last Tuesday?</p>
+      <div class="answer-reveal" id="answer-reveal">
+        <div class="answer-activity">
+          <span class="answer-dot" style="background:var(--work)"></span>
+          <span class="answer-label">Deep Work</span>
+        </div>
+        <p class="answer-detail">Xcode project. 2 hours 14 minutes uninterrupted.</p>
+        <p class="answer-detail-sub">Your most productive block of the week.</p>
       </div>
-
-      <div class="use-case-cards">
-        <div class="use-case-card reveal">
-          <div class="use-case-emoji">&#x1F680;</div>
-          <h3>The Founder</h3>
-          <blockquote>
-            You're building a startup. Your days are chaos &mdash; meetings, deep work, gym, calls, more meetings.
-            PomoBorrow maps it all without you thinking about it. At the end of the week, you see exactly where
-            your time went. Turns out you only got 12 hours of deep work. Time to protect your calendar.
-          </blockquote>
-        </div>
-
-        <div class="use-case-card reveal">
-          <div class="use-case-emoji">&#x1F393;</div>
-          <h3>The Student</h3>
-          <blockquote>
-            Classes, study sessions, part-time job, gym, social life. You never know where the time goes.
-            PomoBorrow shows you &mdash; and after a week, starts predicting your schedule.
-            "Looks like you're heading to the library." No input needed.
-          </blockquote>
-        </div>
-
-        <div class="use-case-card reveal">
-          <div class="use-case-emoji">&#x1F3E0;</div>
-          <h3>The Remote Worker</h3>
-          <blockquote>
-            Home office and living room are 10 feet apart. GPS can't tell the difference.
-            But PomoBorrow can &mdash; your work Mac, Bluetooth keyboard, and the sound of Slack notifications mean "Work."
-            Netflix audio and no keyboard mean "Leisure." The invisible boundary, tracked.
-          </blockquote>
-        </div>
-      </div>
+      <p class="answer-closer">PomoBorrow knew. You didn't have to.</p>
     </div>
   </section>
 
-  <!-- ============ SECTION 6: PRIVACY ============ -->
+  <!-- ============================================ -->
+  <!-- PRIVACY                                      -->
+  <!-- ============================================ -->
   <section class="privacy-section" id="privacy">
     <div class="container">
-      <div class="section-header">
-        <p class="eyebrow reveal">ARCHITECTURE, NOT POLICY</p>
-        <h2 class="reveal">Your data never leaves your device.</h2>
-      </div>
-
-      <div class="privacy-counters">
-        <div class="counter-card reveal">
-          <div class="counter-number blue" data-target="0">0</div>
-          <div class="counter-label">servers</div>
+      <h2 class="section-title reveal"><span class="gradient-text">Your data never leaves your phone.</span></h2>
+      <div class="privacy-stats reveal">
+        <div class="privacy-stat">
+          <span class="privacy-number">0</span>
+          <span class="privacy-label">servers</span>
         </div>
-        <div class="counter-card reveal">
-          <div class="counter-number blue" data-target="0">0</div>
-          <div class="counter-label">SDKs</div>
+        <div class="privacy-stat">
+          <span class="privacy-number">0</span>
+          <span class="privacy-label">cloud calls</span>
         </div>
-        <div class="counter-card reveal">
-          <div class="counter-number blue" data-target="0">0</div>
-          <div class="counter-label">cloud calls</div>
-        </div>
-        <div class="counter-card reveal">
-          <div class="counter-number green" data-target="100" data-suffix="%">0</div>
-          <div class="counter-label">on-device</div>
+        <div class="privacy-stat">
+          <span class="privacy-number">100%</span>
+          <span class="privacy-label">on-device</span>
         </div>
       </div>
-
-      <div class="privacy-body reveal">
-        <p>
-          We don't have a server to send your data to. That's not a privacy policy &mdash; that's the architecture.
-          PomoBorrow uses Apple's on-device neural engine, local storage, and zero network calls. Your day is yours.
-        </p>
-        <a href="privacy.html" class="privacy-link">
-          Read our privacy policy &rarr;
-        </a>
-      </div>
+      <p class="privacy-desc reveal">No accounts. No sync. No tracking. Just your phone, doing the work.</p>
     </div>
   </section>
 
-  <!-- ============ SECTION 7: HOW ACE LEARNS ============ -->
-  <section class="ace-learns">
+  <!-- ============================================ -->
+  <!-- HOW IT LEARNS                                -->
+  <!-- ============================================ -->
+  <section class="learns" id="learns">
     <div class="container">
-      <div class="section-header">
-        <p class="eyebrow reveal">ACE ENGINE</p>
-        <h2 class="reveal">Smart in 48 hours.</h2>
-      </div>
-
-      <div class="ace-timeline">
-        <div class="ace-phase reveal">
-          <div class="phase-dot"></div>
-          <div class="phase-label">Phase 1 &middot; 0-24h</div>
-          <h3>Silent Mapping</h3>
-          <p>ACE watches. It maps your locations, learns your devices, tracks your motion. You don't see a thing.</p>
+      <h2 class="section-title reveal">How It Learns</h2>
+      <div class="learns-phases reveal">
+        <div class="learns-phase">
+          <div class="phase-number">1</div>
+          <h3 class="phase-title">Day 1–2</h3>
+          <p class="phase-desc">Silently maps your world. Learns your places, routines, and rhythms.</p>
         </div>
-
-        <div class="ace-phase reveal">
-          <div class="phase-dot"></div>
-          <div class="phase-label">Phase 2 &middot; 24-48h</div>
-          <h3>Gentle Questions</h3>
-          <p>ACE asks a few questions &mdash; max 5 per day. "Is this your office?" One tap to confirm.</p>
+        <div class="learns-connector"></div>
+        <div class="learns-phase">
+          <div class="phase-number">2</div>
+          <h3 class="phase-title">Day 3–4</h3>
+          <p class="phase-desc">Asks a few questions. Max 5 per day. Confirms what it thinks it knows.</p>
         </div>
-
-        <div class="ace-phase reveal">
-          <div class="phase-dot"></div>
-          <div class="phase-label">Phase 3 &middot; 48h+</div>
-          <h3>Full Autopilot</h3>
-          <p>ACE runs your day. Auto-switching activities with 90%+ accuracy. Corrections make it smarter.</p>
+        <div class="learns-connector"></div>
+        <div class="learns-phase">
+          <div class="phase-number">3</div>
+          <h3 class="phase-title">Day 5+</h3>
+          <p class="phase-desc">Full autopilot. 90%+ accuracy. Your day, built automatically.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ============ SECTION 8: CROSS-DEVICE ============ -->
-  <section class="cross-device">
+  <!-- ============================================ -->
+  <!-- WAITLIST                                     -->
+  <!-- ============================================ -->
+  <section class="waitlist" id="waitlist">
     <div class="container">
-      <div class="section-header">
-        <p class="eyebrow reveal">ECOSYSTEM</p>
-        <h2 class="reveal">Your Mac knows too.</h2>
-      </div>
-
-      <div class="device-mockup-wrap reveal">
-        <div class="device-frame device-phone">
-          <div class="device-label">iPhone</div>
-          <div class="device-ring-placeholder"></div>
-          <div class="device-bars">
-            <div class="device-bar" style="background: #3B82F6; width: 80%;"></div>
-            <div class="device-bar" style="background: #F97316; width: 45%;"></div>
-            <div class="device-bar" style="background: #10B981; width: 60%;"></div>
-          </div>
-        </div>
-
-        <div class="device-frame device-laptop">
-          <div class="device-label">MacBook</div>
-          <div class="device-ring-placeholder"></div>
-          <div class="device-bars">
-            <div class="device-bar" style="background: #3B82F6; width: 85%;"></div>
-            <div class="device-bar" style="background: #8B5CF6; width: 30%;"></div>
-            <div class="device-bar" style="background: #FBBF24; width: 50%;"></div>
-            <div class="device-bar" style="background: #10B981; width: 40%;"></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="cross-device-text reveal">
-        <p>
-          PomoBorrow for Mac lives in your menu bar. It knows what app you're using, what display is connected,
-          what Bluetooth keyboard is nearby. Pair with your iPhone in 30 seconds &mdash; they share context automatically.
-        </p>
+      <h2 class="section-title reveal"><span class="gradient-text">Borrow time from your future self.</span></h2>
+      <form class="waitlist-form reveal" id="waitlist-form" action="#" method="POST">
+        <input type="email" name="email" placeholder="your@email.com" required class="waitlist-input" autocomplete="email">
+        <button type="submit" class="waitlist-btn">Join the Waitlist</button>
+      </form>
+      <p class="waitlist-success" id="waitlist-success">You're on the list. We'll be in touch.</p>
+      <div class="waitlist-links reveal">
+        <a href="https://discord.gg/pomoborrow" class="waitlist-link" target="_blank" rel="noopener">Join Discord</a>
+        <span class="waitlist-divider">|</span>
+        <span class="waitlist-badge">App Store — Coming Soon</span>
       </div>
     </div>
   </section>
 
-  <!-- ============ SECTION 9: CTA / WAITLIST ============ -->
-  <section class="cta-section" id="waitlist">
-    <div class="container">
-      <div class="cta-content">
-        <h2 class="reveal">Borrow time from<br>your future self.</h2>
-        <p class="body-lg reveal">Join the waitlist. Be first when PomoBorrow launches on iOS.</p>
-
-        <form id="waitlist-form" class="waitlist-form reveal">
-          <input type="email" class="waitlist-input" placeholder="you@email.com" required>
-          <button type="submit" class="waitlist-submit">Join Waitlist</button>
-        </form>
-
-        <a href="#" class="cta-discord reveal">Join the community on Discord &rarr;</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ SECTION 10: FOOTER ============ -->
+  <!-- ============================================ -->
+  <!-- FOOTER                                       -->
+  <!-- ============================================ -->
   <footer class="footer">
     <div class="container">
-      <div class="footer-inner">
-        <div class="footer-logo">
-          <span class="logo-ring" style="width:20px;height:20px;border-radius:50%;border:2px solid #3B82F6;display:inline-block;position:relative;"><span style="position:absolute;top:2px;left:2px;right:2px;bottom:2px;border-radius:50%;border:1.5px solid #8B5CF6;border-right-color:transparent;border-bottom-color:transparent;"></span></span>
-          PomoBorrow
-        </div>
-        <div class="footer-links">
-          <a href="privacy.html">Privacy Policy</a>
-          <a href="#">Discord</a>
-          <a href="#">GitHub</a>
-          <a href="mailto:hello@pomoborrow.com">Contact</a>
-        </div>
-      </div>
-      <div class="footer-bottom" style="margin-top: 2rem; text-align: center;">
-        <p class="footer-copy">&copy; 2026 BEERS LABS LLC</p>
-        <p class="footer-tagline">Built with obsessive privacy in mind.</p>
-      </div>
+      <p>&copy; 2026 BEERS LABS LLC &middot; <a href="privacy.html">Privacy</a> &middot; <a href="https://discord.gg/pomoborrow" target="_blank" rel="noopener">Discord</a> &middot; <a href="mailto:hello@pomoborrow.com">Contact</a></p>
     </div>
   </footer>
 
-  <!-- ============ SCRIPTS ============ -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
-
-  <script>
-    // Wait for all deferred scripts to load, then init
-    window.addEventListener('load', function () {
-      // Load hero ring
-      var s1 = document.createElement('script');
-      s1.src = 'js/hero-ring.js';
-      document.body.appendChild(s1);
-
-      // Load demo ring
-      var s2 = document.createElement('script');
-      s2.src = 'js/demo-ring.js';
-      document.body.appendChild(s2);
-
-      // Load scroll engine
-      var s3 = document.createElement('script');
-      s3.src = 'js/scroll-engine.js';
-      document.body.appendChild(s3);
-
-      // Load main
-      var s4 = document.createElement('script');
-      s4.src = 'js/main.js';
-      document.body.appendChild(s4);
-    });
-  </script>
-
+  <script src="js/main.js" defer></script>
 </body>
 </html>

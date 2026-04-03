@@ -1,96 +1,164 @@
-/* ============================================
-   POMOBORROW — Main Interactions
-   ============================================ */
+/* =============================================
+   PomoBorrow — Main JS
+   Vanilla JS, no dependencies
+   ============================================= */
 
 (function () {
   'use strict';
 
-  // ---- Smooth scroll for anchor links ----
-  document.querySelectorAll('a[href^="#"]').forEach(function (link) {
-    link.addEventListener('click', function (e) {
-      e.preventDefault();
-      var target = document.querySelector(this.getAttribute('href'));
-      if (target) {
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  // ---- Scroll Reveal (IntersectionObserver) ----
+
+  var revealObserver = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
       }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.reveal').forEach(function (el) {
+    revealObserver.observe(el);
+  });
+
+  // ---- Opening: trigger follow-up + scroll indicator after typing ----
+
+  var followEl = document.getElementById('opening-follow');
+  var scrollInd = document.getElementById('scroll-indicator');
+
+  // Typing animation is 2.8s + 0.5s delay = 3.3s total
+  // Show follow-up 1.5s after typing completes
+  setTimeout(function () {
+    if (followEl) followEl.classList.add('visible');
+  }, 4800);
+
+  setTimeout(function () {
+    if (scrollInd) scrollInd.classList.add('visible');
+  }, 5800);
+
+  // ---- Hourglass Parallax ----
+
+  var hourglassImg = document.getElementById('hourglass-img');
+  var ticking = false;
+
+  window.addEventListener('scroll', function () {
+    if (!ticking) {
+      requestAnimationFrame(function () {
+        if (hourglassImg) {
+          var rect = hourglassImg.getBoundingClientRect();
+          var viewH = window.innerHeight;
+          // Only parallax when image is near viewport
+          if (rect.bottom > -100 && rect.top < viewH + 100) {
+            var offset = (rect.top - viewH / 2) * 0.08;
+            var scale = 1 + Math.max(0, Math.min(0.05, -rect.top * 0.00005));
+            hourglassImg.style.transform = 'translateY(' + offset + 'px) scale(' + scale + ')';
+          }
+        }
+        ticking = false;
+      });
+      ticking = true;
+    }
+  });
+
+  // ---- Ring Segment Animation ----
+
+  var ringObserver = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        var segments = entry.target.querySelectorAll('.ring-segment');
+        segments.forEach(function (seg, i) {
+          setTimeout(function () {
+            seg.classList.add('visible');
+          }, i * 200);
+        });
+        ringObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.3 });
+
+  var dayRing = document.querySelector('.day-ring');
+  if (dayRing) ringObserver.observe(dayRing);
+
+  // ---- Timeline Tooltip ----
+
+  var tooltip = document.getElementById('timeline-tooltip');
+  var timelineBlocks = document.querySelectorAll('.timeline-block');
+
+  timelineBlocks.forEach(function (block) {
+    block.addEventListener('mouseenter', function (e) {
+      var activity = block.dataset.activity;
+      var start = block.dataset.start;
+      var end = block.dataset.end;
+      var detail = block.dataset.detail;
+
+      tooltip.innerHTML =
+        '<div class="tooltip-activity">' + activity + '</div>' +
+        '<div class="tooltip-time">' + start + ' – ' + end + '</div>' +
+        '<div class="tooltip-detail">' + detail + '</div>';
+      tooltip.classList.add('active');
+    });
+
+    block.addEventListener('mousemove', function (e) {
+      var x = e.clientX + 16;
+      var y = e.clientY - 10;
+
+      // Keep tooltip in viewport
+      var tw = tooltip.offsetWidth;
+      if (x + tw > window.innerWidth - 16) {
+        x = e.clientX - tw - 16;
+      }
+
+      tooltip.style.left = x + 'px';
+      tooltip.style.top = y + 'px';
+    });
+
+    block.addEventListener('mouseleave', function () {
+      tooltip.classList.remove('active');
     });
   });
 
-  // ---- Waitlist form ----
+  // Touch support for timeline
+  timelineBlocks.forEach(function (block) {
+    block.addEventListener('touchstart', function (e) {
+      // Remove active from all
+      timelineBlocks.forEach(function (b) { b.style.filter = ''; });
+      block.style.filter = 'brightness(1.3)';
+
+      var activity = block.dataset.activity;
+      var start = block.dataset.start;
+      var end = block.dataset.end;
+      var detail = block.dataset.detail;
+
+      tooltip.innerHTML =
+        '<div class="tooltip-activity">' + activity + '</div>' +
+        '<div class="tooltip-time">' + start + ' – ' + end + '</div>' +
+        '<div class="tooltip-detail">' + detail + '</div>';
+      tooltip.classList.add('active');
+
+      var rect = block.getBoundingClientRect();
+      tooltip.style.left = rect.left + 'px';
+      tooltip.style.top = (rect.top - tooltip.offsetHeight - 8) + 'px';
+    }, { passive: true });
+  });
+
+  document.addEventListener('touchstart', function (e) {
+    if (!e.target.closest('.timeline')) {
+      tooltip.classList.remove('active');
+      timelineBlocks.forEach(function (b) { b.style.filter = ''; });
+    }
+  }, { passive: true });
+
+  // ---- Waitlist Form ----
+
   var form = document.getElementById('waitlist-form');
+  var successMsg = document.getElementById('waitlist-success');
+
   if (form) {
     form.addEventListener('submit', function (e) {
       e.preventDefault();
-      var input = form.querySelector('.waitlist-input');
-      var btn = form.querySelector('.waitlist-submit');
-      var email = input.value.trim();
-
-      if (!email || !email.includes('@')) {
-        input.style.borderColor = '#EF4444';
-        setTimeout(function () { input.style.borderColor = ''; }, 2000);
-        return;
-      }
-
-      // Store locally (no server)
-      var waitlist = JSON.parse(localStorage.getItem('pomoborrow_waitlist') || '[]');
-      waitlist.push({ email: email, time: new Date().toISOString() });
-      localStorage.setItem('pomoborrow_waitlist', JSON.stringify(waitlist));
-
-      btn.textContent = 'You\'re in!';
-      btn.style.background = '#10B981';
-      input.value = '';
-      input.disabled = true;
-      btn.disabled = true;
-
-      setTimeout(function () {
-        btn.textContent = 'Join Waitlist';
-        btn.style.background = '';
-        input.disabled = false;
-        btn.disabled = false;
-      }, 3000);
+      // In production, this would POST to an API
+      form.style.display = 'none';
+      if (successMsg) successMsg.classList.add('show');
     });
   }
 
-  // ---- Navbar scroll (fallback if no GSAP) ----
-  if (typeof gsap === 'undefined') {
-    var nav = document.querySelector('.nav');
-    if (nav) {
-      window.addEventListener('scroll', function () {
-        if (window.scrollY > 80) {
-          nav.classList.add('scrolled');
-        } else {
-          nav.classList.remove('scrolled');
-        }
-      });
-    }
-  }
-
-  // ---- Reduce motion preference ----
-  var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (prefersReducedMotion) {
-    document.documentElement.style.setProperty('--ease-out-expo', 'ease');
-    document.querySelectorAll('.reveal').forEach(function (el) {
-      el.style.transition = 'none';
-      el.classList.add('visible');
-    });
-  }
-
-  // ---- Intersection Observer for sensor cards (fallback) ----
-  if (typeof gsap === 'undefined') {
-    var observer = new IntersectionObserver(
-      function (entries) {
-        entries.forEach(function (entry) {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.15 }
-    );
-
-    document.querySelectorAll('.sensor-card, .reveal').forEach(function (el) {
-      observer.observe(el);
-    });
-  }
 })();
