@@ -60,13 +60,23 @@ if (!hasWebGL() || !canvas) {
     // Center and scale
     const box = new THREE.Box3().setFromObject(hourglassModel);
     const center = box.getCenter(new THREE.Vector3());
-    hourglassModel.position.sub(center);
+    const size = box.getSize(new THREE.Vector3());
+    console.log('[PomoBorrow] Model loaded. Center:', center, 'Size:', size);
+
+    hourglassModel.position.set(-center.x, -center.y, -center.z);
     modelBaseY = hourglassModel.position.y;
 
-    const size = box.getSize(new THREE.Vector3());
     const maxDim = Math.max(size.x, size.y, size.z);
-    const scale = 3.2 / maxDim;
+    const scale = 3.5 / maxDim;
     hourglassModel.scale.setScalar(scale);
+
+    // Make ALL materials visible — force MeshStandardMaterial for consistent rendering
+    hourglassModel.traverse((child) => {
+      if (child.isMesh && child.material) {
+        child.material.side = THREE.DoubleSide;
+        child.material.needsUpdate = true;
+      }
+    });
 
     // Traverse and configure materials
     hourglassModel.traverse((child) => {
@@ -99,6 +109,16 @@ if (!hasWebGL() || !canvas) {
 
     scene.add(hourglassModel);
     createSandParticles();
+    console.log('[PomoBorrow] Model added to scene');
+  },
+  (progress) => {
+    console.log('[PomoBorrow] Loading:', Math.round((progress.loaded / progress.total) * 100) + '%');
+  },
+  (error) => {
+    console.error('[PomoBorrow] Model load error:', error);
+    // Show fallback
+    if (canvas) canvas.style.display = 'none';
+    if (fallback) fallback.style.display = 'flex';
   });
 
   // Sand particle system
