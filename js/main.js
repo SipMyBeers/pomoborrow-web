@@ -1,5 +1,5 @@
-import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.162.0/build/three.module.js';
-import { GLTFLoader } from 'https://cdn.jsdelivr.net/npm/three@0.162.0/examples/jsm/loaders/GLTFLoader.js';
+import * as THREE from '../vendor/three.module.js';
+import { GLTFLoader } from '../vendor/GLTFLoader.js';
 
 /* ===== WEBGL CHECK ===== */
 function hasWebGL() {
