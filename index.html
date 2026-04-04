@@ -78,7 +78,7 @@
               <!-- App header -->
               <div class="app-header">
                 <span class="app-title">PomoBorrow</span>
-                <button class="app-settings-btn" onclick="alert('Settings: Activities, Learned Locations, ACE Reset, Review Reminder')">
+                <button class="app-settings-btn" onclick="switchScreen('settings')">
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7A7A7A" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
                 </button>
               </div>
@@ -171,9 +171,9 @@
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>
                   <span>Today</span>
                 </button>
-                <button class="app-nav-btn" data-screen="timeline">
+                <button class="app-nav-btn" data-screen="calendar">
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
-                  <span>Timeline</span>
+                  <span>Calendar</span>
                 </button>
                 <button class="app-nav-btn" data-screen="insights">
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>
@@ -182,24 +182,86 @@
               </div>
             </div>
 
-            <!-- TIMELINE SCREEN (hidden by default) -->
-            <div class="phone-screen phone-screen-alt" id="screen-timeline" style="display:none">
+            <!-- SETTINGS SCREEN (hidden by default) -->
+            <div class="phone-screen phone-screen-alt" id="screen-settings" style="display:none">
               <div class="app-status-bar"><span>9:41</span><div class="app-status-icons"><span>&#8226;&#8226;&#8226;&#8226;</span><span>&#9681;</span></div></div>
-              <div class="app-header"><span class="app-title">Timeline</span><button class="app-settings-btn" onclick="switchScreen('today')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7A7A7A" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button></div>
-              <div class="app-timeline-screen">
-                <div class="tl-item"><span class="tl-time">6:30 AM</span><span class="tl-dot" style="background:#5B8DEF"></span><div class="tl-info"><strong>🌙 Sleep ended</strong><span>Auto-detected · 6h 30m</span></div></div>
-                <div class="tl-item"><span class="tl-time">7:00 AM</span><span class="tl-dot" style="background:#7A7A7A"></span><div class="tl-info"><strong>🚗 Commute</strong><span>Home → Office · 28 min</span></div></div>
-                <div class="tl-item"><span class="tl-time">7:30 AM</span><span class="tl-dot" style="background:#FF6B35"></span><div class="tl-info"><strong>💼 Deep Work</strong><span>Office · Xcode open · 4h 30m</span></div></div>
-                <div class="tl-item"><span class="tl-time">12:00 PM</span><span class="tl-dot" style="background:#FBBF24"></span><div class="tl-info"><strong>🍽️ Lunch</strong><span>Break room · 45 min</span></div></div>
-                <div class="tl-item"><span class="tl-time">12:45 PM</span><span class="tl-dot" style="background:#FF6B35"></span><div class="tl-info"><strong>💼 Deep Work</strong><span>Office · ongoing</span></div></div>
-                <div class="tl-item tl-future"><span class="tl-time">2:40 PM</span><span class="tl-dot" style="background:#5B8DEF;opacity:0.5"></span><div class="tl-info"><strong>🚗 Leave for meeting</strong><span>20 min drive · light traffic</span></div></div>
-                <div class="tl-item tl-future"><span class="tl-time">3:00 PM</span><span class="tl-dot" style="background:#5B8DEF;opacity:0.5"></span><div class="tl-info"><strong>📋 Team Standup</strong><span>Conference Room B</span></div></div>
-                <div class="tl-item tl-future"><span class="tl-time">5:10 PM</span><span class="tl-dot" style="background:#34D399;opacity:0.5"></span><div class="tl-info"><strong>🚗 Leave for gym</strong><span>12 min · based on last 8 trips</span></div></div>
-                <div class="tl-item tl-future"><span class="tl-time">5:30 PM</span><span class="tl-dot" style="background:#34D399;opacity:0.5"></span><div class="tl-info"><strong>🏋️ Gym</strong><span>Gold's Gym</span></div></div>
+              <div class="app-header"><span class="app-title">Settings</span><button class="app-settings-btn" onclick="switchScreen('today')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7A7A7A" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button></div>
+              <div class="settings-list">
+                <div class="settings-group">
+                  <span class="settings-group-label">ACTIVITIES</span>
+                  <div class="settings-row"><span class="sr-dot" style="background:#FF6B35"></span><span>💼 Work</span><span class="sr-arrow">›</span></div>
+                  <div class="settings-row"><span class="sr-dot" style="background:#34D399"></span><span>🏋️ Gym</span><span class="sr-arrow">›</span></div>
+                  <div class="settings-row"><span class="sr-dot" style="background:#5B8DEF"></span><span>🌙 Sleep</span><span class="sr-arrow">›</span></div>
+                  <div class="settings-row"><span class="sr-dot" style="background:#A78BFA"></span><span>🎮 Leisure</span><span class="sr-arrow">›</span></div>
+                  <div class="settings-row sr-add">+ Add activity</div>
+                </div>
+                <div class="settings-group">
+                  <span class="settings-group-label">LEARNED LOCATIONS</span>
+                  <div class="settings-row"><span>🏢 Office</span><span class="sr-sub">47 visits</span><span class="sr-arrow">›</span></div>
+                  <div class="settings-row"><span>🏋️ Gold's Gym</span><span class="sr-sub">23 visits</span><span class="sr-arrow">›</span></div>
+                  <div class="settings-row"><span>🏠 Home</span><span class="sr-sub">184 visits</span><span class="sr-arrow">›</span></div>
+                </div>
+                <div class="settings-group">
+                  <span class="settings-group-label">DEVICE SYNC</span>
+                  <div class="settings-row"><span>💻 Dylan's MacBook</span><span class="sr-connected">Connected</span></div>
+                </div>
+                <div class="settings-group">
+                  <span class="settings-group-label">DATA</span>
+                  <div class="settings-row"><span>Export data (JSON)</span><span class="sr-arrow">›</span></div>
+                  <div class="settings-row sr-danger"><span>Reset all data</span></div>
+                </div>
               </div>
               <div class="app-bottom-nav">
                 <button class="app-nav-btn" data-screen="today"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg><span>Today</span></button>
-                <button class="app-nav-btn app-nav-active" data-screen="timeline"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg><span>Timeline</span></button>
+                <button class="app-nav-btn" data-screen="calendar"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg><span>Calendar</span></button>
+                <button class="app-nav-btn" data-screen="insights"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10M12 20V4M6 20v-6"/></svg><span>Insights</span></button>
+              </div>
+            </div>
+
+            <!-- CALENDAR SCREEN (hidden by default) -->
+            <div class="phone-screen phone-screen-alt" id="screen-calendar" style="display:none">
+              <div class="app-status-bar"><span>9:41</span><div class="app-status-icons"><span>&#8226;&#8226;&#8226;&#8226;</span><span>&#9681;</span></div></div>
+              <div class="app-header"><span class="app-title">March 2026</span><button class="app-settings-btn" onclick="switchScreen('today')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7A7A7A" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button></div>
+              <!-- Mini calendar grid -->
+              <div class="cal-weekdays">
+                <span>S</span><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span>
+              </div>
+              <div class="cal-grid">
+                <span class="cal-day cal-empty"></span><span class="cal-day cal-empty"></span><span class="cal-day cal-empty"></span><span class="cal-day cal-empty"></span><span class="cal-day cal-empty"></span><span class="cal-day cal-empty"></span><span class="cal-day">1</span>
+                <span class="cal-day">2</span><span class="cal-day cal-has-data">3</span><span class="cal-day cal-has-data">4</span><span class="cal-day cal-has-data">5</span><span class="cal-day cal-has-data">6</span><span class="cal-day cal-has-data">7</span><span class="cal-day">8</span>
+                <span class="cal-day">9</span><span class="cal-day cal-has-data">10</span><span class="cal-day cal-has-data">11</span><span class="cal-day cal-has-data">12</span><span class="cal-day cal-has-data">13</span><span class="cal-day cal-has-data">14</span><span class="cal-day">15</span>
+                <span class="cal-day">16</span><span class="cal-day cal-has-data">17</span><span class="cal-day cal-has-data">18</span><span class="cal-day cal-has-data">19</span><span class="cal-day cal-has-data">20</span><span class="cal-day cal-has-data">21</span><span class="cal-day">22</span>
+                <span class="cal-day">23</span><span class="cal-day cal-has-data cal-best">24</span><span class="cal-day cal-has-data cal-selected">25</span><span class="cal-day cal-has-data">26</span><span class="cal-day cal-has-data">27</span><span class="cal-day cal-has-data">28</span><span class="cal-day">29</span>
+                <span class="cal-day">30</span><span class="cal-day">31</span>
+              </div>
+              <!-- Selected day summary -->
+              <div class="cal-day-summary">
+                <span class="cal-day-title">Tuesday, March 25</span>
+                <div class="cal-day-bar">
+                  <div style="width:27%;background:#5B8DEF" title="Sleep"></div>
+                  <div style="width:2%;background:#7A7A7A" title="Commute"></div>
+                  <div style="width:33%;background:#FF6B35" title="Work"></div>
+                  <div style="width:3%;background:#FBBF24" title="Lunch"></div>
+                  <div style="width:6%;background:#34D399" title="Gym"></div>
+                  <div style="width:15%;background:#A78BFA" title="Leisure"></div>
+                  <div style="width:14%;background:rgba(255,255,255,0.04)"></div>
+                </div>
+                <div class="cal-day-stats">
+                  <div class="cal-stat"><span class="cal-stat-val">6h 12m</span><span class="cal-stat-lbl">Deep Work</span></div>
+                  <div class="cal-stat"><span class="cal-stat-val">1h 15m</span><span class="cal-stat-lbl">Gym</span></div>
+                  <div class="cal-stat"><span class="cal-stat-val" style="color:#EF4444">52m</span><span class="cal-stat-lbl">Commute</span></div>
+                </div>
+              </div>
+              <!-- Week comparison -->
+              <div class="cal-week-compare">
+                <span class="cal-compare-label">THIS WEEK VS LAST</span>
+                <div class="cal-compare-row"><span>Deep Work</span><span style="color:#34D399">↑ 18%</span></div>
+                <div class="cal-compare-row"><span>Exercise</span><span style="color:#EF4444">↓ 2 sessions</span></div>
+                <div class="cal-compare-row"><span>Screen time</span><span style="color:#34D399">↓ 45 min/day</span></div>
+              </div>
+              <div class="app-bottom-nav">
+                <button class="app-nav-btn" data-screen="today"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg><span>Today</span></button>
+                <button class="app-nav-btn app-nav-active" data-screen="calendar"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg><span>Calendar</span></button>
                 <button class="app-nav-btn" data-screen="insights"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10M12 20V4M6 20v-6"/></svg><span>Insights</span></button>
               </div>
             </div>
@@ -209,15 +271,33 @@
               <div class="app-status-bar"><span>9:41</span><div class="app-status-icons"><span>&#8226;&#8226;&#8226;&#8226;</span><span>&#9681;</span></div></div>
               <div class="app-header"><span class="app-title">Insights</span><button class="app-settings-btn" onclick="switchScreen('today')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7A7A7A" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button></div>
               <div class="app-insights">
-                <div class="insight-card"><span class="insight-num">42h 15m</span><span class="insight-label">Deep work this week</span><span class="insight-trend" style="color:#34D399">↑ 12% vs last week</span></div>
-                <div class="insight-card"><span class="insight-num">6</span><span class="insight-label">Gym sessions this month</span><span class="insight-trend" style="color:#34D399">On track for goal</span></div>
-                <div class="insight-card" style="border-color:rgba(239,68,68,0.2)"><span class="insight-num">1h 47m</span><span class="insight-label">Avg daily phone scrolling</span><span class="insight-trend" style="color:#EF4444">↑ 23% — watch this</span></div>
-                <div class="insight-card"><span class="insight-num">34 min</span><span class="insight-label">Avg commute (Tue-Thu)</span><span class="insight-trend" style="color:#7A7A7A">Last Tuesday was 52 min — traffic on I-85</span></div>
-                <div class="insight-card"><span class="insight-num">91%</span><span class="insight-label">ACE accuracy this week</span><span class="insight-trend" style="color:#34D399">3 corrections needed</span></div>
+                <!-- Weekly summary -->
+                <div class="insight-section-label">THIS WEEK</div>
+                <div class="insight-row">
+                  <div class="insight-card-mini"><span class="insight-num">42h</span><span class="insight-label">Deep Work</span><span class="insight-trend" style="color:#34D399">↑ 12%</span></div>
+                  <div class="insight-card-mini"><span class="insight-num">3.2h</span><span class="insight-label">Exercise</span><span class="insight-trend" style="color:#EF4444">↓ missed 2</span></div>
+                </div>
+                <div class="insight-row">
+                  <div class="insight-card-mini"><span class="insight-num">6.5h</span><span class="insight-label">Sleep avg</span><span class="insight-trend" style="color:#FBBF24">—  needs work</span></div>
+                  <div class="insight-card-mini"><span class="insight-num" style="color:#34D399">4.2h</span><span class="insight-label">Found Time</span><span class="insight-trend" style="color:#34D399">Recovered</span></div>
+                </div>
+                <!-- Noise detector -->
+                <div class="insight-section-label" style="color:#EF4444">⚠️ NOISE DETECTED</div>
+                <div class="insight-noise">
+                  <div class="noise-item"><span class="noise-icon">📱</span><div class="noise-info"><strong>1h 47m</strong> daily scrolling<br><span class="noise-sub">That's 12.3 hours this week on social media</span></div></div>
+                  <div class="noise-item"><span class="noise-icon">📧</span><div class="noise-info"><strong>2h 10m</strong> in email daily<br><span class="noise-sub">73% could've been batched into 30 min blocks</span></div></div>
+                  <div class="noise-item"><span class="noise-icon">🗓️</span><div class="noise-info"><strong>6 meetings</strong> this week<br><span class="noise-sub">3 had no agenda — likely unnecessary</span></div></div>
+                </div>
+                <!-- Best day -->
+                <div class="insight-section-label" style="color:#34D399">🏆 BEST DAY: THURSDAY</div>
+                <div class="insight-best">
+                  <span>6h 12m deep work · gym at 5:30 · dinner by 7 · bed by 10:30</span>
+                  <strong style="color:#FF6B35">What if every day looked like this?</strong>
+                </div>
               </div>
               <div class="app-bottom-nav">
                 <button class="app-nav-btn" data-screen="today"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg><span>Today</span></button>
-                <button class="app-nav-btn" data-screen="timeline"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg><span>Timeline</span></button>
+                <button class="app-nav-btn" data-screen="calendar"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg><span>Calendar</span></button>
                 <button class="app-nav-btn app-nav-active" data-screen="insights"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10M12 20V4M6 20v-6"/></svg><span>Insights</span></button>
               </div>
             </div>
