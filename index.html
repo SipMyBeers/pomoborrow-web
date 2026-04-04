@@ -28,25 +28,42 @@
 
   <!-- HERO -->
   <section class="hero" id="hero">
-    <div class="container hero-content">
-      <span class="label reveal" data-delay="0">PRODUCTIVITY ON AUTOPILOT</span>
-      <h1 class="hero-headline reveal" data-delay="100">
-        Your time is the only<br>thing you can't earn back.
-      </h1>
-      <p class="hero-subtitle reveal" data-delay="200">
-        PomoBorrow automatically tracks every second of your day.<br>
-        No buttons. No input. Just truth.
-      </p>
-      <div class="hero-actions reveal" data-delay="300">
-        <a href="#early-access" class="btn btn-primary">Get Early Access</a>
-        <a href="#the-ring" class="btn btn-ghost">Watch Demo &#8595;</a>
+    <div class="container hero-inner">
+      <div class="hero-text">
+        <span class="label reveal" data-delay="0">ZERO EFFORT. FULLY OFFLINE.</span>
+        <h1 class="hero-headline reveal" data-delay="100">
+          We found a way to track<br>everything you do.
+        </h1>
+        <p class="hero-subtitle reveal" data-delay="200">
+          No buttons. No manual logging. No cloud.<br>
+          PomoBorrow runs silently on your device — tracking your day<br>
+          automatically so you don't have to.
+        </p>
+        <p class="hero-highlight reveal" data-delay="250">
+          Best part? It's <strong>completely offline.</strong>
+        </p>
+        <div class="hero-actions reveal" data-delay="300">
+          <a href="#early-access" class="btn btn-primary">Get Early Access</a>
+          <a href="#the-ring" class="btn btn-ghost">See how it works &#8595;</a>
+        </div>
       </div>
-      <div class="hero-stats reveal" data-delay="400">
-        <span><code>5</code> sensors</span>
-        <span class="stat-dot"></span>
-        <span><code>&lt;5%</code> battery</span>
-        <span class="stat-dot"></span>
-        <span><code>100%</code> on-device</span>
+      <div class="hero-visual reveal" data-delay="200">
+        <div class="hero-ring-wrap">
+          <svg class="hero-ring-svg" viewBox="0 0 300 300">
+            <circle cx="150" cy="150" r="120" fill="none" stroke="rgba(255,255,255,0.04)" stroke-width="24"/>
+            <circle cx="150" cy="150" r="120" fill="none" stroke="#5B8DEF" stroke-width="24" stroke-dasharray="226 528" stroke-dashoffset="0" transform="rotate(-90 150 150)" stroke-linecap="round" class="hero-seg hero-seg-1"/>
+            <circle cx="150" cy="150" r="120" fill="none" stroke="#FF6B35" stroke-width="24" stroke-dasharray="226 528" stroke-dashoffset="-226" transform="rotate(-90 150 150)" stroke-linecap="round" class="hero-seg hero-seg-2"/>
+            <circle cx="150" cy="150" r="120" fill="none" stroke="#34D399" stroke-width="24" stroke-dasharray="90 664" stroke-dashoffset="-452" transform="rotate(-90 150 150)" stroke-linecap="round" class="hero-seg hero-seg-3"/>
+            <circle cx="150" cy="150" r="120" fill="none" stroke="#A78BFA" stroke-width="24" stroke-dasharray="120 634" stroke-dashoffset="-542" transform="rotate(-90 150 150)" stroke-linecap="round" class="hero-seg hero-seg-4"/>
+            <!-- Needle -->
+            <line x1="150" y1="150" x2="150" y2="40" stroke="#F5F5F5" stroke-width="2" stroke-linecap="round" class="hero-needle"/>
+          </svg>
+          <div class="hero-ring-center">
+            <span class="hero-ring-time" id="hero-countdown">--:--:--</span>
+            <span class="hero-ring-label">left today</span>
+          </div>
+          <div class="hero-ring-glow"></div>
+        </div>
       </div>
     </div>
   </section>

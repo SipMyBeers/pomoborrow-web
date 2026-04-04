@@ -133,6 +133,8 @@
 
     const el = document.getElementById('ring-countdown');
     if (el) el.textContent = `${h}:${m}:${s}`;
+    const heroEl = document.getElementById('hero-countdown');
+    if (heroEl) heroEl.textContent = `${h}:${m}:${s}`;
   }
   updateCountdown();
   setInterval(updateCountdown, 1000);
