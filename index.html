@@ -32,37 +32,68 @@
       <div class="hero-text">
         <span class="label reveal" data-delay="0">ZERO EFFORT. FULLY OFFLINE.</span>
         <h1 class="hero-headline reveal" data-delay="100">
-          We found a way to track<br>everything you do.
+          What if you could track everything you do — without thinking about it?
         </h1>
         <p class="hero-subtitle reveal" data-delay="200">
-          No buttons. No manual logging. No cloud.<br>
-          PomoBorrow runs silently on your device — tracking your day<br>
-          automatically so you don't have to.
-        </p>
-        <p class="hero-highlight reveal" data-delay="250">
-          Best part? It's <strong>completely offline.</strong>
+          Someone already is. And they didn't press a single button.<br>
+          PomoBorrow tracks your entire day automatically — where you go,<br>
+          how you move, what you hear — all on your device. No cloud. Ever.
         </p>
         <div class="hero-actions reveal" data-delay="300">
           <a href="#early-access" class="btn btn-primary">Get Early Access</a>
           <a href="#the-ring" class="btn btn-ghost">See how it works &#8595;</a>
         </div>
+        <div class="hero-trust reveal" data-delay="400">
+          <span class="trust-item"><span class="trust-dot trust-dot-green"></span>100% offline</span>
+          <span class="trust-item"><span class="trust-dot trust-dot-orange"></span>5 sensors</span>
+          <span class="trust-item"><span class="trust-dot trust-dot-blue"></span>&lt;5% battery</span>
+        </div>
       </div>
       <div class="hero-visual reveal" data-delay="200">
-        <div class="hero-ring-wrap">
-          <svg class="hero-ring-svg" viewBox="0 0 300 300">
-            <circle cx="150" cy="150" r="120" fill="none" stroke="rgba(255,255,255,0.04)" stroke-width="24"/>
-            <circle cx="150" cy="150" r="120" fill="none" stroke="#5B8DEF" stroke-width="24" stroke-dasharray="226 528" stroke-dashoffset="0" transform="rotate(-90 150 150)" stroke-linecap="round" class="hero-seg hero-seg-1"/>
-            <circle cx="150" cy="150" r="120" fill="none" stroke="#FF6B35" stroke-width="24" stroke-dasharray="226 528" stroke-dashoffset="-226" transform="rotate(-90 150 150)" stroke-linecap="round" class="hero-seg hero-seg-2"/>
-            <circle cx="150" cy="150" r="120" fill="none" stroke="#34D399" stroke-width="24" stroke-dasharray="90 664" stroke-dashoffset="-452" transform="rotate(-90 150 150)" stroke-linecap="round" class="hero-seg hero-seg-3"/>
-            <circle cx="150" cy="150" r="120" fill="none" stroke="#A78BFA" stroke-width="24" stroke-dasharray="120 634" stroke-dashoffset="-542" transform="rotate(-90 150 150)" stroke-linecap="round" class="hero-seg hero-seg-4"/>
-            <!-- Needle -->
-            <line x1="150" y1="150" x2="150" y2="40" stroke="#F5F5F5" stroke-width="2" stroke-linecap="round" class="hero-needle"/>
-          </svg>
-          <div class="hero-ring-center">
-            <span class="hero-ring-time" id="hero-countdown">--:--:--</span>
-            <span class="hero-ring-label">left today</span>
+        <!-- iPhone mockup with PomoBorrow UI -->
+        <div class="phone-mockup">
+          <div class="phone-frame">
+            <div class="phone-notch"></div>
+            <div class="phone-screen">
+              <!-- App header -->
+              <div class="app-header">
+                <span class="app-title">PomoBorrow</span>
+                <span class="app-settings">&#9881;</span>
+              </div>
+              <!-- Ring -->
+              <div class="app-ring-wrap">
+                <svg class="app-ring" viewBox="0 0 200 200">
+                  <circle cx="100" cy="100" r="80" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="18"/>
+                  <circle cx="100" cy="100" r="80" fill="none" stroke="#5B8DEF" stroke-width="18" stroke-dasharray="151 352" stroke-dashoffset="0" transform="rotate(-90 100 100)" class="hero-seg hero-seg-1"/>
+                  <circle cx="100" cy="100" r="80" fill="none" stroke="#FF6B35" stroke-width="18" stroke-dasharray="151 352" stroke-dashoffset="-151" transform="rotate(-90 100 100)" class="hero-seg hero-seg-2"/>
+                  <circle cx="100" cy="100" r="80" fill="none" stroke="#34D399" stroke-width="18" stroke-dasharray="60 443" stroke-dashoffset="-302" transform="rotate(-90 100 100)" class="hero-seg hero-seg-3"/>
+                  <circle cx="100" cy="100" r="80" fill="none" stroke="#A78BFA" stroke-width="18" stroke-dasharray="80 423" stroke-dashoffset="-362" transform="rotate(-90 100 100)" class="hero-seg hero-seg-4"/>
+                  <line x1="100" y1="100" x2="100" y2="28" stroke="#F5F5F5" stroke-width="1.5" stroke-linecap="round" class="hero-needle"/>
+                </svg>
+                <div class="app-ring-center">
+                  <span class="app-countdown" id="hero-countdown">--:--:--</span>
+                  <span class="app-countdown-label">remaining today</span>
+                </div>
+              </div>
+              <!-- Current activity -->
+              <div class="app-activity">
+                <span class="app-activity-dot" style="background:#FF6B35"></span>
+                <span class="app-activity-name">&#128188; Work</span>
+                <span class="app-activity-time">2h 14m</span>
+              </div>
+              <!-- Timeline bar -->
+              <div class="app-timeline">
+                <div class="app-tl-block" style="width:31%;background:#5B8DEF"></div>
+                <div class="app-tl-block" style="width:4%;background:#7A7A7A"></div>
+                <div class="app-tl-block" style="width:33%;background:#FF6B35"></div>
+                <div class="app-tl-block" style="width:6%;background:#34D399"></div>
+                <div class="app-tl-block" style="width:12%;background:#A78BFA"></div>
+                <div class="app-tl-block" style="width:14%;background:rgba(255,255,255,0.06)"></div>
+              </div>
+              <!-- Review button -->
+              <div class="app-review-btn">Review Day</div>
+            </div>
           </div>
-          <div class="hero-ring-glow"></div>
         </div>
       </div>
     </div>

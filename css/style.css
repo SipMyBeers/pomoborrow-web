@@ -221,75 +221,154 @@ h4 { font-size: 1.1rem; }
   margin-bottom: 2rem;
 }
 
-/* Hero ring visual */
+/* Hero trust badges */
+.hero-trust {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 0.5rem;
+}
+.trust-item {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.8rem;
+  color: #7A7A7A;
+}
+.trust-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+.trust-dot-green { background: #34D399; }
+.trust-dot-orange { background: #FF6B35; }
+.trust-dot-blue { background: #5B8DEF; }
+
+/* Hero visual — iPhone mockup */
 .hero-visual {
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.hero-ring-wrap {
+
+.phone-mockup {
+  filter: drop-shadow(0 20px 60px rgba(255,107,53,0.12)) drop-shadow(0 0 100px rgba(91,141,239,0.08));
+}
+
+.phone-frame {
+  width: 280px;
+  background: #1a1a1e;
+  border-radius: 36px;
+  padding: 12px;
+  border: 2px solid rgba(255,255,255,0.08);
   position: relative;
-  width: min(400px, 45vw);
-  height: min(400px, 45vw);
 }
-.hero-ring-svg {
+
+.phone-notch {
+  width: 100px;
+  height: 24px;
+  background: #0C0C0E;
+  border-radius: 0 0 16px 16px;
+  margin: 0 auto 8px;
+}
+
+.phone-screen {
+  background: #0C0C0E;
+  border-radius: 24px;
+  padding: 20px 16px;
+  min-height: 480px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   width: 100%;
-  height: 100%;
-  filter: drop-shadow(0 0 30px rgba(255,107,53,0.15));
+  padding: 0 4px;
 }
-.hero-seg {
-  opacity: 0;
-  animation: segFadeIn 1s ease forwards;
+.app-title { font-size: 0.9rem; font-weight: 700; }
+.app-settings { font-size: 1rem; color: #7A7A7A; }
+
+.app-ring-wrap {
+  position: relative;
+  width: 180px;
+  height: 180px;
 }
-.hero-seg-1 { animation-delay: 0.5s; }
-.hero-seg-2 { animation-delay: 0.8s; }
-.hero-seg-3 { animation-delay: 1.1s; }
-.hero-seg-4 { animation-delay: 1.4s; }
-@keyframes segFadeIn {
-  from { opacity: 0; stroke-dashoffset: 754; }
-  to { opacity: 1; }
-}
+.app-ring { width: 100%; height: 100%; }
+
+.hero-seg { opacity: 0; animation: segFadeIn 0.8s ease forwards; }
+.hero-seg-1 { animation-delay: 0.6s; }
+.hero-seg-2 { animation-delay: 0.9s; }
+.hero-seg-3 { animation-delay: 1.2s; }
+.hero-seg-4 { animation-delay: 1.5s; }
+@keyframes segFadeIn { from { opacity: 0; } to { opacity: 1; } }
+
 .hero-needle {
-  transform-origin: 150px 150px;
+  transform-origin: 100px 100px;
   animation: rotateNeedle 86400s linear infinite;
 }
-@keyframes rotateNeedle {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-.hero-ring-center {
+@keyframes rotateNeedle { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+.app-ring-center {
   position: absolute;
-  top: 50%;
-  left: 50%;
+  top: 50%; left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
 }
-.hero-ring-time {
+.app-countdown {
   display: block;
-  font-size: clamp(1.5rem, 3vw, 2.2rem);
-  font-weight: 300;
+  font-size: 1.4rem;
+  font-weight: 200;
   font-variant-numeric: tabular-nums;
-  letter-spacing: 0.05em;
-  color: #F5F5F5;
+  letter-spacing: 0.03em;
 }
-.hero-ring-label {
+.app-countdown-label {
   display: block;
-  font-size: 0.7rem;
+  font-size: 0.55rem;
   color: #7A7A7A;
   text-transform: uppercase;
   letter-spacing: 0.15em;
-  margin-top: 0.25rem;
 }
-.hero-ring-glow {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 70%;
-  height: 70%;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(255,107,53,0.08) 0%, transparent 70%);
-  pointer-events: none;
+
+.app-activity {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255,255,255,0.04);
+  padding: 10px 16px;
+  border-radius: 10px;
+  width: 100%;
+  font-size: 0.8rem;
+}
+.app-activity-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+}
+.app-activity-name { flex: 1; font-weight: 500; }
+.app-activity-time { color: #7A7A7A; font-variant-numeric: tabular-nums; }
+
+.app-timeline {
+  display: flex;
+  width: 100%;
+  height: 8px;
+  border-radius: 4px;
+  overflow: hidden;
+  gap: 2px;
+}
+.app-tl-block { border-radius: 2px; }
+
+.app-review-btn {
+  width: 100%;
+  padding: 12px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 10px;
+  text-align: center;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #5B8DEF;
+  margin-top: auto;
 }
 
 /* ══════════════════════════════════════════════════
