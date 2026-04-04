@@ -721,7 +721,144 @@ h4 { font-size: 1.1rem; }
   font-size: 1.05rem;
 }
 
-/* Sensor circle overview */
+/* ══════════ SENSOR HUB — circular with inline info ══════════ */
+.sensor-hub {
+  position: relative;
+  max-width: 900px;
+  margin: 0 auto 3rem;
+  padding: 2rem 0;
+}
+
+.hub-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: #141416;
+  border: 1px solid rgba(255,255,255,0.08);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  box-shadow: 0 0 40px rgba(255,107,53,0.06);
+}
+.hub-center-icon { font-size: 1.2rem; }
+.hub-center-label { font-size: 0.45rem; font-weight: 700; letter-spacing: 0.08em; color: #555; }
+
+/* Each node row = dot + info side by side */
+.hub-node {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.2rem;
+  padding: 1.5rem 0;
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+}
+.hub-node:last-of-type { border-bottom: none; }
+
+.hub-dot {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: #141416;
+  border: 2px solid var(--nc);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  flex-shrink: 0;
+  box-shadow: 0 0 20px color-mix(in srgb, var(--nc) 15%, transparent);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.hub-node:hover .hub-dot {
+  transform: scale(1.1);
+  box-shadow: 0 0 30px color-mix(in srgb, var(--nc) 25%, transparent);
+}
+
+.hub-info { flex: 1; }
+.hub-info h4 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin-bottom: 0.4rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+.hub-pct {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--nc);
+  font-variant-numeric: tabular-nums;
+}
+.hub-info p {
+  font-size: 0.85rem;
+  color: #888;
+  line-height: 1.65;
+  margin-bottom: 0.5rem;
+}
+.hub-ex {
+  font-size: 0.75rem;
+  color: #666;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.04);
+  border-radius: 6px;
+  padding: 8px 12px;
+  line-height: 1.5;
+}
+
+/* Alternate sides: odd=icon left, even=icon right */
+.hub-node:nth-child(odd) { flex-direction: row; }
+.hub-node:nth-child(even) { flex-direction: row-reverse; text-align: right; }
+.hub-node:nth-child(even) .hub-info h4 { justify-content: flex-end; }
+
+/* Fusion mini bar */
+.fusion-mini {
+  max-width: 500px;
+  margin: 2rem auto 0;
+  text-align: center;
+}
+.fusion-mini-label {
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #555;
+  display: block;
+  margin-bottom: 0.75rem;
+}
+.fusion-mini-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.fm-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.fm-fill {
+  height: 5px;
+  border-radius: 3px;
+  display: block;
+}
+.fm-text {
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: #7A7A7A;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+  .hub-node, .hub-node:nth-child(even) { flex-direction: row !important; text-align: left !important; }
+  .hub-node:nth-child(even) .hub-info h4 { justify-content: flex-start !important; }
+  .hub-center { display: none; }
+}
+
+/* LEGACY — remove old sensor-circle */
 .sensor-circle {
   position: relative;
   width: min(400px, 85vw);
