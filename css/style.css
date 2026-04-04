@@ -311,11 +311,13 @@ h4 { font-size: 1.1rem; }
   background: #0C0C0E;
   border-radius: 24px;
   padding: 20px 16px;
-  min-height: 480px;
+  height: 480px;
+  max-height: 480px;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 16px;
+  overflow: hidden;
 }
 
 .app-header {
@@ -535,9 +537,13 @@ h4 { font-size: 1.1rem; }
   color: #FF6B35;
 }
 
-/* Alt phone screens */
+/* Alt phone screens — fixed height, internal scroll */
 .phone-screen-alt {
-  min-height: 480px;
+  height: 480px;
+  max-height: 480px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 /* Timeline screen */
@@ -622,7 +628,7 @@ h4 { font-size: 1.1rem; }
 }
 
 /* ══════ SETTINGS SCREEN ══════ */
-.settings-list { flex: 1; overflow-y: auto; width: 100%; }
+.settings-list { flex: 1; overflow-y: auto; width: 100%; -webkit-overflow-scrolling: touch; }
 .settings-group { margin-bottom: 16px; }
 .settings-group-label {
   font-size: 0.55rem; font-weight: 700; letter-spacing: 0.12em;
@@ -685,6 +691,7 @@ h4 { font-size: 1.1rem; }
 }
 
 /* ══════ INSIGHTS SCREEN — REDESIGNED ══════ */
+.app-insights { flex: 1; overflow-y: auto; width: 100%; -webkit-overflow-scrolling: touch; display: flex; flex-direction: column; gap: 6px; padding-bottom: 8px; }
 .insight-section-label {
   font-size: 0.55rem; font-weight: 700; letter-spacing: 0.12em;
   color: #555; margin: 8px 0 6px; text-transform: uppercase;
