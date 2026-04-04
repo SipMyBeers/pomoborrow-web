@@ -55,20 +55,40 @@
           <div class="phone-frame">
             <div class="phone-notch"></div>
             <div class="phone-screen">
+              <!-- Status bar -->
+              <div class="app-status-bar">
+                <span>9:41</span>
+                <div class="app-status-icons">
+                  <span>&#8226;&#8226;&#8226;&#8226;</span>
+                  <span>&#9681;</span>
+                </div>
+              </div>
               <!-- App header -->
               <div class="app-header">
                 <span class="app-title">PomoBorrow</span>
-                <span class="app-settings">&#9881;</span>
+                <span class="app-settings-icon">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7A7A7A" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+                </span>
               </div>
               <!-- Ring -->
               <div class="app-ring-wrap">
                 <svg class="app-ring" viewBox="0 0 200 200">
-                  <circle cx="100" cy="100" r="80" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="18"/>
-                  <circle cx="100" cy="100" r="80" fill="none" stroke="#5B8DEF" stroke-width="18" stroke-dasharray="151 352" stroke-dashoffset="0" transform="rotate(-90 100 100)" class="hero-seg hero-seg-1 ring-hover-seg" data-activity="🌙 Sleep" data-time="11:00pm – 6:30am" data-dur="7h 30m"/>
-                  <circle cx="100" cy="100" r="80" fill="none" stroke="#FF6B35" stroke-width="18" stroke-dasharray="151 352" stroke-dashoffset="-151" transform="rotate(-90 100 100)" class="hero-seg hero-seg-2 ring-hover-seg" data-activity="💼 Deep Work" data-time="8:00am – 12:30pm" data-dur="4h 30m"/>
-                  <circle cx="100" cy="100" r="80" fill="none" stroke="#34D399" stroke-width="18" stroke-dasharray="60 443" stroke-dashoffset="-302" transform="rotate(-90 100 100)" class="hero-seg hero-seg-3 ring-hover-seg" data-activity="🏋️ Gym" data-time="5:30pm – 7:00pm" data-dur="1h 30m"/>
-                  <circle cx="100" cy="100" r="80" fill="none" stroke="#A78BFA" stroke-width="18" stroke-dasharray="80 423" stroke-dashoffset="-362" transform="rotate(-90 100 100)" class="hero-seg hero-seg-4 ring-hover-seg" data-activity="🎮 Downtime" data-time="8:00pm – 11:00pm" data-dur="3h"/>
-                  <line x1="100" y1="100" x2="100" y2="28" stroke="#F5F5F5" stroke-width="1.5" stroke-linecap="round" class="hero-needle"/>
+                  <!-- Track -->
+                  <circle cx="100" cy="100" r="78" fill="none" stroke="rgba(255,255,255,0.04)" stroke-width="16"/>
+                  <!-- Segments -->
+                  <circle cx="100" cy="100" r="78" fill="none" stroke="#5B8DEF" stroke-width="16" stroke-dasharray="147 343" stroke-dashoffset="0" transform="rotate(-90 100 100)" stroke-linecap="round" class="hero-seg hero-seg-1 ring-hover-seg" data-activity="🌙 Sleep" data-time="11:00pm – 6:30am" data-dur="7h 30m"/>
+                  <circle cx="100" cy="100" r="78" fill="none" stroke="#FF6B35" stroke-width="16" stroke-dasharray="147 343" stroke-dashoffset="-149" transform="rotate(-90 100 100)" stroke-linecap="round" class="hero-seg hero-seg-2 ring-hover-seg" data-activity="💼 Deep Work" data-time="8:00am – 12:30pm" data-dur="4h 30m"/>
+                  <circle cx="100" cy="100" r="78" fill="none" stroke="#34D399" stroke-width="16" stroke-dasharray="59 431" stroke-dashoffset="-298" transform="rotate(-90 100 100)" stroke-linecap="round" class="hero-seg hero-seg-3 ring-hover-seg" data-activity="🏋️ Gym" data-time="5:30pm – 7:00pm" data-dur="1h 30m"/>
+                  <circle cx="100" cy="100" r="78" fill="none" stroke="#A78BFA" stroke-width="16" stroke-dasharray="78 412" stroke-dashoffset="-359" transform="rotate(-90 100 100)" stroke-linecap="round" class="hero-seg hero-seg-4 ring-hover-seg" data-activity="🎮 Downtime" data-time="8:00pm – 11:00pm" data-dur="3h"/>
+                  <!-- Needle — gradient, not white -->
+                  <defs>
+                    <linearGradient id="needleGrad" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stop-color="#FF6B35"/>
+                      <stop offset="100%" stop-color="#FF6B35" stop-opacity="0.2"/>
+                    </linearGradient>
+                  </defs>
+                  <line x1="100" y1="100" x2="100" y2="30" stroke="url(#needleGrad)" stroke-width="2" stroke-linecap="round" class="hero-needle"/>
+                  <circle cx="100" cy="100" r="3" fill="#FF6B35"/>
                 </svg>
                 <div class="ring-tooltip" id="ring-tooltip"></div>
                 <div class="app-ring-center">
@@ -79,17 +99,27 @@
               <!-- Current activity -->
               <div class="app-activity">
                 <span class="app-activity-dot" style="background:#FF6B35"></span>
-                <span class="app-activity-name">&#128188; Work</span>
+                <div class="app-activity-info">
+                  <span class="app-activity-name">💼 Deep Work</span>
+                  <span class="app-activity-sub">Since 1:15 PM</span>
+                </div>
                 <span class="app-activity-time">2h 14m</span>
               </div>
-              <!-- Timeline bar -->
-              <div class="app-timeline">
-                <div class="app-tl-block" style="width:31%;background:#5B8DEF"></div>
-                <div class="app-tl-block" style="width:4%;background:#7A7A7A"></div>
-                <div class="app-tl-block" style="width:33%;background:#FF6B35"></div>
-                <div class="app-tl-block" style="width:6%;background:#34D399"></div>
-                <div class="app-tl-block" style="width:12%;background:#A78BFA"></div>
-                <div class="app-tl-block" style="width:14%;background:rgba(255,255,255,0.06)"></div>
+              <!-- Day progress -->
+              <div class="app-progress-wrap">
+                <div class="app-progress-bar">
+                  <div class="app-progress-fill" style="width:62%"></div>
+                </div>
+                <span class="app-progress-label">62% of day complete</span>
+              </div>
+              <!-- Next event alert -->
+              <div class="app-next-event">
+                <div class="app-next-icon">📍</div>
+                <div class="app-next-info">
+                  <span class="app-next-title">Team standup in 28 min</span>
+                  <span class="app-next-detail">Leave in 8 min to beat traffic</span>
+                </div>
+                <div class="app-next-arrow">&#8250;</div>
               </div>
               <!-- Review button -->
               <div class="app-review-btn">Review Day</div>

@@ -393,40 +393,112 @@ h4 { font-size: 1.1rem; }
   letter-spacing: 0.15em;
 }
 
+/* Status bar */
+.app-status-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: #F5F5F5;
+  padding: 0 4px;
+}
+.app-status-icons {
+  display: flex;
+  gap: 4px;
+  font-size: 0.6rem;
+  color: #7A7A7A;
+}
+
+.app-settings-icon { display: flex; align-items: center; }
+
+/* Current activity */
 .app-activity {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   background: rgba(255,255,255,0.04);
-  padding: 10px 16px;
-  border-radius: 10px;
+  padding: 12px 14px;
+  border-radius: 12px;
   width: 100%;
-  font-size: 0.8rem;
+  font-size: 0.78rem;
+  border: 1px solid rgba(255,255,255,0.06);
 }
 .app-activity-dot {
-  width: 8px; height: 8px; border-radius: 50%;
+  width: 10px; height: 10px; border-radius: 50%;
+  flex-shrink: 0;
 }
-.app-activity-name { flex: 1; font-weight: 500; }
-.app-activity-time { color: #7A7A7A; font-variant-numeric: tabular-nums; }
+.app-activity-info { flex: 1; display: flex; flex-direction: column; gap: 1px; }
+.app-activity-name { font-weight: 600; font-size: 0.82rem; }
+.app-activity-sub { font-size: 0.65rem; color: #7A7A7A; }
+.app-activity-time {
+  font-size: 0.9rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: #FF6B35;
+}
 
-.app-timeline {
-  display: flex;
+/* Day progress */
+.app-progress-wrap { width: 100%; }
+.app-progress-bar {
   width: 100%;
-  height: 8px;
-  border-radius: 4px;
+  height: 4px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 2px;
   overflow: hidden;
-  gap: 2px;
 }
-.app-tl-block { border-radius: 2px; }
+.app-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #5B8DEF, #FF6B35);
+  border-radius: 2px;
+  transition: width 1s ease;
+}
+.app-progress-label {
+  display: block;
+  font-size: 0.6rem;
+  color: #7A7A7A;
+  margin-top: 4px;
+  text-align: right;
+}
 
+/* Next event alert */
+.app-next-event {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255,107,53,0.08);
+  border: 1px solid rgba(255,107,53,0.15);
+  padding: 12px 14px;
+  border-radius: 12px;
+  width: 100%;
+}
+.app-next-icon { font-size: 1.2rem; }
+.app-next-info { flex: 1; display: flex; flex-direction: column; gap: 2px; }
+.app-next-title {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #F5F5F5;
+}
+.app-next-detail {
+  font-size: 0.65rem;
+  color: #FF6B35;
+  font-weight: 500;
+}
+.app-next-arrow {
+  font-size: 1.2rem;
+  color: #7A7A7A;
+}
+
+/* Review button */
 .app-review-btn {
   width: 100%;
   padding: 12px;
-  background: rgba(255,255,255,0.06);
-  border-radius: 10px;
+  background: rgba(91,141,239,0.1);
+  border: 1px solid rgba(91,141,239,0.2);
+  border-radius: 12px;
   text-align: center;
-  font-size: 0.85rem;
-  font-weight: 500;
+  font-size: 0.82rem;
+  font-weight: 600;
   color: #5B8DEF;
   margin-top: auto;
 }
