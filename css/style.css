@@ -721,6 +721,91 @@ h4 { font-size: 1.1rem; }
   font-size: 1.05rem;
 }
 
+/* Sensor circle overview */
+.sensor-circle {
+  position: relative;
+  width: min(400px, 85vw);
+  height: min(400px, 85vw);
+  margin: 0 auto 2rem;
+}
+
+.sensor-lines {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.sensor-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: #141416;
+  border: 1px solid rgba(255,255,255,0.08);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  box-shadow: 0 0 40px rgba(255,107,53,0.08), 0 0 80px rgba(91,141,239,0.05);
+}
+.sensor-center-icon { font-size: 1.3rem; }
+.sensor-center-label { font-size: 0.5rem; font-weight: 700; letter-spacing: 0.08em; color: #7A7A7A; margin-top: 2px; }
+
+/* Position 5 nodes in a circle */
+.sensor-node {
+  position: absolute;
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: #141416;
+  border: 1.5px solid rgba(255,255,255,0.06);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  text-decoration: none;
+  transition: transform 0.25s cubic-bezier(0.16,1,0.3,1), border-color 0.25s, box-shadow 0.25s;
+  z-index: 2;
+  cursor: pointer;
+}
+.sensor-node:hover {
+  transform: scale(1.15);
+  border-color: var(--nc);
+  box-shadow: 0 0 30px color-mix(in srgb, var(--nc) 20%, transparent);
+}
+
+.sensor-node-icon { font-size: 1.5rem; }
+.sensor-node-name { font-size: 0.6rem; font-weight: 600; color: #F5F5F5; letter-spacing: 0.02em; }
+.sensor-node-weight { font-size: 0.55rem; font-weight: 700; color: var(--nc); font-variant-numeric: tabular-nums; }
+
+/* Circle positions — 5 evenly spaced */
+/* Top */
+.sensor-node-1 { top: 0; left: 50%; transform: translateX(-50%); }
+.sensor-node-1:hover { transform: translateX(-50%) scale(1.15); }
+/* Top-right */
+.sensor-node-2 { top: 18%; right: 0; }
+/* Bottom-right */
+.sensor-node-3 { bottom: 12%; right: 2%; }
+/* Bottom-left (actually bottom center for 5) */
+.sensor-node-4 { bottom: 0; left: 50%; transform: translateX(-50%); }
+.sensor-node-4:hover { transform: translateX(-50%) scale(1.15); }
+/* Top-left */
+.sensor-node-5 { top: 30%; left: 0; }
+
+@media (max-width: 480px) {
+  .sensor-circle { width: 300px; height: 300px; }
+  .sensor-node { width: 70px; height: 70px; }
+  .sensor-node-icon { font-size: 1.2rem; }
+  .sensor-center { width: 60px; height: 60px; }
+}
+
 /* Node row — icon left, content right */
 .node-row {
   display: grid;
