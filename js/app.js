@@ -13,7 +13,7 @@
     if (!canvas) return;
     var ctx = canvas.getContext('2d');
     var particles = [];
-    var count = 60;
+    var count = 90;
     var mouse = { x: -1000, y: -1000 };
 
     function resize() {
@@ -34,8 +34,8 @@
         y: Math.random() * canvas.height,
         vx: (Math.random() - 0.5) * 0.3,
         vy: (Math.random() - 0.5) * 0.3,
-        r: Math.random() * 1.5 + 0.5,
-        o: Math.random() * 0.3 + 0.05,
+        r: Math.random() * 3 + 1.2,
+        o: Math.random() * 0.4 + 0.1,
         color: ['255,107,53', '91,141,239', '52,211,153', '167,139,250', '251,191,36'][Math.floor(Math.random() * 5)]
       });
     }
@@ -68,12 +68,12 @@
           var dx = p.x - p2.x;
           var dy = p.y - p2.y;
           var dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < 150) {
+          if (dist < 200) {
             ctx.beginPath();
             ctx.moveTo(p.x, p.y);
             ctx.lineTo(p2.x, p2.y);
-            ctx.strokeStyle = 'rgba(255,255,255,' + (0.02 * (1 - dist / 150)) + ')';
-            ctx.lineWidth = 0.5;
+            ctx.strokeStyle = 'rgba(255,255,255,' + (0.06 * (1 - dist / 200)) + ')';
+            ctx.lineWidth = 0.8;
             ctx.stroke();
           }
         }
