@@ -392,6 +392,13 @@ h4 { font-size: 1.1rem; }
   text-transform: uppercase;
   letter-spacing: 0.15em;
 }
+.app-countdown-current {
+  display: block;
+  font-size: 0.65rem;
+  color: #FF6B35;
+  font-weight: 600;
+  margin-top: 4px;
+}
 
 /* Status bar */
 .app-status-bar {
@@ -489,19 +496,62 @@ h4 { font-size: 1.1rem; }
   color: #7A7A7A;
 }
 
-/* Review button */
-.app-review-btn {
-  width: 100%;
-  padding: 12px;
-  background: rgba(91,141,239,0.1);
-  border: 1px solid rgba(91,141,239,0.2);
-  border-radius: 12px;
-  text-align: center;
-  font-size: 0.82rem;
-  font-weight: 600;
-  color: #5B8DEF;
-  margin-top: auto;
+/* Clickable elements */
+.app-clickable { cursor: pointer; transition: transform 0.15s, background 0.15s; }
+.app-clickable:hover { transform: scale(1.02); }
+.app-clickable:active { transform: scale(0.98); }
+
+/* Settings button */
+.app-settings-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 6px;
+  display: flex;
+  transition: background 0.15s;
 }
+.app-settings-btn:hover { background: rgba(255,255,255,0.06); }
+.app-settings-btn svg { transition: stroke 0.15s; }
+.app-settings-btn:hover svg { stroke: #F5F5F5; }
+
+/* Event markers on ring */
+.event-marker {
+  animation: markerPulse 2s ease-in-out infinite;
+}
+@keyframes markerPulse {
+  0%, 100% { opacity: 0.7; }
+  50% { opacity: 1; }
+}
+
+/* Bottom nav */
+.app-bottom-nav {
+  display: flex;
+  width: 100%;
+  gap: 4px;
+  margin-top: auto;
+  padding-top: 8px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+.app-nav-btn {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  background: none;
+  border: none;
+  color: #4A4A4A;
+  font-size: 0.55rem;
+  font-weight: 500;
+  padding: 6px 0;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: color 0.15s, background 0.15s;
+}
+.app-nav-btn:hover { color: #7A7A7A; background: rgba(255,255,255,0.03); }
+.app-nav-active { color: #FF6B35 !important; }
+.app-nav-active svg { stroke: #FF6B35; }
 
 /* ══════════════════════════════════════════════════
    THE PROBLEM
