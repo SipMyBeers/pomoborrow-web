@@ -626,13 +626,15 @@ h4 { font-size: 1.1rem; }
 .app-settings-btn svg { transition: stroke 0.15s; }
 .app-settings-btn:hover svg { stroke: #F5F5F5; }
 
-/* Event tick lines on ring */
+/* Event tick lines on ring — wider hit area */
 .event-tick {
   cursor: pointer;
   transition: stroke-width 0.15s, opacity 0.15s;
   opacity: 0.8;
+  stroke-width: 6;
+  paint-order: stroke;
 }
-.event-tick:hover { stroke-width: 3.5; opacity: 1; }
+.event-tick:hover { stroke-width: 8; opacity: 1; }
 .event-tick-dot {
   pointer-events: none;
   animation: tickPulse 2.5s ease-in-out infinite;
@@ -709,8 +711,171 @@ h4 { font-size: 1.1rem; }
 }
 
 /* ══════════════════════════════════════════════════
-   HOW IT WORKS
+   HOW IT WORKS — Data Nodes
    ══════════════════════════════════════════════════ */
+.section-sub {
+  text-align: center;
+  color: #7A7A7A;
+  max-width: 640px;
+  margin: -1.5rem auto 4rem;
+  font-size: 1.05rem;
+}
+
+/* Node row — icon left, content right */
+.node-row {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  gap: 2rem;
+  padding: 3rem 0;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  align-items: start;
+}
+.node-row:last-of-type { border-bottom: none; }
+
+.node-icon-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+}
+.node-icon {
+  font-size: 2rem;
+  position: relative;
+  z-index: 1;
+}
+.node-pulse {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--node-color);
+  opacity: 0.08;
+  animation: nodePulse 3s ease-in-out infinite;
+}
+@keyframes nodePulse {
+  0%, 100% { transform: translate(-50%,-50%) scale(1); opacity: 0.08; }
+  50% { transform: translate(-50%,-50%) scale(1.3); opacity: 0.15; }
+}
+
+.node-content { display: flex; flex-direction: column; gap: 0.75rem; }
+
+.node-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.node-header h3 {
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+.node-tag {
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 4px;
+  background: rgba(255,107,53,0.12);
+  color: #FF6B35;
+}
+
+.node-desc {
+  color: #999;
+  font-size: 0.95rem;
+  line-height: 1.75;
+}
+
+.node-example {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 10px;
+  padding: 14px 16px;
+  font-size: 0.82rem;
+  color: #ccc;
+  line-height: 1.7;
+}
+.node-example-label {
+  display: block;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #7A7A7A;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+}
+
+.node-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 0.8rem;
+  color: #7A7A7A;
+}
+.node-detail span::before {
+  content: '→ ';
+  color: rgba(255,255,255,0.15);
+}
+
+/* Fusion card */
+.fusion-card {
+  margin-top: 3rem;
+  text-align: center;
+  padding: 3rem !important;
+}
+.fusion-header { margin-bottom: 1rem; }
+.fusion-header h3 {
+  font-size: 1.5rem;
+  margin-top: 0.5rem;
+}
+.fusion-card > p {
+  color: #999;
+  font-size: 0.92rem;
+  line-height: 1.75;
+  max-width: 640px;
+  margin: 0 auto 2rem;
+}
+.fusion-thresholds {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 400px;
+  margin: 0 auto;
+}
+.fusion-tier {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.fusion-bar {
+  height: 6px;
+  border-radius: 3px;
+}
+.fusion-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #F5F5F5;
+  min-width: 100px;
+  text-align: left;
+}
+.fusion-pct {
+  font-size: 0.75rem;
+  color: #7A7A7A;
+  font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 768px) {
+  .node-row { grid-template-columns: 1fr; gap: 1rem; }
+  .node-icon-wrap { margin-bottom: -0.5rem; }
+}
+
+/* LEGACY — keep for any remaining usage */
 .steps-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);

@@ -236,87 +236,156 @@
     </div>
   </section>
 
-  <!-- HOW IT WORKS -->
+  <!-- HOW IT WORKS — The data nodes explained -->
   <section class="section" id="how-it-works">
     <div class="container">
-      <span class="label reveal">HOW IT WORKS</span>
-      <div class="steps-grid">
-        <div class="card step-card reveal" data-delay="0">
-          <span class="step-number">01</span>
-          <div class="step-icon">&#128229;</div>
-          <h3>Install &amp; Forget</h3>
-          <p>Download PomoBorrow. Grant location. That's the last thing you'll ever do.</p>
+      <span class="label reveal">HOW IT ACTUALLY WORKS</span>
+      <h2 class="section-heading reveal" data-delay="100">Five invisible sensors.<br>One complete picture of your day.</h2>
+      <p class="section-sub reveal" data-delay="200">Every productivity app asks you to tell it what you're doing. PomoBorrow already knows — by fusing five independent data streams that your phone is already collecting. No extra hardware. No wearable. No input.</p>
+
+      <!-- Node 1: Location -->
+      <div class="node-row reveal" data-delay="0">
+        <div class="node-icon-wrap" style="--node-color: #FF6B35">
+          <div class="node-icon">📍</div>
+          <div class="node-pulse"></div>
         </div>
-        <div class="card step-card reveal" data-delay="150">
-          <span class="step-number">02</span>
-          <div class="step-icon">&#127939;</div>
-          <h3>Live Your Life</h3>
-          <p>ACE silently learns your places, your motion, your routines. Zero input required.</p>
-        </div>
-        <div class="card step-card reveal" data-delay="300">
-          <span class="step-number">03</span>
-          <div class="step-icon">&#128161;</div>
-          <h3>See Your Truth</h3>
-          <p>Open the app. See your entire day — color-coded, timestamped, automatic.</p>
+        <div class="node-content">
+          <div class="node-header">
+            <h3>Location Intelligence</h3>
+            <span class="node-tag">STRONGEST SIGNAL</span>
+          </div>
+          <p class="node-desc">Your phone already knows when you arrive somewhere and when you leave. PomoBorrow listens for these "visit" events — not by polling GPS (which kills battery), but by using Apple's built-in visit detection that runs on the motion chip at near-zero power.</p>
+          <div class="node-example">
+            <span class="node-example-label">WHAT IT SEES</span>
+            <span>You arrived at <strong>33.749, -84.388</strong> at 5:32 PM. You've been here 47 times. You labeled it "Gold's Gym" on day 3. → <strong style="color:#34D399">Activity: Workout</strong></span>
+          </div>
+          <div class="node-detail">
+            <span>Learns your places automatically</span>
+            <span>Creates invisible geofences around your top 19 locations</span>
+            <span>Gets smarter every visit — confidence goes from 50% to 95%+</span>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
 
-  <!-- THE RING -->
-  <section class="section" id="the-ring">
-    <div class="container ring-section">
-      <span class="label reveal">YOUR DAY, VISUALIZED</span>
-      <div class="ring-wrapper reveal" data-delay="100">
-        <svg class="day-ring" viewBox="0 0 400 400" id="day-ring"></svg>
-        <div class="ring-center" id="ring-countdown">00:00:00</div>
+      <!-- Node 2: Motion -->
+      <div class="node-row reveal" data-delay="100">
+        <div class="node-icon-wrap" style="--node-color: #5B8DEF">
+          <div class="node-icon">🏃</div>
+          <div class="node-pulse"></div>
+        </div>
+        <div class="node-content">
+          <div class="node-header">
+            <h3>Motion Detection</h3>
+            <span class="node-tag">SAFETY-CRITICAL</span>
+          </div>
+          <p class="node-desc">The M-series motion coprocessor in your iPhone classifies your physical state every second — stationary, walking, running, cycling, or driving. This runs on dedicated hardware with zero battery impact. When PomoBorrow detects driving, it's a hard override: you're commuting. No questions asked.</p>
+          <div class="node-example">
+            <span class="node-example-label">WHAT IT SEES</span>
+            <span>Motion: <strong>automotive</strong> for 12 minutes → merged with location shift → <strong style="color:#7A7A7A">Activity: Commute</strong>. Last 8 drives to gym averaged 14 min. Today's traffic: +6 min.</span>
+          </div>
+          <div class="node-detail">
+            <span>30-second smoothing window prevents false triggers</span>
+            <span>Driving detection is instant — overrides all other signals</span>
+            <span>Learns your commute patterns and travel times</span>
+          </div>
+        </div>
       </div>
-      <div class="ring-legend reveal" data-delay="200" id="ring-legend"></div>
-    </div>
-  </section>
 
-  <!-- TIMELINE -->
-  <section class="section" id="timeline">
-    <div class="container">
-      <span class="label reveal">EVERY SECOND ACCOUNTED FOR</span>
-      <h2 class="section-heading reveal" data-delay="100">Your timeline. Your truth.</h2>
-      <div class="timeline-wrapper reveal" data-delay="200">
-        <div class="timeline-track" id="timeline-track"></div>
+      <!-- Node 3: Digital Fingerprint -->
+      <div class="node-row reveal" data-delay="200">
+        <div class="node-icon-wrap" style="--node-color: #A78BFA">
+          <div class="node-icon">📡</div>
+          <div class="node-pulse"></div>
+        </div>
+        <div class="node-content">
+          <div class="node-header">
+            <h3>Network Fingerprinting</h3>
+            <span class="node-tag" style="background:rgba(167,139,250,0.15);color:#A78BFA">PATENT PENDING</span>
+          </div>
+          <p class="node-desc">This is what makes PomoBorrow different from everything else. Your home WiFi has an Apple TV, two HomePods, and an iPad. Your office has a printer and a MacBook. The gym has Bluetooth speakers. These device signatures are unique to each place — even when GPS can't tell two rooms apart.</p>
+          <div class="node-example">
+            <span class="node-example-label">WHAT IT SEES</span>
+            <span>mDNS scan: <strong>Dylan's MacBook Pro</strong> (companion-link), <strong>HP LaserJet</strong> (ipp), <strong>Conference Room TV</strong> (airplay) → matches "Office" fingerprint → <strong style="color:#FF6B35">Activity: Work</strong></span>
+          </div>
+          <div class="node-detail">
+            <span>Scans 5 Bonjour service types simultaneously</span>
+            <span>Distinguishes "home office" from "living room" — GPS can't</span>
+            <span>120-second grace period prevents false switches from WiFi blips</span>
+          </div>
+        </div>
       </div>
-      <div class="timeline-tooltip" id="timeline-tooltip"></div>
-    </div>
-  </section>
 
-  <!-- FIVE SENSES -->
-  <section class="section" id="senses">
-    <div class="container">
-      <span class="label reveal">FIVE SENSES. ZERO INPUT.</span>
-      <h2 class="section-heading reveal" data-delay="100">How PomoBorrow sees your world</h2>
-      <div class="senses-grid">
-        <div class="card sense-card reveal" data-delay="0">
-          <div class="sense-icon">&#128205;</div>
-          <h4>Location</h4>
-          <p>Knows your gym, office, and home</p>
+      <!-- Node 4: Sound -->
+      <div class="node-row reveal" data-delay="300">
+        <div class="node-icon-wrap" style="--node-color: #34D399">
+          <div class="node-icon">🎵</div>
+          <div class="node-pulse"></div>
         </div>
-        <div class="card sense-card reveal" data-delay="100">
-          <div class="sense-icon">&#127939;</div>
-          <h4>Motion</h4>
-          <p>Detects driving, walking, stationary</p>
+        <div class="node-content">
+          <div class="node-header">
+            <h3>Ambient Sound</h3>
+            <span class="node-tag" style="background:rgba(52,211,153,0.15);color:#34D399">NEURAL ENGINE</span>
+          </div>
+          <p class="node-desc">Apple's on-device Neural Engine can classify 300+ sound types — keyboard typing, gym equipment, traffic, restaurant chatter, silence. PomoBorrow listens for ambient sounds (never records or stores audio) to confirm what you're doing. It also uses ShazamKit to detect what music you play during each activity.</p>
+          <div class="node-example">
+            <span class="node-example-label">WHAT IT SEES</span>
+            <span>Sound classification: <strong>metallic_clanking</strong> (0.82) + <strong>music</strong> (0.91) → maps to Exercise. Shazam: <strong>Travis Scott — FE!N</strong> → tagged to Workout playlist.</span>
+          </div>
+          <div class="node-detail">
+            <span>Classifies every 3 seconds — not continuous recording</span>
+            <span>Runs on the Neural Engine, not the CPU — near zero battery</span>
+            <span>Builds your music taste profile per activity over time</span>
+          </div>
         </div>
-        <div class="card sense-card reveal" data-delay="200">
-          <div class="sense-icon">&#128225;</div>
-          <h4>Devices</h4>
-          <p>Fingerprints your WiFi and Bluetooth</p>
+      </div>
+
+      <!-- Node 5: Temporal Patterns -->
+      <div class="node-row reveal" data-delay="400">
+        <div class="node-icon-wrap" style="--node-color: #FBBF24">
+          <div class="node-icon">🕐</div>
+          <div class="node-pulse"></div>
         </div>
-        <div class="card sense-card reveal" data-delay="300">
-          <div class="sense-icon">&#127925;</div>
-          <h4>Sound</h4>
-          <p>Hears gym music vs keyboard typing</p>
+        <div class="node-content">
+          <div class="node-header">
+            <h3>Temporal Patterns</h3>
+            <span class="node-tag" style="background:rgba(251,191,36,0.15);color:#FBBF24">PREDICTIVE</span>
+          </div>
+          <p class="node-desc">After just one week, PomoBorrow knows your routine better than you do. Tuesday at 6pm? You go to the gym 14 out of 16 Tuesdays. It predicts your next move before you make it — and calculates when you need to leave based on real traffic data from your past commutes.</p>
+          <div class="node-example">
+            <span class="node-example-label">WHAT IT SEES</span>
+            <span>Pattern: <strong>Tuesday 18:00</strong> → Gym (87.5% confidence, 14/16 weeks). Last 8 drives: avg 14 min. Current traffic: heavy. → <strong style="color:#FBBF24">Leave by 5:10 PM</strong></span>
+          </div>
+          <div class="node-detail">
+            <span>Learns in 48 hours — fully autonomous by day 5</span>
+            <span>Recent patterns weighted 3x more than old ones</span>
+            <span>Integrates with your calendar for scheduled events</span>
+          </div>
         </div>
-        <div class="card sense-card reveal" data-delay="400">
-          <div class="sense-icon">&#128336;</div>
-          <h4>Patterns</h4>
-          <p>Learns your weekly routine in days</p>
+      </div>
+
+      <!-- The fusion -->
+      <div class="fusion-card card reveal" data-delay="100">
+        <div class="fusion-header">
+          <span class="label" style="margin-bottom:0">THE FUSION</span>
+          <h3>All five combine into one decision.</h3>
+        </div>
+        <p>Every few seconds, PomoBorrow weighs all five signals — location (35%), motion (25%), devices (15%), sound (15%), patterns (10%) — applies cross-signal agreement bonuses, and produces a single confidence-scored activity classification. When confidence hits 85%, it switches automatically. Below that, it suggests. Below 50%, it just watches and learns.</p>
+        <div class="fusion-thresholds">
+          <div class="fusion-tier">
+            <span class="fusion-bar" style="width:100%;background:linear-gradient(90deg,#34D399,#34D399)"></span>
+            <span class="fusion-label">AUTO-SWITCH</span>
+            <span class="fusion-pct">≥ 85%</span>
+          </div>
+          <div class="fusion-tier">
+            <span class="fusion-bar" style="width:65%;background:linear-gradient(90deg,#FBBF24,#FBBF24)"></span>
+            <span class="fusion-label">SUGGEST</span>
+            <span class="fusion-pct">50–84%</span>
+          </div>
+          <div class="fusion-tier">
+            <span class="fusion-bar" style="width:30%;background:linear-gradient(90deg,#7A7A7A,#7A7A7A)"></span>
+            <span class="fusion-label">OBSERVE</span>
+            <span class="fusion-pct">&lt; 50%</span>
+          </div>
         </div>
       </div>
     </div>
