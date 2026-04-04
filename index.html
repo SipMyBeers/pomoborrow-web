@@ -246,6 +246,35 @@
       <!-- Sensor hub — all info visible inline -->
       <div class="sensor-hub reveal" data-delay="300">
 
+        <!-- Wiring SVG connecting all nodes to center -->
+        <svg class="hub-wires" viewBox="0 0 750 750" preserveAspectRatio="xMidYMid meet">
+          <!-- Center point: 375, 375 -->
+          <!-- Outer ring (subtle) -->
+          <circle cx="375" cy="375" r="280" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
+          <!-- Wires from center to each node with animated dashes -->
+          <!-- To Location (top: 375, 55) -->
+          <line x1="375" y1="375" x2="375" y2="55" stroke="#FF6B35" stroke-width="1" opacity="0.2" class="hub-wire"/>
+          <line x1="375" y1="375" x2="375" y2="55" stroke="#FF6B35" stroke-width="1" opacity="0.5" stroke-dasharray="6 12" class="hub-wire-pulse"/>
+          <!-- To Motion (top-right: 690, 190) -->
+          <line x1="375" y1="375" x2="690" y2="190" stroke="#5B8DEF" stroke-width="1" opacity="0.2" class="hub-wire"/>
+          <line x1="375" y1="375" x2="690" y2="190" stroke="#5B8DEF" stroke-width="1" opacity="0.5" stroke-dasharray="6 12" class="hub-wire-pulse"/>
+          <!-- To Network (bottom-right: 690, 570) -->
+          <line x1="375" y1="375" x2="690" y2="570" stroke="#A78BFA" stroke-width="1" opacity="0.2" class="hub-wire"/>
+          <line x1="375" y1="375" x2="690" y2="570" stroke="#A78BFA" stroke-width="1" opacity="0.5" stroke-dasharray="6 12" class="hub-wire-pulse"/>
+          <!-- To Sound (bottom-left: 60, 570) -->
+          <line x1="375" y1="375" x2="60" y2="570" stroke="#34D399" stroke-width="1" opacity="0.2" class="hub-wire"/>
+          <line x1="375" y1="375" x2="60" y2="570" stroke="#34D399" stroke-width="1" opacity="0.5" stroke-dasharray="6 12" class="hub-wire-pulse"/>
+          <!-- To Patterns (top-left: 60, 190) -->
+          <line x1="375" y1="375" x2="60" y2="190" stroke="#FBBF24" stroke-width="1" opacity="0.2" class="hub-wire"/>
+          <line x1="375" y1="375" x2="60" y2="190" stroke="#FBBF24" stroke-width="1" opacity="0.5" stroke-dasharray="6 12" class="hub-wire-pulse"/>
+          <!-- Data flow dots traveling along each wire -->
+          <circle r="3" fill="#FF6B35" opacity="0.8"><animateMotion dur="3s" repeatCount="indefinite" path="M375,375 L375,55"/></circle>
+          <circle r="3" fill="#5B8DEF" opacity="0.8"><animateMotion dur="3.5s" repeatCount="indefinite" path="M375,375 L690,190"/></circle>
+          <circle r="3" fill="#A78BFA" opacity="0.8"><animateMotion dur="4s" repeatCount="indefinite" path="M375,375 L690,570"/></circle>
+          <circle r="3" fill="#34D399" opacity="0.8"><animateMotion dur="3.2s" repeatCount="indefinite" path="M375,375 L60,570"/></circle>
+          <circle r="3" fill="#FBBF24" opacity="0.8"><animateMotion dur="3.8s" repeatCount="indefinite" path="M375,375 L60,190"/></circle>
+        </svg>
+
         <div class="hub-center">
           <span class="hub-center-icon">⚡</span>
           <span class="hub-center-label">PomoBorrow</span>
