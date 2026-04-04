@@ -312,11 +312,17 @@ function initWaitlist() {
   });
 }
 
+// ─── Slow down hero video ───
+function initHeroVideo() {
+  const video = document.querySelector('.hero-video');
+  if (video) {
+    video.playbackRate = 0.5; // Half speed for dramatic effect
+  }
+}
+
 // ─── Init ───
 document.addEventListener('DOMContentLoaded', () => {
-  const canvas = document.getElementById('hero-canvas');
-  if (canvas) new GradientBackground(canvas);
-
+  initHeroVideo();
   initHeroTitle();
   initReveals();
   buildRing();

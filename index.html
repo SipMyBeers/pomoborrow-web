@@ -51,32 +51,38 @@
        SECTION 1: HERO
   ════════════════════════════════════════ -->
   <section class="hero" id="hero">
-    <div class="hero-hourglass">
-      <img src="img/hourglass.png" alt="" class="hero-hourglass-img" loading="eager">
-      <div class="hero-hourglass-glow"></div>
+    <!-- Animated hourglass video — full viewport background -->
+    <div class="hero-video-wrap">
+      <video class="hero-video" autoplay loop muted playsinline>
+        <source src="img/hourglass-anim.webm" type="video/webm">
+      </video>
+      <div class="hero-vignette"></div>
     </div>
+
     <div class="hero-content">
-      <div class="hero-story">
-        <h1 class="hero-headline">
-          <span class="hero-line reveal">TIME WAITS</span>
-          <span class="hero-line reveal reveal-delay-1">FOR NO ONE</span>
-        </h1>
-        <div class="hero-divider reveal reveal-delay-2"></div>
-        <p class="hero-question reveal reveal-delay-3">What's the most valuable currency?</p>
-        <div class="hero-options reveal reveal-delay-4">
-          <span class="hero-option">Knowledge</span>
-          <span class="hero-option-dot">&middot;</span>
-          <span class="hero-option">Money</span>
-          <span class="hero-option-dot">&middot;</span>
-          <span class="hero-option">Health</span>
-          <span class="hero-option-dot">&middot;</span>
-          <span class="hero-option hero-option-answer">Time</span>
-        </div>
-        <p class="hero-subtitle reveal reveal-delay-5">
-          We built a tool to help you earn it back.
-        </p>
+      <!-- The narrative builds as you read down -->
+      <p class="hero-small reveal">What's the most valuable currency?</p>
+
+      <div class="hero-options reveal reveal-delay-1">
+        <span class="hero-option">Knowledge?</span>
+        <span class="hero-option">Money?</span>
+        <span class="hero-option">Health?</span>
       </div>
-      <div class="hero-buttons reveal reveal-delay-6">
+
+      <h1 class="hero-answer reveal reveal-delay-2">Time.</h1>
+
+      <div class="hero-divider reveal reveal-delay-3"></div>
+
+      <p class="hero-message reveal reveal-delay-3">
+        This is how your days are being spent.<br>
+        Over and over. With no way to track any of it.
+      </p>
+
+      <p class="hero-message-bold reveal reveal-delay-4">
+        We built a tool to help you earn it back.
+      </p>
+
+      <div class="hero-buttons reveal reveal-delay-5">
         <a href="#waitlist" class="btn-primary">Get Early Access</a>
         <a href="#ring" class="btn-secondary">See how it works &rarr;</a>
       </div>
