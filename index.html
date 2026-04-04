@@ -216,23 +216,84 @@
     </div>
   </section>
 
-  <!-- THE PROBLEM -->
-  <section class="section" id="the-problem">
-    <div class="container problem-grid">
-      <div class="problem-text reveal">
+  <!-- THE PROBLEM — scroll-driven story -->
+  <section class="section problem-section" id="the-problem">
+    <div class="container">
+
+      <!-- Step 1: The question -->
+      <div class="problem-step problem-step-question reveal">
         <span class="label">THE PROBLEM</span>
-        <h2>"What were you doing<br>at 2pm last Tuesday?"</h2>
-        <p class="problem-answer">If you can't answer that in 3 seconds — that's the problem.</p>
-        <p class="problem-answer" style="margin-top:1rem;color:#FF6B35">Last Tuesday you sat in traffic for 52 minutes and missed your standup. PomoBorrow remembers — so next time, it tells you to leave 10 minutes earlier.</p>
+        <h2 class="problem-question">"What were you doing<br>at <span class="problem-highlight">2pm last Tuesday</span>?"</h2>
       </div>
-      <div class="problem-clock reveal" data-delay="200">
-        <svg class="clock-svg" viewBox="0 0 200 200" width="280" height="280">
-          <circle cx="100" cy="100" r="90" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="2"/>
-          <circle cx="100" cy="100" r="3" fill="#FF6B35"/>
-          <line class="clock-hand-seconds" x1="100" y1="100" x2="100" y2="20" stroke="#FF6B35" stroke-width="1.5" stroke-linecap="round"/>
-          <line class="clock-hand-minutes" x1="100" y1="100" x2="100" y2="35" stroke="#F5F5F5" stroke-width="2" stroke-linecap="round"/>
-        </svg>
+
+      <!-- Step 2: The pause — let them think -->
+      <div class="problem-step problem-step-think reveal" data-delay="200">
+        <p class="problem-think">Think about it.</p>
       </div>
+
+      <!-- Step 3: The answer they can't give -->
+      <div class="problem-step problem-step-answer reveal" data-delay="400">
+        <p class="problem-cant">You don't know.</p>
+        <p class="problem-nobody">Nobody does. And that's the problem.</p>
+      </div>
+
+      <!-- Step 4: The consequence — make it real -->
+      <div class="problem-consequence card reveal" data-delay="200">
+        <div class="consequence-header">
+          <span class="consequence-day">LAST TUESDAY</span>
+          <span class="consequence-date">March 25, 2026</span>
+        </div>
+        <div class="consequence-timeline">
+          <div class="consequence-event">
+            <span class="ce-time">2:15 PM</span>
+            <span class="ce-dot" style="background:#FF6B35"></span>
+            <span class="ce-text">You left for your 3:00 PM standup</span>
+          </div>
+          <div class="consequence-event">
+            <span class="ce-time">2:22 PM</span>
+            <span class="ce-dot" style="background:#EF4444"></span>
+            <span class="ce-text">Hit traffic on I-85 — <strong style="color:#EF4444">dead stop</strong></span>
+          </div>
+          <div class="consequence-event">
+            <span class="ce-time">3:07 PM</span>
+            <span class="ce-dot" style="background:#EF4444"></span>
+            <span class="ce-text">Arrived 7 minutes late. <strong style="color:#EF4444">Missed the standup.</strong></span>
+          </div>
+          <div class="consequence-event">
+            <span class="ce-time">3:07 PM</span>
+            <span class="ce-dot" style="background:#7A7A7A"></span>
+            <span class="ce-text" style="color:#555">Total commute: <strong>52 minutes</strong> (avg is 20)</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 5: The fix -->
+      <div class="problem-fix reveal" data-delay="200">
+        <div class="fix-card card">
+          <div class="fix-header">
+            <span class="fix-label">WHAT POMOBORROW WOULD HAVE DONE</span>
+          </div>
+          <div class="fix-timeline">
+            <div class="consequence-event">
+              <span class="ce-time">1:45 PM</span>
+              <span class="ce-dot" style="background:#34D399"></span>
+              <span class="ce-text" style="color:#34D399">⚠️ Traffic building on I-85. <strong>Leave now to arrive by 2:50.</strong></span>
+            </div>
+            <div class="consequence-event">
+              <span class="ce-time">1:45 PM</span>
+              <span class="ce-dot" style="background:#5B8DEF"></span>
+              <span class="ce-text">Based on your last 8 Tuesday commutes — avg <strong>22 min</strong>, today: <strong>+30 min</strong></span>
+            </div>
+            <div class="consequence-event">
+              <span class="ce-time">2:48 PM</span>
+              <span class="ce-dot" style="background:#34D399"></span>
+              <span class="ce-text" style="color:#34D399">✓ Arrived 12 minutes early. Never missed it.</span>
+            </div>
+          </div>
+        </div>
+        <p class="fix-tagline">We help you plan your future by tracking your past.</p>
+      </div>
+
     </div>
   </section>
 
