@@ -54,6 +54,29 @@
     });
   });
 
+  // ── Phone screen switching ──
+  window.switchScreen = function(screen) {
+    const frame = document.querySelector('.phone-frame');
+    if (!frame) return;
+    // Hide all screens
+    frame.querySelectorAll('.phone-screen').forEach(s => s.style.display = 'none');
+    // Show target
+    if (screen === 'today') {
+      frame.querySelector('.phone-screen:not(.phone-screen-alt)').style.display = '';
+    } else {
+      const el = document.getElementById('screen-' + screen);
+      if (el) el.style.display = '';
+    }
+    // Update all nav buttons across all screens
+    frame.querySelectorAll('.app-nav-btn').forEach(btn => {
+      btn.classList.toggle('app-nav-active', btn.dataset.screen === screen);
+    });
+  };
+
+  document.querySelectorAll('.app-nav-btn[data-screen]').forEach(btn => {
+    btn.addEventListener('click', () => switchScreen(btn.dataset.screen));
+  });
+
   // ── Mobile nav ──
   const navToggle = document.getElementById('nav-toggle');
   const navLinks = document.getElementById('nav-links');

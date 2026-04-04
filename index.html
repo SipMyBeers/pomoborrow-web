@@ -37,7 +37,8 @@
           <span class="hero-line-3" id="hero-slam">without lifting a finger?</span>
         </h1>
         <p class="hero-subtitle reveal" data-delay="800">
-          Someone already is. It's not you. <strong>Let's change that.</strong>
+          We help you plan your future by tracking your past.<br>
+          Stuck in traffic and missed a meeting? <strong>We remember, so next time you won't.</strong>
         </p>
         <div class="hero-actions reveal" data-delay="1000">
           <a href="#early-access" class="btn btn-primary">Get Early Access</a>
@@ -94,16 +95,22 @@
                   <!-- Work: 12:45pm-2:30pm (current) = 1.75h = 7.3% = 35.7 -->
                   <circle cx="100" cy="100" r="78" fill="none" stroke="#FF6B35" stroke-width="16" stroke-dasharray="36 454" stroke-dashoffset="-260" transform="rotate(-90 100 100)" stroke-linecap="round" class="hero-seg hero-seg-5 ring-hover-seg" data-activity="💼 Deep Work" data-time="12:45pm – now" data-dur="1h 45m"/>
 
-                  <!-- FUTURE event markers — long tick lines extending beyond the ring -->
-                  <!-- Meeting at 3pm = 225° -->
-                  <line x1="100" y1="12" x2="100" y2="30" stroke="#5B8DEF" stroke-width="2" stroke-linecap="round" transform="rotate(225 100 100)" class="event-tick event-tick-meeting" data-event="📋 Team Standup" data-when="3:00 PM" data-where="Conference Room B"/>
-                  <circle cx="100" cy="10" r="3" fill="#5B8DEF" transform="rotate(225 100 100)" class="event-tick-dot"/>
+                  <!-- FUTURE: Departure + Event tick pairs -->
+                  <!-- Depart for meeting 2:40pm = 220° (dashed line = departure) -->
+                  <line x1="100" y1="8" x2="100" y2="26" stroke="#5B8DEF" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="3 3" transform="rotate(220 100 100)" class="event-tick" data-event="🚗 Leave for meeting" data-when="2:40 PM" data-where="20 min drive · light traffic"/>
+                  <!-- Meeting at 3pm = 225° (solid line = event) -->
+                  <line x1="100" y1="6" x2="100" y2="28" stroke="#5B8DEF" stroke-width="2.5" stroke-linecap="round" transform="rotate(225 100 100)" class="event-tick" data-event="📋 Team Standup" data-when="3:00 PM" data-where="Conference Room B"/>
+                  <circle cx="100" cy="6" r="3" fill="#5B8DEF" transform="rotate(225 100 100)" class="event-tick-dot"/>
+
+                  <!-- Depart for gym 5:10pm = 257° -->
+                  <line x1="100" y1="8" x2="100" y2="26" stroke="#34D399" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="3 3" transform="rotate(257 100 100)" class="event-tick" data-event="🚗 Leave for gym" data-when="5:10 PM" data-where="12 min drive · moderate traffic"/>
                   <!-- Gym at 5:30pm = 262° -->
-                  <line x1="100" y1="12" x2="100" y2="30" stroke="#34D399" stroke-width="2" stroke-linecap="round" transform="rotate(262 100 100)" class="event-tick event-tick-gym" data-event="🏋️ Gym" data-when="5:30 PM" data-where="Gold's Gym · 12 min drive"/>
-                  <circle cx="100" cy="10" r="3" fill="#34D399" transform="rotate(262 100 100)" class="event-tick-dot"/>
+                  <line x1="100" y1="6" x2="100" y2="28" stroke="#34D399" stroke-width="2.5" stroke-linecap="round" transform="rotate(262 100 100)" class="event-tick" data-event="🏋️ Gym" data-when="5:30 PM" data-where="Gold's Gym"/>
+                  <circle cx="100" cy="6" r="3" fill="#34D399" transform="rotate(262 100 100)" class="event-tick-dot"/>
+
                   <!-- Dinner at 7:30pm = 292° -->
-                  <line x1="100" y1="14" x2="100" y2="28" stroke="#FBBF24" stroke-width="1.5" stroke-linecap="round" transform="rotate(292 100 100)" class="event-tick event-tick-dinner" data-event="🍽️ Dinner" data-when="7:30 PM" data-where="Home"/>
-                  <circle cx="100" cy="12" r="2.5" fill="#FBBF24" transform="rotate(292 100 100)" class="event-tick-dot"/>
+                  <line x1="100" y1="8" x2="100" y2="26" stroke="#FBBF24" stroke-width="2" stroke-linecap="round" transform="rotate(292 100 100)" class="event-tick" data-event="🍽️ Dinner with Sarah" data-when="7:30 PM" data-where="Home · no travel needed"/>
+                  <circle cx="100" cy="8" r="2.5" fill="#FBBF24" transform="rotate(292 100 100)" class="event-tick-dot"/>
 
                   <!-- Needle at ~2:30pm = 60.4% of day = 217.5° from top -->
                   <line x1="100" y1="100" x2="100" y2="30" stroke="url(#needleGrad)" stroke-width="2.5" stroke-linecap="round" transform="rotate(217 100 100)"/>
@@ -147,20 +154,60 @@
                   <span class="app-next-leave">🚗 Leave in 8 min to beat traffic</span>
                 </div>
               </div>
-              <!-- Bottom nav -->
+              <!-- Bottom nav — switches screens -->
               <div class="app-bottom-nav">
-                <button class="app-nav-btn app-nav-active" onclick="this.closest('.phone-screen').querySelector('.app-ring-wrap').style.opacity='1'">
+                <button class="app-nav-btn app-nav-active" data-screen="today">
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>
                   <span>Today</span>
                 </button>
-                <button class="app-nav-btn" onclick="alert('Timeline view coming soon!')">
+                <button class="app-nav-btn" data-screen="timeline">
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
                   <span>Timeline</span>
                 </button>
-                <button class="app-nav-btn" onclick="alert('Insights coming soon!')">
+                <button class="app-nav-btn" data-screen="insights">
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>
                   <span>Insights</span>
                 </button>
+              </div>
+            </div>
+
+            <!-- TIMELINE SCREEN (hidden by default) -->
+            <div class="phone-screen phone-screen-alt" id="screen-timeline" style="display:none">
+              <div class="app-status-bar"><span>9:41</span><div class="app-status-icons"><span>&#8226;&#8226;&#8226;&#8226;</span><span>&#9681;</span></div></div>
+              <div class="app-header"><span class="app-title">Timeline</span><button class="app-settings-btn" onclick="switchScreen('today')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7A7A7A" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button></div>
+              <div class="app-timeline-screen">
+                <div class="tl-item"><span class="tl-time">6:30 AM</span><span class="tl-dot" style="background:#5B8DEF"></span><div class="tl-info"><strong>🌙 Sleep ended</strong><span>Auto-detected · 6h 30m</span></div></div>
+                <div class="tl-item"><span class="tl-time">7:00 AM</span><span class="tl-dot" style="background:#7A7A7A"></span><div class="tl-info"><strong>🚗 Commute</strong><span>Home → Office · 28 min</span></div></div>
+                <div class="tl-item"><span class="tl-time">7:30 AM</span><span class="tl-dot" style="background:#FF6B35"></span><div class="tl-info"><strong>💼 Deep Work</strong><span>Office · Xcode open · 4h 30m</span></div></div>
+                <div class="tl-item"><span class="tl-time">12:00 PM</span><span class="tl-dot" style="background:#FBBF24"></span><div class="tl-info"><strong>🍽️ Lunch</strong><span>Break room · 45 min</span></div></div>
+                <div class="tl-item"><span class="tl-time">12:45 PM</span><span class="tl-dot" style="background:#FF6B35"></span><div class="tl-info"><strong>💼 Deep Work</strong><span>Office · ongoing</span></div></div>
+                <div class="tl-item tl-future"><span class="tl-time">2:40 PM</span><span class="tl-dot" style="background:#5B8DEF;opacity:0.5"></span><div class="tl-info"><strong>🚗 Leave for meeting</strong><span>20 min drive · light traffic</span></div></div>
+                <div class="tl-item tl-future"><span class="tl-time">3:00 PM</span><span class="tl-dot" style="background:#5B8DEF;opacity:0.5"></span><div class="tl-info"><strong>📋 Team Standup</strong><span>Conference Room B</span></div></div>
+                <div class="tl-item tl-future"><span class="tl-time">5:10 PM</span><span class="tl-dot" style="background:#34D399;opacity:0.5"></span><div class="tl-info"><strong>🚗 Leave for gym</strong><span>12 min · based on last 8 trips</span></div></div>
+                <div class="tl-item tl-future"><span class="tl-time">5:30 PM</span><span class="tl-dot" style="background:#34D399;opacity:0.5"></span><div class="tl-info"><strong>🏋️ Gym</strong><span>Gold's Gym</span></div></div>
+              </div>
+              <div class="app-bottom-nav">
+                <button class="app-nav-btn" data-screen="today"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg><span>Today</span></button>
+                <button class="app-nav-btn app-nav-active" data-screen="timeline"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg><span>Timeline</span></button>
+                <button class="app-nav-btn" data-screen="insights"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10M12 20V4M6 20v-6"/></svg><span>Insights</span></button>
+              </div>
+            </div>
+
+            <!-- INSIGHTS SCREEN (hidden by default) -->
+            <div class="phone-screen phone-screen-alt" id="screen-insights" style="display:none">
+              <div class="app-status-bar"><span>9:41</span><div class="app-status-icons"><span>&#8226;&#8226;&#8226;&#8226;</span><span>&#9681;</span></div></div>
+              <div class="app-header"><span class="app-title">Insights</span><button class="app-settings-btn" onclick="switchScreen('today')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7A7A7A" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button></div>
+              <div class="app-insights">
+                <div class="insight-card"><span class="insight-num">42h 15m</span><span class="insight-label">Deep work this week</span><span class="insight-trend" style="color:#34D399">↑ 12% vs last week</span></div>
+                <div class="insight-card"><span class="insight-num">6</span><span class="insight-label">Gym sessions this month</span><span class="insight-trend" style="color:#34D399">On track for goal</span></div>
+                <div class="insight-card" style="border-color:rgba(239,68,68,0.2)"><span class="insight-num">1h 47m</span><span class="insight-label">Avg daily phone scrolling</span><span class="insight-trend" style="color:#EF4444">↑ 23% — watch this</span></div>
+                <div class="insight-card"><span class="insight-num">34 min</span><span class="insight-label">Avg commute (Tue-Thu)</span><span class="insight-trend" style="color:#7A7A7A">Last Tuesday was 52 min — traffic on I-85</span></div>
+                <div class="insight-card"><span class="insight-num">91%</span><span class="insight-label">ACE accuracy this week</span><span class="insight-trend" style="color:#34D399">3 corrections needed</span></div>
+              </div>
+              <div class="app-bottom-nav">
+                <button class="app-nav-btn" data-screen="today"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg><span>Today</span></button>
+                <button class="app-nav-btn" data-screen="timeline"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg><span>Timeline</span></button>
+                <button class="app-nav-btn app-nav-active" data-screen="insights"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10M12 20V4M6 20v-6"/></svg><span>Insights</span></button>
               </div>
             </div>
           </div>
@@ -176,6 +223,7 @@
         <span class="label">THE PROBLEM</span>
         <h2>"What were you doing<br>at 2pm last Tuesday?"</h2>
         <p class="problem-answer">If you can't answer that in 3 seconds — that's the problem.</p>
+        <p class="problem-answer" style="margin-top:1rem;color:#FF6B35">Last Tuesday you sat in traffic for 52 minutes and missed your standup. PomoBorrow remembers — so next time, it tells you to leave 10 minutes earlier.</p>
       </div>
       <div class="problem-clock reveal" data-delay="200">
         <svg class="clock-svg" viewBox="0 0 200 200" width="280" height="280">
