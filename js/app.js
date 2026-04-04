@@ -364,16 +364,30 @@
       countEl.innerHTML = `Join <strong>${parseInt(stored, 10)}</strong> people on the waitlist`;
     }
 
-    form.addEventListener('submit', (e) => {
+    form.addEventListener('submit', async (e) => {
       e.preventDefault();
       const email = document.getElementById('waitlist-email');
       if (!email || !email.value) return;
 
-      // Increment count
-      let count = parseInt(localStorage.getItem('pb_waitlist') || '847', 10);
-      count++;
-      localStorage.setItem('pb_waitlist', String(count));
-      localStorage.setItem('pb_waitlist_email', email.value);
+      const emailValue = email.value;
+
+      // Post to Cloudflare Pages Function
+      try {
+        const res = await fetch('/api/waitlist', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: emailValue }),
+        });
+        const data = await res.json();
+        if (data.count && countEl) {
+          countEl.innerHTML = 'Join <strong>' + data.count + '</strong> people on the waitlist';
+        }
+      } catch (err) {
+        // Fallback to localStorage if API fails
+        var count = parseInt(localStorage.getItem('pb_waitlist') || '847', 10);
+        count++;
+        localStorage.setItem('pb_waitlist', String(count));
+      }
 
       // UI feedback
       form.classList.add('success');
