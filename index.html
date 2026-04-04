@@ -51,22 +51,33 @@
        SECTION 1: HERO
   ════════════════════════════════════════ -->
   <section class="hero" id="hero">
-    <canvas id="hero-canvas" aria-hidden="true"></canvas>
+    <div class="hero-hourglass">
+      <img src="img/hourglass.png" alt="" class="hero-hourglass-img" loading="eager">
+      <div class="hero-hourglass-glow"></div>
+    </div>
     <div class="hero-content">
       <div class="hero-story">
-        <p class="hero-question reveal">What's the most valuable currency?</p>
-        <div class="hero-options">
-          <span class="hero-option reveal reveal-delay-1">Knowledge?</span>
-          <span class="hero-option reveal reveal-delay-2">Money?</span>
-          <span class="hero-option reveal reveal-delay-3">Health?</span>
+        <h1 class="hero-headline">
+          <span class="hero-line reveal">TIME WAITS</span>
+          <span class="hero-line reveal reveal-delay-1">FOR NO ONE</span>
+        </h1>
+        <div class="hero-divider reveal reveal-delay-2"></div>
+        <p class="hero-question reveal reveal-delay-3">What's the most valuable currency?</p>
+        <div class="hero-options reveal reveal-delay-4">
+          <span class="hero-option">Knowledge</span>
+          <span class="hero-option-dot">&middot;</span>
+          <span class="hero-option">Money</span>
+          <span class="hero-option-dot">&middot;</span>
+          <span class="hero-option">Health</span>
+          <span class="hero-option-dot">&middot;</span>
+          <span class="hero-option hero-option-answer">Time</span>
         </div>
-        <h1 class="hero-title reveal reveal-delay-4">It's <em>time.</em></h1>
         <p class="hero-subtitle reveal reveal-delay-5">
           We built a tool to help you earn it back.
         </p>
       </div>
       <div class="hero-buttons reveal reveal-delay-6">
-        <a href="#waitlist" class="btn-primary">Join the Waitlist</a>
+        <a href="#waitlist" class="btn-primary">Get Early Access</a>
         <a href="#ring" class="btn-secondary">See how it works &rarr;</a>
       </div>
     </div>
