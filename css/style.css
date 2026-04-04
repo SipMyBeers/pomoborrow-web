@@ -1212,6 +1212,78 @@ h4 { font-size: 1.1rem; }
   .hub-dot { width: 44px; height: 44px; font-size: 1.2rem; flex-shrink: 0; }
 }
 
+/* ══════════════════════════════════════════════════
+   FAQ
+   ══════════════════════════════════════════════════ */
+.faq-grid {
+  max-width: 700px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.faq-item {
+  padding: 0 !important;
+  overflow: hidden;
+  cursor: pointer;
+}
+.faq-q {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.25rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0;
+  user-select: none;
+  transition: color 0.2s;
+}
+.faq-q:hover { color: #FF6B35; }
+.faq-toggle {
+  font-size: 1.3rem;
+  font-weight: 300;
+  color: #555;
+  transition: transform 0.3s;
+}
+.faq-item.open .faq-toggle {
+  transform: rotate(45deg);
+  color: #FF6B35;
+}
+.faq-a {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1), padding 0.3s;
+  padding: 0 1.5rem;
+}
+.faq-item.open .faq-a {
+  max-height: 300px;
+  padding: 0 1.5rem 1.25rem;
+}
+.faq-a p {
+  font-size: 0.88rem;
+  color: #888;
+  line-height: 1.7;
+}
+
+/* CTA links row */
+.cta-links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+}
+.cta-discord {
+  color: #5B8DEF;
+  transition: color 0.2s;
+}
+.cta-discord:hover { color: #FF6B35; }
+.cta-sep { color: #333; }
+.cta-appstore {
+  color: #555;
+}
+
 /* LEGACY — remove old sensor-circle */
 .sensor-circle {
   position: relative;

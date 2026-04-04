@@ -5,6 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>PomoBorrow — Your time is the only thing you can't earn back</title>
   <meta name="description" content="PomoBorrow automatically tracks every second of your day. No buttons. No input. Just truth.">
+  <meta property="og:title" content="PomoBorrow — You have more time than you think">
+  <meta property="og:description" content="Track every second of your day automatically. Cut the noise. Find the balance. 100% offline.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://pomoborrow.com">
+  <meta property="og:image" content="https://pomoborrow.com/img/og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="PomoBorrow — You have more time than you think">
+  <meta name="twitter:description" content="Track every second of your day automatically. No buttons. No cloud. Just truth.">
+  <meta name="twitter:image" content="https://pomoborrow.com/img/og.png">
   <link rel="stylesheet" href="css/style.css">
   <link rel="icon" href="img/hourglass.png" type="image/png">
 </head>
@@ -457,6 +466,41 @@
     </div>
   </section>
 
+  <!-- FAQ -->
+  <section class="section" id="faq">
+    <div class="container">
+      <span class="label reveal">FREQUENTLY ASKED</span>
+      <h2 class="section-heading reveal" data-delay="100">Questions we get a lot.</h2>
+
+      <div class="faq-grid">
+        <div class="faq-item card reveal" data-delay="0">
+          <h4 class="faq-q" onclick="this.parentElement.classList.toggle('open')">Is it really 100% offline? <span class="faq-toggle">+</span></h4>
+          <div class="faq-a"><p>Yes. PomoBorrow has no server. No cloud. No account. Everything runs and stays on your device. We literally cannot see your data even if we wanted to — the architecture makes it impossible.</p></div>
+        </div>
+        <div class="faq-item card reveal" data-delay="50">
+          <h4 class="faq-q" onclick="this.parentElement.classList.toggle('open')">Does it drain my battery? <span class="faq-toggle">+</span></h4>
+          <div class="faq-a"><p>Less than 5% per day. PomoBorrow uses event-driven detection (not GPS polling) and Apple's motion coprocessor — a dedicated chip that runs at near-zero power. We also have a tri-tier power management system that automatically throttles when your battery is low.</p></div>
+        </div>
+        <div class="faq-item card reveal" data-delay="100">
+          <h4 class="faq-q" onclick="this.parentElement.classList.toggle('open')">How long until it learns my routine? <span class="faq-toggle">+</span></h4>
+          <div class="faq-a"><p>48 hours. Day 1 is silent — it just watches. Day 2 it asks ~5 simple questions ("Is this your office?"). By day 5 it's running on autopilot with 90%+ accuracy. Every correction makes it smarter.</p></div>
+        </div>
+        <div class="faq-item card reveal" data-delay="150">
+          <h4 class="faq-q" onclick="this.parentElement.classList.toggle('open')">Does it listen to my conversations? <span class="faq-toggle">+</span></h4>
+          <div class="faq-a"><p>No. The sound sensor classifies ambient noise categories (keyboard, gym equipment, traffic) using Apple's on-device Neural Engine. It never records, stores, or transmits audio. It can't hear words — only sound types.</p></div>
+        </div>
+        <div class="faq-item card reveal" data-delay="200">
+          <h4 class="faq-q" onclick="this.parentElement.classList.toggle('open')">How is this different from Apple Screen Time? <span class="faq-toggle">+</span></h4>
+          <div class="faq-a"><p>Screen Time only tracks apps — it has no idea what you're doing in the physical world. PomoBorrow tracks your entire life: gym, commute, work, sleep, meals, errands. And it does it automatically using 5 sensor types, not just app usage.</p></div>
+        </div>
+        <div class="faq-item card reveal" data-delay="250">
+          <h4 class="faq-q" onclick="this.parentElement.classList.toggle('open')">What happens to my data if I delete the app? <span class="faq-toggle">+</span></h4>
+          <div class="faq-a"><p>It's gone. Completely. Since everything is stored on-device, deleting the app deletes all your data. You can also export your full history as JSON before deleting, or wipe specific data from Settings at any time.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- EARLY ACCESS -->
   <section class="section section-cta" id="early-access">
     <div class="container cta-content">
@@ -466,7 +510,12 @@
         <button type="submit" class="btn btn-primary">Join Waitlist</button>
       </form>
       <p class="cta-count reveal" data-delay="200" id="waitlist-count">Join <strong>847</strong> people on the waitlist</p>
-      <a href="https://discord.gg/pomoborrow" class="cta-discord reveal" data-delay="300">Join our Discord &rarr;</a>
+
+      <div class="cta-links reveal" data-delay="300">
+        <a href="https://discord.gg/vWFSV2jtk8" class="cta-discord">💬 Join our Discord</a>
+        <span class="cta-sep">·</span>
+        <span class="cta-appstore">📱 Coming to iOS · 2026</span>
+      </div>
     </div>
   </section>
 
@@ -477,7 +526,7 @@
       <span class="footer-sep">&middot;</span>
       <a href="privacy.html">Privacy</a>
       <span class="footer-sep">&middot;</span>
-      <a href="https://discord.gg/pomoborrow">Discord</a>
+      <a href="https://discord.gg/vWFSV2jtk8">Discord</a>
       <span class="footer-sep">&middot;</span>
       <a href="mailto:hello@pomoborrow.com">Contact</a>
     </div>
