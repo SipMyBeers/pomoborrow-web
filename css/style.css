@@ -22,6 +22,20 @@ a { color: inherit; text-decoration: none; }
 img { max-width: 100%; display: block; }
 code { font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace; }
 
+/* ── BACKGROUND CANVAS ── */
+#bg-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Make sure all content sits above canvas */
+nav, section, .section, footer { position: relative; z-index: 1; }
+
 /* ── NOISE OVERLAY ── */
 body::after {
   content: '';
