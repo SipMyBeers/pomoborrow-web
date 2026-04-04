@@ -94,13 +94,16 @@
                   <!-- Work: 12:45pm-2:30pm (current) = 1.75h = 7.3% = 35.7 -->
                   <circle cx="100" cy="100" r="78" fill="none" stroke="#FF6B35" stroke-width="16" stroke-dasharray="36 454" stroke-dashoffset="-260" transform="rotate(-90 100 100)" stroke-linecap="round" class="hero-seg hero-seg-5 ring-hover-seg" data-activity="💼 Deep Work" data-time="12:45pm – now" data-dur="1h 45m"/>
 
-                  <!-- FUTURE event markers on the ring -->
-                  <!-- Gym at 5:30pm = 72.9% of day = 262.5° from top -->
-                  <circle cx="100" cy="25" r="5" fill="#0C0C0E" stroke="#34D399" stroke-width="1.5" transform="rotate(262 100 100)" class="event-marker"/>
-                  <text x="100" y="27" text-anchor="middle" font-size="6" fill="#34D399" transform="rotate(262 100 100)">🏋️</text>
-                  <!-- Meeting at 3pm = 62.5% = 225° -->
-                  <circle cx="100" cy="25" r="5" fill="#0C0C0E" stroke="#5B8DEF" stroke-width="1.5" transform="rotate(225 100 100)" class="event-marker"/>
-                  <text x="100" y="27" text-anchor="middle" font-size="6" fill="#5B8DEF" transform="rotate(225 100 100)">📋</text>
+                  <!-- FUTURE event markers — long tick lines extending beyond the ring -->
+                  <!-- Meeting at 3pm = 225° -->
+                  <line x1="100" y1="12" x2="100" y2="30" stroke="#5B8DEF" stroke-width="2" stroke-linecap="round" transform="rotate(225 100 100)" class="event-tick event-tick-meeting" data-event="📋 Team Standup" data-when="3:00 PM" data-where="Conference Room B"/>
+                  <circle cx="100" cy="10" r="3" fill="#5B8DEF" transform="rotate(225 100 100)" class="event-tick-dot"/>
+                  <!-- Gym at 5:30pm = 262° -->
+                  <line x1="100" y1="12" x2="100" y2="30" stroke="#34D399" stroke-width="2" stroke-linecap="round" transform="rotate(262 100 100)" class="event-tick event-tick-gym" data-event="🏋️ Gym" data-when="5:30 PM" data-where="Gold's Gym · 12 min drive"/>
+                  <circle cx="100" cy="10" r="3" fill="#34D399" transform="rotate(262 100 100)" class="event-tick-dot"/>
+                  <!-- Dinner at 7:30pm = 292° -->
+                  <line x1="100" y1="14" x2="100" y2="28" stroke="#FBBF24" stroke-width="1.5" stroke-linecap="round" transform="rotate(292 100 100)" class="event-tick event-tick-dinner" data-event="🍽️ Dinner" data-when="7:30 PM" data-where="Home"/>
+                  <circle cx="100" cy="12" r="2.5" fill="#FBBF24" transform="rotate(292 100 100)" class="event-tick-dot"/>
 
                   <!-- Needle at ~2:30pm = 60.4% of day = 217.5° from top -->
                   <line x1="100" y1="100" x2="100" y2="30" stroke="url(#needleGrad)" stroke-width="2.5" stroke-linecap="round" transform="rotate(217 100 100)"/>
@@ -109,9 +112,9 @@
                 </svg>
                 <div class="ring-tooltip" id="ring-tooltip"></div>
                 <div class="app-ring-center">
-                  <span class="app-countdown" id="hero-countdown">09:28:33</span>
-                  <span class="app-countdown-label">remaining today</span>
-                  <span class="app-countdown-current">2:31 PM</span>
+                  <span class="app-countdown" id="hero-countdown">00:28:12</span>
+                  <span class="app-countdown-label">until next event</span>
+                  <span class="app-countdown-event">📋 Team Standup</span>
                 </div>
               </div>
               <!-- Current activity (clickable) -->
@@ -131,13 +134,18 @@
                 <span class="app-progress-label">62% of day complete</span>
               </div>
               <!-- Next event alert (clickable) -->
-              <div class="app-next-event app-clickable" onclick="alert('Navigate to meeting: Conference Room B, 3:00 PM')">
-                <div class="app-next-icon">📍</div>
-                <div class="app-next-info">
-                  <span class="app-next-title">Team standup in 28 min</span>
-                  <span class="app-next-detail">Leave in 8 min to beat traffic</span>
+              <div class="app-next-event app-clickable" onclick="alert('Navigate to: Conference Room B\nETA: 20 min via I-85\nTraffic: Light')">
+                <div class="app-next-header">
+                  <span class="app-next-label">NEXT EVENT</span>
+                  <span class="app-next-time">3:00 PM</span>
                 </div>
-                <div class="app-next-arrow">&#8250;</div>
+                <div class="app-next-body">
+                  <span class="app-next-title">📋 Team Standup</span>
+                  <span class="app-next-where">Conference Room B · 20 min drive</span>
+                </div>
+                <div class="app-next-action">
+                  <span class="app-next-leave">🚗 Leave in 8 min to beat traffic</span>
+                </div>
               </div>
               <!-- Bottom nav -->
               <div class="app-bottom-nav">

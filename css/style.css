@@ -387,17 +387,17 @@ h4 { font-size: 1.1rem; }
 }
 .app-countdown-label {
   display: block;
-  font-size: 0.55rem;
+  font-size: 0.5rem;
   color: #7A7A7A;
   text-transform: uppercase;
   letter-spacing: 0.15em;
 }
-.app-countdown-current {
+.app-countdown-event {
   display: block;
   font-size: 0.65rem;
-  color: #FF6B35;
+  color: #5B8DEF;
   font-weight: 600;
-  margin-top: 4px;
+  margin-top: 6px;
 }
 
 /* Status bar */
@@ -468,32 +468,57 @@ h4 { font-size: 1.1rem; }
   text-align: right;
 }
 
-/* Next event alert */
+/* Next event card */
 .app-next-event {
   display: flex;
-  align-items: center;
-  gap: 10px;
-  background: rgba(255,107,53,0.08);
-  border: 1px solid rgba(255,107,53,0.15);
-  padding: 12px 14px;
+  flex-direction: column;
+  gap: 8px;
+  background: rgba(91,141,239,0.06);
+  border: 1px solid rgba(91,141,239,0.12);
+  padding: 14px;
   border-radius: 12px;
   width: 100%;
 }
-.app-next-icon { font-size: 1.2rem; }
-.app-next-info { flex: 1; display: flex; flex-direction: column; gap: 2px; }
+.app-next-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.app-next-label {
+  font-size: 0.55rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #5B8DEF;
+}
+.app-next-time {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #7A7A7A;
+  font-variant-numeric: tabular-nums;
+}
+.app-next-body {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
 .app-next-title {
-  font-size: 0.78rem;
+  font-size: 0.85rem;
   font-weight: 600;
   color: #F5F5F5;
 }
-.app-next-detail {
+.app-next-where {
   font-size: 0.65rem;
-  color: #FF6B35;
-  font-weight: 500;
-}
-.app-next-arrow {
-  font-size: 1.2rem;
   color: #7A7A7A;
+}
+.app-next-action {
+  padding-top: 6px;
+  border-top: 1px solid rgba(255,255,255,0.04);
+}
+.app-next-leave {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #FF6B35;
 }
 
 /* Clickable elements */
@@ -515,13 +540,20 @@ h4 { font-size: 1.1rem; }
 .app-settings-btn svg { transition: stroke 0.15s; }
 .app-settings-btn:hover svg { stroke: #F5F5F5; }
 
-/* Event markers on ring */
-.event-marker {
-  animation: markerPulse 2s ease-in-out infinite;
+/* Event tick lines on ring */
+.event-tick {
+  cursor: pointer;
+  transition: stroke-width 0.15s, opacity 0.15s;
+  opacity: 0.8;
 }
-@keyframes markerPulse {
-  0%, 100% { opacity: 0.7; }
-  50% { opacity: 1; }
+.event-tick:hover { stroke-width: 3.5; opacity: 1; }
+.event-tick-dot {
+  pointer-events: none;
+  animation: tickPulse 2.5s ease-in-out infinite;
+}
+@keyframes tickPulse {
+  0%, 100% { opacity: 0.6; r: 2.5; }
+  50% { opacity: 1; r: 3.5; }
 }
 
 /* Bottom nav */

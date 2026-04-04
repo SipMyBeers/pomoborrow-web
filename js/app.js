@@ -39,6 +39,21 @@
     });
   });
 
+  // ── Event tick hover tooltips ──
+  document.querySelectorAll('.event-tick').forEach((tick) => {
+    tick.addEventListener('mouseenter', () => {
+      if (!ringTooltip) return;
+      const ev = tick.dataset.event;
+      const when = tick.dataset.when;
+      const where = tick.dataset.where;
+      ringTooltip.innerHTML = `<span class="ring-tooltip-activity">${ev}</span><span class="ring-tooltip-time">${when}</span><br><span class="ring-tooltip-time">${where}</span>`;
+      ringTooltip.classList.add('active');
+    });
+    tick.addEventListener('mouseleave', () => {
+      if (ringTooltip) ringTooltip.classList.remove('active');
+    });
+  });
+
   // ── Mobile nav ──
   const navToggle = document.getElementById('nav-toggle');
   const navLinks = document.getElementById('nav-links');
