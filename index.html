@@ -30,20 +30,20 @@
   <section class="hero" id="hero">
     <div class="container hero-inner">
       <div class="hero-text">
-        <span class="label reveal" data-delay="0">ZERO EFFORT. FULLY OFFLINE.</span>
-        <h1 class="hero-headline reveal" data-delay="100">
-          What if you could track everything you do — without thinking about it?
+        <span class="label reveal" data-delay="0">FULLY OFFLINE. ZERO EFFORT.</span>
+        <h1 class="hero-headline">
+          <span class="hero-line-1 reveal" data-delay="100">What if you could track</span>
+          <span class="hero-line-2 reveal" data-delay="300">every second of your day</span>
+          <span class="hero-line-3" id="hero-slam">without lifting a finger?</span>
         </h1>
-        <p class="hero-subtitle reveal" data-delay="200">
-          Someone already is. And they didn't press a single button.<br>
-          PomoBorrow tracks your entire day automatically — where you go,<br>
-          how you move, what you hear — all on your device. No cloud. Ever.
+        <p class="hero-subtitle reveal" data-delay="800">
+          Someone already is. It's not you. <strong>Let's change that.</strong>
         </p>
-        <div class="hero-actions reveal" data-delay="300">
+        <div class="hero-actions reveal" data-delay="1000">
           <a href="#early-access" class="btn btn-primary">Get Early Access</a>
           <a href="#the-ring" class="btn btn-ghost">See how it works &#8595;</a>
         </div>
-        <div class="hero-trust reveal" data-delay="400">
+        <div class="hero-trust reveal" data-delay="1100">
           <span class="trust-item"><span class="trust-dot trust-dot-green"></span>100% offline</span>
           <span class="trust-item"><span class="trust-dot trust-dot-orange"></span>5 sensors</span>
           <span class="trust-item"><span class="trust-dot trust-dot-blue"></span>&lt;5% battery</span>
@@ -64,12 +64,13 @@
               <div class="app-ring-wrap">
                 <svg class="app-ring" viewBox="0 0 200 200">
                   <circle cx="100" cy="100" r="80" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="18"/>
-                  <circle cx="100" cy="100" r="80" fill="none" stroke="#5B8DEF" stroke-width="18" stroke-dasharray="151 352" stroke-dashoffset="0" transform="rotate(-90 100 100)" class="hero-seg hero-seg-1"/>
-                  <circle cx="100" cy="100" r="80" fill="none" stroke="#FF6B35" stroke-width="18" stroke-dasharray="151 352" stroke-dashoffset="-151" transform="rotate(-90 100 100)" class="hero-seg hero-seg-2"/>
-                  <circle cx="100" cy="100" r="80" fill="none" stroke="#34D399" stroke-width="18" stroke-dasharray="60 443" stroke-dashoffset="-302" transform="rotate(-90 100 100)" class="hero-seg hero-seg-3"/>
-                  <circle cx="100" cy="100" r="80" fill="none" stroke="#A78BFA" stroke-width="18" stroke-dasharray="80 423" stroke-dashoffset="-362" transform="rotate(-90 100 100)" class="hero-seg hero-seg-4"/>
+                  <circle cx="100" cy="100" r="80" fill="none" stroke="#5B8DEF" stroke-width="18" stroke-dasharray="151 352" stroke-dashoffset="0" transform="rotate(-90 100 100)" class="hero-seg hero-seg-1 ring-hover-seg" data-activity="🌙 Sleep" data-time="11:00pm – 6:30am" data-dur="7h 30m"/>
+                  <circle cx="100" cy="100" r="80" fill="none" stroke="#FF6B35" stroke-width="18" stroke-dasharray="151 352" stroke-dashoffset="-151" transform="rotate(-90 100 100)" class="hero-seg hero-seg-2 ring-hover-seg" data-activity="💼 Deep Work" data-time="8:00am – 12:30pm" data-dur="4h 30m"/>
+                  <circle cx="100" cy="100" r="80" fill="none" stroke="#34D399" stroke-width="18" stroke-dasharray="60 443" stroke-dashoffset="-302" transform="rotate(-90 100 100)" class="hero-seg hero-seg-3 ring-hover-seg" data-activity="🏋️ Gym" data-time="5:30pm – 7:00pm" data-dur="1h 30m"/>
+                  <circle cx="100" cy="100" r="80" fill="none" stroke="#A78BFA" stroke-width="18" stroke-dasharray="80 423" stroke-dashoffset="-362" transform="rotate(-90 100 100)" class="hero-seg hero-seg-4 ring-hover-seg" data-activity="🎮 Downtime" data-time="8:00pm – 11:00pm" data-dur="3h"/>
                   <line x1="100" y1="100" x2="100" y2="28" stroke="#F5F5F5" stroke-width="1.5" stroke-linecap="round" class="hero-needle"/>
                 </svg>
+                <div class="ring-tooltip" id="ring-tooltip"></div>
                 <div class="app-ring-center">
                   <span class="app-countdown" id="hero-countdown">--:--:--</span>
                   <span class="app-countdown-label">remaining today</span>

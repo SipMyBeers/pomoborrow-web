@@ -23,6 +23,22 @@
 
   document.querySelectorAll('.reveal').forEach((el) => revealObserver.observe(el));
 
+  // ── Hero ring hover tooltips ──
+  const ringTooltip = document.getElementById('ring-tooltip');
+  document.querySelectorAll('.ring-hover-seg').forEach((seg) => {
+    seg.addEventListener('mouseenter', () => {
+      if (!ringTooltip) return;
+      const activity = seg.dataset.activity;
+      const time = seg.dataset.time;
+      const dur = seg.dataset.dur;
+      ringTooltip.innerHTML = `<span class="ring-tooltip-activity">${activity}</span><span class="ring-tooltip-time">${time}</span> · <span class="ring-tooltip-dur">${dur}</span>`;
+      ringTooltip.classList.add('active');
+    });
+    seg.addEventListener('mouseleave', () => {
+      if (ringTooltip) ringTooltip.classList.remove('active');
+    });
+  });
+
   // ── Mobile nav ──
   const navToggle = document.getElementById('nav-toggle');
   const navLinks = document.getElementById('nav-links');
