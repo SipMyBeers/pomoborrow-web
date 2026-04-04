@@ -2,317 +2,207 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-
-  <title>PomoBorrow — Know Where Your Time Goes</title>
-  <meta name="description" content="PomoBorrow automatically tracks how you spend every second of every day. No buttons. No manual logging. Just truth.">
-  <meta name="color-scheme" content="dark">
-  <meta name="theme-color" content="#050505">
-
-  <meta property="og:title" content="PomoBorrow — Know Where Your Time Goes">
-  <meta property="og:description" content="Automatic 24-hour activity tracking. No buttons. No manual logging. Just truth.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://pomoborrow.com">
-
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>&#x231B;</text></svg>">
-  <link rel="canonical" href="https://pomoborrow.com">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PomoBorrow — Your time is the only thing you can't earn back</title>
+  <meta name="description" content="PomoBorrow automatically tracks every second of your day. No buttons. No input. Just truth.">
   <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="img/hourglass.png" type="image/png">
 </head>
 <body>
 
-  <!-- ═══════════════════════════════════════
-       NAV
-  ════════════════════════════════════════ -->
-  <nav aria-label="Main navigation">
-    <div class="nav-inner">
-      <a href="/" class="nav-logo">
-        <svg class="nav-logo-ring" viewBox="0 0 26 26" fill="none" aria-hidden="true">
-          <circle cx="13" cy="13" r="11" stroke="#1a1a2e" stroke-width="3" />
-          <circle cx="13" cy="13" r="11" stroke="#6366f1" stroke-width="3"
-            stroke-dasharray="21 48" stroke-dashoffset="14"
-            stroke-linecap="round" />
-          <circle cx="13" cy="13" r="11" stroke="#8b5cf6" stroke-width="3"
-            stroke-dasharray="8 61" stroke-dashoffset="-7"
-            stroke-linecap="round" />
-        </svg>
-        PomoBorrow
-      </a>
-      <ul class="nav-links" role="list">
-        <li><a href="#ring">How it works</a></li>
-        <li><a href="#learns">Features</a></li>
-        <li><a href="#waitlist">Join waitlist</a></li>
-        <li><a href="privacy.html">Privacy</a></li>
-        <li><a href="#waitlist" class="nav-cta">Download</a></li>
-      </ul>
+  <!-- NAV -->
+  <nav class="nav glass" id="nav">
+    <div class="nav-inner container">
+      <a href="#" class="nav-logo">PomoBorrow</a>
+      <div class="nav-links" id="nav-links">
+        <a href="#how-it-works">How it works</a>
+        <a href="#senses">Features</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="#early-access" class="btn btn-primary btn-sm">Get Early Access</a>
+      </div>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
     </div>
   </nav>
 
-  <!-- ═══════════════════════════════════════
-       SECTION 1: HERO
-  ════════════════════════════════════════ -->
+  <!-- HERO -->
   <section class="hero" id="hero">
-    <!-- Animated hourglass video — full viewport background -->
-    <div class="hero-video-wrap">
-      <video class="hero-video" autoplay loop muted playsinline>
-        <source src="img/hourglass-hero.mp4" type="video/mp4">
-        <source src="img/hourglass-anim.webm" type="video/webm">
-      </video>
-      <div class="hero-vignette"></div>
-    </div>
-
-    <div class="hero-content">
-      <!-- The narrative builds as you read down -->
-      <p class="hero-small reveal">What's the most valuable currency?</p>
-
-      <div class="hero-options reveal reveal-delay-1">
-        <span class="hero-option">Knowledge?</span>
-        <span class="hero-option">Money?</span>
-        <span class="hero-option">Health?</span>
-      </div>
-
-      <h1 class="hero-answer reveal reveal-delay-2">Time.</h1>
-
-      <div class="hero-divider reveal reveal-delay-3"></div>
-
-      <p class="hero-message reveal reveal-delay-3">
-        This is how your days are being spent.<br>
-        Over and over. With no way to track any of it.
+    <div class="container hero-content">
+      <span class="label reveal" data-delay="0">PRODUCTIVITY ON AUTOPILOT</span>
+      <h1 class="hero-headline reveal" data-delay="100">
+        Your time is the only<br>thing you can't earn back.
+      </h1>
+      <p class="hero-subtitle reveal" data-delay="200">
+        PomoBorrow automatically tracks every second of your day.<br>
+        No buttons. No input. Just truth.
       </p>
-
-      <p class="hero-message-bold reveal reveal-delay-4">
-        We built a tool to help you earn it back.
-      </p>
-
-      <div class="hero-buttons reveal reveal-delay-5">
-        <a href="#waitlist" class="btn-primary">Get Early Access</a>
-        <a href="#ring" class="btn-secondary">See how it works &rarr;</a>
+      <div class="hero-actions reveal" data-delay="300">
+        <a href="#early-access" class="btn btn-primary">Get Early Access</a>
+        <a href="#the-ring" class="btn btn-ghost">Watch Demo &#8595;</a>
+      </div>
+      <div class="hero-stats reveal" data-delay="400">
+        <span><code>5</code> sensors</span>
+        <span class="stat-dot"></span>
+        <span><code>&lt;5%</code> battery</span>
+        <span class="stat-dot"></span>
+        <span><code>100%</code> on-device</span>
       </div>
     </div>
   </section>
 
-  <!-- ═══════════════════════════════════════
-       SECTION 2: THE HOURGLASS
-  ════════════════════════════════════════ -->
-  <div class="gradient-divider"></div>
-  <section class="hourglass-section" id="hourglass">
-    <div class="hourglass-grid">
-      <div class="hourglass-image-wrap reveal">
-        <img src="img/hourglass.png" alt="Hourglass — time slipping away" width="600" height="800" loading="lazy">
+  <!-- THE PROBLEM -->
+  <section class="section" id="the-problem">
+    <div class="container problem-grid">
+      <div class="problem-text reveal">
+        <span class="label">THE PROBLEM</span>
+        <h2>"What were you doing<br>at 2pm last Tuesday?"</h2>
+        <p class="problem-answer">If you can't answer that in 3 seconds — that's the problem.</p>
       </div>
-      <div class="hourglass-text">
-        <p class="reveal">
-          Imagine someone handed you <strong>$86,400</strong> every morning.
-          Whatever you didn't use — gone at midnight.
-          You'd spend every cent.
-        </p>
-        <p class="reveal reveal-delay-1">
-          You get <strong>86,400 seconds</strong>.
-        </p>
-        <p class="reveal reveal-delay-2 highlight-line">
-          Most of them leak through.
-        </p>
+      <div class="problem-clock reveal" data-delay="200">
+        <svg class="clock-svg" viewBox="0 0 200 200" width="280" height="280">
+          <circle cx="100" cy="100" r="90" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="2"/>
+          <circle cx="100" cy="100" r="3" fill="#FF6B35"/>
+          <line class="clock-hand-seconds" x1="100" y1="100" x2="100" y2="20" stroke="#FF6B35" stroke-width="1.5" stroke-linecap="round"/>
+          <line class="clock-hand-minutes" x1="100" y1="100" x2="100" y2="35" stroke="#F5F5F5" stroke-width="2" stroke-linecap="round"/>
+        </svg>
       </div>
     </div>
   </section>
 
-  <!-- ═══════════════════════════════════════
-       SECTION 3: THE REALITY
-  ════════════════════════════════════════ -->
-  <div class="gradient-divider"></div>
-  <section class="reality-section" id="reality">
-    <div class="reality-card card reveal">
-      <div class="reality-header">
-        <h3>What you think</h3>
-        <h3>What actually happened</h3>
-      </div>
-
-      <div class="reality-row reveal reveal-delay-1">
-        <div class="reality-left">"I worked all day"</div>
-        <div class="reality-right">
-          <strong class="accent-num">4h 12m</strong> deep work &middot;
-          <strong>2h 31m</strong> meetings &middot;
-          <strong class="red-num">1h 17m</strong> phone
+  <!-- HOW IT WORKS -->
+  <section class="section" id="how-it-works">
+    <div class="container">
+      <span class="label reveal">HOW IT WORKS</span>
+      <div class="steps-grid">
+        <div class="card step-card reveal" data-delay="0">
+          <span class="step-number">01</span>
+          <div class="step-icon">&#128229;</div>
+          <h3>Install &amp; Forget</h3>
+          <p>Download PomoBorrow. Grant location. That's the last thing you'll ever do.</p>
+        </div>
+        <div class="card step-card reveal" data-delay="150">
+          <span class="step-number">02</span>
+          <div class="step-icon">&#127939;</div>
+          <h3>Live Your Life</h3>
+          <p>ACE silently learns your places, your motion, your routines. Zero input required.</p>
+        </div>
+        <div class="card step-card reveal" data-delay="300">
+          <span class="step-number">03</span>
+          <div class="step-icon">&#128161;</div>
+          <h3>See Your Truth</h3>
+          <p>Open the app. See your entire day — color-coded, timestamped, automatic.</p>
         </div>
       </div>
+    </div>
+  </section>
 
-      <div class="reality-row reveal reveal-delay-2">
-        <div class="reality-left">"I worked out for an hour"</div>
-        <div class="reality-right">
-          <strong class="accent-num">47 min</strong> gym &middot;
-          <strong class="red-num">13 min</strong> scrolling between sets
+  <!-- THE RING -->
+  <section class="section" id="the-ring">
+    <div class="container ring-section">
+      <span class="label reveal">YOUR DAY, VISUALIZED</span>
+      <div class="ring-wrapper reveal" data-delay="100">
+        <svg class="day-ring" viewBox="0 0 400 400" id="day-ring"></svg>
+        <div class="ring-center" id="ring-countdown">00:00:00</div>
+      </div>
+      <div class="ring-legend reveal" data-delay="200" id="ring-legend"></div>
+    </div>
+  </section>
+
+  <!-- TIMELINE -->
+  <section class="section" id="timeline">
+    <div class="container">
+      <span class="label reveal">EVERY SECOND ACCOUNTED FOR</span>
+      <h2 class="section-heading reveal" data-delay="100">Your timeline. Your truth.</h2>
+      <div class="timeline-wrapper reveal" data-delay="200">
+        <div class="timeline-track" id="timeline-track"></div>
+      </div>
+      <div class="timeline-tooltip" id="timeline-tooltip"></div>
+    </div>
+  </section>
+
+  <!-- FIVE SENSES -->
+  <section class="section" id="senses">
+    <div class="container">
+      <span class="label reveal">FIVE SENSES. ZERO INPUT.</span>
+      <h2 class="section-heading reveal" data-delay="100">How PomoBorrow sees your world</h2>
+      <div class="senses-grid">
+        <div class="card sense-card reveal" data-delay="0">
+          <div class="sense-icon">&#128205;</div>
+          <h4>Location</h4>
+          <p>Knows your gym, office, and home</p>
+        </div>
+        <div class="card sense-card reveal" data-delay="100">
+          <div class="sense-icon">&#127939;</div>
+          <h4>Motion</h4>
+          <p>Detects driving, walking, stationary</p>
+        </div>
+        <div class="card sense-card reveal" data-delay="200">
+          <div class="sense-icon">&#128225;</div>
+          <h4>Devices</h4>
+          <p>Fingerprints your WiFi and Bluetooth</p>
+        </div>
+        <div class="card sense-card reveal" data-delay="300">
+          <div class="sense-icon">&#127925;</div>
+          <h4>Sound</h4>
+          <p>Hears gym music vs keyboard typing</p>
+        </div>
+        <div class="card sense-card reveal" data-delay="400">
+          <div class="sense-icon">&#128336;</div>
+          <h4>Patterns</h4>
+          <p>Learns your weekly routine in days</p>
         </div>
       </div>
+    </div>
+  </section>
 
-      <div class="reality-row reveal reveal-delay-3">
-        <div class="reality-left">"I relaxed last night"</div>
-        <div class="reality-right">
-          <strong class="warm-num">3h 22m</strong> Netflix &middot;
-          <strong class="red-num">1h 45m</strong> doomscrolling &middot;
-          <strong>12 min</strong> actual rest
+  <!-- PRIVACY -->
+  <section class="section section-privacy" id="privacy-section">
+    <div class="container">
+      <div class="privacy-card reveal">
+        <div class="privacy-numbers">
+          <div class="privacy-stat">
+            <span class="privacy-num">0</span>
+            <span class="privacy-label-text">servers</span>
+          </div>
+          <div class="privacy-stat">
+            <span class="privacy-num">0</span>
+            <span class="privacy-label-text">analytics</span>
+          </div>
+          <div class="privacy-stat">
+            <span class="privacy-num">100%</span>
+            <span class="privacy-label-text">yours</span>
+          </div>
         </div>
-      </div>
-
-      <div class="reality-bottom reveal reveal-delay-4">
-        The gap between what you think and what happens is where your life goes.
+        <p class="privacy-text">Your data never leaves your device. We don't have a server to send it to. That's not a policy — it's the architecture.</p>
+        <a href="privacy.html" class="btn btn-ghost">Read full privacy policy</a>
       </div>
     </div>
   </section>
 
-  <!-- ═══════════════════════════════════════
-       SECTION 4: THE RING
-  ════════════════════════════════════════ -->
-  <div class="gradient-divider"></div>
-  <section class="ring-section" id="ring">
-    <span class="label reveal">Your day, visualized</span>
-
-    <div class="ring-container reveal reveal-delay-1">
-      <svg id="ring-svg" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg"></svg>
-      <div id="ring-countdown">--:--:--</div>
-      <div class="ring-pulse"></div>
-
-      <div class="ring-labels">
-        <div class="ring-label" style="top:8%;left:18%"><span class="dot" style="background:#1e3a5f"></span>Sleep &middot; 7h 23m</div>
-        <div class="ring-label" style="top:8%;right:12%"><span class="dot" style="background:#7c3aed"></span>Commute &middot; 30m</div>
-        <div class="ring-label" style="top:35%;right:0"><span class="dot" style="background:#3b82f6"></span>Deep Work &middot; 4h 47m</div>
-        <div class="ring-label" style="top:58%;right:0"><span class="dot" style="background:#eab308"></span>Lunch &middot; 43m</div>
-        <div class="ring-label" style="top:72%;right:5%"><span class="dot" style="background:#60a5fa"></span>Meetings &middot; 1h 30m</div>
-        <div class="ring-label" style="bottom:8%;left:0"><span class="dot" style="background:#3b82f6"></span>Deep Work &middot; 3h 15m</div>
-        <div class="ring-label" style="bottom:25%;left:0"><span class="dot" style="background:#7c3aed"></span>Commute &middot; 30m</div>
-        <div class="ring-label" style="top:42%;left:0"><span class="dot" style="background:#f97316"></span>Gym &middot; 1h 15m</div>
-        <div class="ring-label" style="top:28%;left:0"><span class="dot" style="background:#eab308"></span>Dinner &middot; 30m</div>
-        <div class="ring-label" style="top:12%;left:5%"><span class="dot" style="background:#22c55e"></span>Leisure &middot; 3h 30m</div>
-        <div class="ring-label" style="top:5%;left:40%"><span class="dot" style="background:#1e3a5f"></span>Sleep</div>
-      </div>
-    </div>
-
-    <p class="ring-subtext reveal reveal-delay-2">Every segment detected automatically. Zero buttons pressed.</p>
-
-    <div class="sensor-row reveal reveal-delay-3">
-      <div class="sensor-item">&#x1F4CD; Location</div>
-      <div class="sensor-item">&#x1F3C3; Motion</div>
-      <div class="sensor-item">&#x1F4E1; Devices</div>
-      <div class="sensor-item">&#x1F3B5; Sound</div>
-      <div class="sensor-item">&#x1F554; Patterns</div>
+  <!-- EARLY ACCESS -->
+  <section class="section section-cta" id="early-access">
+    <div class="container cta-content">
+      <h2 class="reveal">Ready to see where your<br>time actually goes?</h2>
+      <form class="cta-form reveal" data-delay="100" id="waitlist-form">
+        <input type="email" placeholder="you@email.com" required id="waitlist-email" autocomplete="email">
+        <button type="submit" class="btn btn-primary">Join Waitlist</button>
+      </form>
+      <p class="cta-count reveal" data-delay="200" id="waitlist-count">Join <strong>847</strong> people on the waitlist</p>
+      <a href="https://discord.gg/pomoborrow" class="cta-discord reveal" data-delay="300">Join our Discord &rarr;</a>
     </div>
   </section>
 
-  <!-- ═══════════════════════════════════════
-       SECTION 5: TIMELINE DEMO
-  ════════════════════════════════════════ -->
-  <div class="gradient-divider"></div>
-  <section class="timeline-section" id="timeline">
-    <h2 class="reveal">Drag to explore a day.</h2>
-    <p class="timeline-hint reveal reveal-delay-1">Hover for details &middot; Drag to scroll</p>
-    <div class="timeline-outer reveal reveal-delay-2">
-      <div class="timeline-track"></div>
-      <div class="timeline-hours"></div>
-    </div>
-  </section>
-
-  <!-- ═══════════════════════════════════════
-       SECTION 6: THE ANSWER
-  ════════════════════════════════════════ -->
-  <div class="gradient-divider"></div>
-  <section class="answer-section" id="answer">
-    <div class="ans-q reveal">2pm last Tuesday?</div>
-    <div class="ans-detail reveal reveal-delay-1">
-      <span class="dot"></span>
-      Deep Work &middot; Xcode &middot; 2h 14m uninterrupted
-    </div>
-    <div class="ans-prod reveal reveal-delay-2">Your most productive block of the week.</div>
-    <div class="ans-tag reveal reveal-delay-3">PomoBorrow knew. You didn't have to.</div>
-  </section>
-
-  <!-- ═══════════════════════════════════════
-       SECTION 7: PRIVACY
-  ════════════════════════════════════════ -->
-  <div class="gradient-divider"></div>
-  <section class="privacy-section" id="privacy-stats">
-    <div class="privacy-card card reveal">
-      <div class="privacy-numbers">
-        <div class="privacy-num">
-          <div class="big">0</div>
-          <div class="plabel">servers</div>
-        </div>
-        <div class="privacy-num">
-          <div class="big">0</div>
-          <div class="plabel">cloud calls</div>
-        </div>
-        <div class="privacy-num">
-          <div class="big">100%</div>
-          <div class="plabel">on-device</div>
-        </div>
-      </div>
-      <p>No accounts. No sync. No tracking pixels. Your phone tracks your day. Your phone keeps your data. That's it.</p>
-      <a href="privacy.html">Read our privacy architecture &rarr;</a>
-    </div>
-  </section>
-
-  <!-- ═══════════════════════════════════════
-       SECTION 8: HOW IT LEARNS
-  ════════════════════════════════════════ -->
-  <div class="gradient-divider"></div>
-  <section class="learns-section" id="learns">
-    <span class="label reveal">How ACE learns you</span>
-    <div class="learns-grid">
-      <div class="learns-card card reveal">
-        <div class="day">Day 1</div>
-        <div class="title">Silent</div>
-        <div class="desc">ACE maps your locations, devices, and motion patterns. You see nothing.</div>
-      </div>
-      <div class="learns-card card reveal reveal-delay-1">
-        <div class="day">Day 3</div>
-        <div class="title">5 questions</div>
-        <div class="desc">"Is this your office?" One tap. That's the most you'll ever do.</div>
-      </div>
-      <div class="learns-card card reveal reveal-delay-2">
-        <div class="day">Day 7</div>
-        <div class="title">Autopilot</div>
-        <div class="desc">90%+ accuracy. It just works. Your entire day, tracked without a single button.</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══════════════════════════════════════
-       SECTION 9: WAITLIST
-  ════════════════════════════════════════ -->
-  <div class="gradient-divider"></div>
-  <section class="waitlist-section" id="waitlist">
-    <h2 class="reveal">Stop guessing where your time goes.</h2>
-    <form class="waitlist-form reveal reveal-delay-1" onsubmit="return false">
-      <input class="waitlist-input" type="email" placeholder="you@email.com" aria-label="Email address" required>
-      <button class="btn-primary" type="submit">Join the Waitlist</button>
-    </form>
-    <div class="waitlist-proof reveal reveal-delay-2">847 people already waiting</div>
-    <div class="waitlist-links reveal reveal-delay-3">
-      <a href="https://discord.gg/pomoborrow" target="_blank" rel="noopener">Join the Discord &rarr;</a>
-    </div>
-    <div class="waitlist-badge reveal reveal-delay-4">Coming to iOS &middot; 2026</div>
-  </section>
-
-  <!-- ═══════════════════════════════════════
-       FOOTER
-  ════════════════════════════════════════ -->
-  <footer>
-    <div class="footer-inner">
-      <div class="footer-brand">
-        <a href="/" class="footer-logo">
-          <svg width="18" height="18" viewBox="0 0 26 26" fill="none" aria-hidden="true">
-            <circle cx="13" cy="13" r="11" stroke="#1a1a2e" stroke-width="3" />
-            <circle cx="13" cy="13" r="11" stroke="#6366f1" stroke-width="3"
-              stroke-dasharray="21 48" stroke-dashoffset="14"
-              stroke-linecap="round" />
-          </svg>
-          PomoBorrow
-        </a>
-        <p class="footer-tagline">Built with obsessive privacy in mind.</p>
-        <p class="footer-copy">&copy; 2026 BEERS LABS LLC. All rights reserved.</p>
-      </div>
-      <nav class="footer-links" aria-label="Footer links">
-        <a href="privacy.html">Privacy</a>
-        <a href="https://discord.gg/pomoborrow" target="_blank" rel="noopener">Discord</a>
-        <a href="mailto:pomoborrow@gmail.com">Contact</a>
-      </nav>
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <span>&copy; 2026 BEERS LABS LLC</span>
+      <span class="footer-sep">&middot;</span>
+      <a href="privacy.html">Privacy</a>
+      <span class="footer-sep">&middot;</span>
+      <a href="https://discord.gg/pomoborrow">Discord</a>
+      <span class="footer-sep">&middot;</span>
+      <a href="mailto:hello@pomoborrow.com">Contact</a>
     </div>
   </footer>
 
